@@ -1,0 +1,28 @@
+PODS:
+  - Alamofire (3.4.1)
+  - Gloss (0.7.4)
+  - SwiftValidator (3.0.1)
+
+DEPENDENCIES:
+  - Alamofire (~> 3.4)
+  - Gloss (~> 0.7)
+  - SwiftValidator (from `https://github.com/jpotts18/SwiftValidator.git`, tag `4.0.0`)
+
+EXTERNAL SOURCES:
+  SwiftValidator:
+    :git: https://github.com/jpotts18/SwiftValidator.git
+    :tag: 4.0.0
+
+CHECKOUT OPTIONS:
+  SwiftValidator:
+    :git: https://github.com/jpotts18/SwiftValidator.git
+    :tag: 4.0.0
+
+SPEC CHECKSUMS:
+  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  Gloss: d86009ef4d12c221d889c4e3f9e1eb547ee6251d
+  SwiftValidator: 461a2c00173f001287a8fa1f12704b87ec8a6bc4
+
+PODFILE CHECKSUM: 91c456e01960efe51a54f56246ed86f8590abdd7
+
+COCOAPODS: 1.0.1
