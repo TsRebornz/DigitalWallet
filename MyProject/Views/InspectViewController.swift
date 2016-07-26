@@ -11,8 +11,10 @@ public class InspectViewController : UIViewController {
     
     var brkey:BRSwiftKey?
     
+    
     var GlobalUserInitiatedQueue: dispatch_queue_t {
-        return dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.rawValue), 0)
+        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+        return dispatch_get_global_queue(qualityOfServiceClass, 0)        
     }
     
     override public func viewDidLoad() {

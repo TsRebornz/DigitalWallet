@@ -19,6 +19,7 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
     override public func viewDidLoad() {
         super.viewDidLoad()
         nextBtn.enabled = submited
+        privateKeyTextField.layer.cornerRadius = 5
         privateKeyTextField.delegate = self
         //let device: String = UIDevice.currentDevice().model
         
