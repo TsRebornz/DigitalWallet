@@ -53,9 +53,9 @@ public class InspectViewController : UIViewController {
     }
     
     func getFullAddress(address: String, testnet: Bool){
-        let a = 1
-        BlockCypherApi.getFullAdress(address, testnet: true, doAfterRequest:{ (json) -> Void in
-            for string in json{
+//        let a = 1
+        BlockCypherApi.getFullAddress(address, testnet: true, doAfterRequest:{ json in
+            for string in json {
                 print(string)
             }
         })

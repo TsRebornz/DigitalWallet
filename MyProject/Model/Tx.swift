@@ -10,7 +10,9 @@ import Foundation
 import Gloss
 
 public class Tx : Decodable{
+    //public let hash: String
+
     public required init?(json: JSON) {
-        //
+        
     }
 }

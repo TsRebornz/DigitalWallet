@@ -48,7 +48,6 @@ class MyProjectTests: XCTestCase {
     }
     
     func testGetBalance() {
-        
         let adress = "mzSetpsidLwd2nhwSTeBv8uNVuGQDs3wdY"
         //"api.blockcypher.com/v1/btc/test3"
         Alamofire.request(.GET, "https://api.blockcypher.com/v1/btc/main/addrs/\(adress)/balance")
@@ -58,10 +57,10 @@ class MyProjectTests: XCTestCase {
                 
                 let jsonResp = response.result.value as? [String: AnyObject]
                 XCTAssertNotNil(jsonResp, "Balance is not a JSON Type")
-
+                
                 let bal = Balance(json: jsonResp!)
                 XCTAssertNotNil(bal, "Error initializing object")
-
+                
                 XCTAssert(bal!.final_balance == 4433416, "Balance not match bal = \(bal!.final_balance)")
                 print(bal!.final_balance)
         }
@@ -75,14 +74,18 @@ class MyProjectTests: XCTestCase {
         // compare
     }
     
+    func addressHandle(_ json: [String: AnyObject]) {
+        for string in json {
+            print(string)
+        }
+    }
+    
     func testGetFullAdressFunction(){
-        let adress = "mzSetpsidLwd2nhwSTeBv8uNVuGQDs3wdY"
+        //        let address = "mzSetpsidLwd2nhwSTeBv8uNVuGQDs3wdY"
         let addressAlwayaWorkable = "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"
         print("0")
         
-        BlockCypherApi.getFullAdress(addressAlwayaWorkable, testnet: false, doAfterRequest: {(json) -> Void in
-            print("unconfirmed_balance - \(json)")
-        })
+        BlockCypherApi.getFullAddress(addressAlwayaWorkable, testnet: false, doAfterRequest: addressHandle)
         
         print("2")
     }

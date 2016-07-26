@@ -2,15 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../../SwiftValidator-master/Validator.xcodeproj">
+      location = "group:MyProject.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:../../Gloss-develop/Gloss.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:../../Alamofire-master/Alamofire.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "container:MyProject.xcodeproj">
+      location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
