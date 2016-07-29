@@ -5,7 +5,7 @@ public class TxRef : Decodable{
     public let tx_hash : AnyObject?
     public let block_heigth : UInt64?
     public let tx_input_n : UInt64?
-    public let tx_output_n : Int?
+    public let tx_output_n : UInt64?
     public let value : UInt64?
     public let ref_balance : UInt64?
     public let spent : Bool?

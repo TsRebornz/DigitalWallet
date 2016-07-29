@@ -153,12 +153,12 @@
                   moduleName = "MyProjectTesting"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProjectTesting/MyProjectTesting.swift"
-                  timestampString = "491420256.040864"
+                  timestampString = "491478245.555873"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "92"
                   endingLineNumber = "92"
-                  offsetFromSymbolStart = "107">
+                  offsetFromSymbolStart = "30">
                </Location>
                <Location
                   shouldBeEnabled = "No"
@@ -168,12 +168,12 @@
                   moduleName = "MyProjectTesting"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProjectTesting/MyProjectTesting.swift"
-                  timestampString = "491420256.041285"
+                  timestampString = "491478245.556217"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "92"
                   endingLineNumber = "92"
-                  offsetFromSymbolStart = "350">
+                  offsetFromSymbolStart = "158">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -325,7 +325,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/Model/Address.swift"
@@ -341,7 +341,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/Model/TxRef.swift"
@@ -373,7 +373,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProjectTesting/MyProjectTesting.swift"
@@ -382,22 +382,6 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "106"
             endingLineNumber = "106"
-            landmarkName = "testGetFullAdressFunction()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MyProjectTesting/MyProjectTesting.swift"
-            timestampString = "491418202.161459"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
             landmarkName = "testGetFullAdressFunction()"
             landmarkType = "5">
          </BreakpointContent>

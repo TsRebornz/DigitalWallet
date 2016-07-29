@@ -84,29 +84,29 @@ class MyProjectTests: XCTestCase {
         let amount = 1500
         let expectation = expectationWithDescription("Alamofire send BC.Balance request and handle respnse using the callback")
         var address : Address!
-        var f_inputHashes : [AnyObject] = []
-        var f_inputIndexes : [AnyObject] = []
-        var f_inputScripts : [AnyObject] = []
+        var f_inputHashes : [Any] = []
+        var f_inputIndexes : [Any] = []
+        var f_inputScripts : [Any] = []
         
         BlockCypherApi.getAddress(addressAlwayaWorkable, testnet: testnet, parameters: parameters,  doAfterRequest: {json in
             if let t_address = Address(json: json){
                 XCTAssertNotNil(t_address, "Bad response from Api")
                 address = t_address
             }
-            for tx_ref in address.txsrefs! {
-                //TODO: add validation for nill
-                //create input hashes
-                f_inputHashes.append( tx_ref.tx_hash! as AnyObject )
-                //create inputIndexes
-                f_inputIndexes.append( tx_ref.tx_output_n! as AnyObject )
-                //create inputScripts
-                f_inputScripts.append( tx_ref.script! as AnyObject )
-            }
+//            for tx_ref in address.txsrefs! {
+//                //TODO: add validation for nill
+//                //create input hashes
+//                f_inputHashes.append( tx_ref.tx_hash! as AnyObject )
+//                //create inputIndexes
+//                f_inputIndexes.append( tx_ref.tx_output_n! as AnyObject )
+//                //create inputScripts
+//                f_inputScripts.append( tx_ref.script! as AnyObject )
+//            }
             //Create your own transaction
-            let tx = BRTransaction(inputHashes: f_inputHashes, inputIndexes: f_inputIndexes, inputScripts: f_inputScripts, outputAddresses: [outPutAddress], outputAmounts: [amount])
+//            let tx = BRTransaction(inputHashes: f_inputHashes, inputIndexes: f_inputIndexes, inputScripts: f_inputScripts, outputAddresses: [outPutAddress], outputAmounts: [amount])
             //tx.addInputHashStr(f_inputHashes[0], index: f_inputIndexes[0], script: f_inputScripts)
-            tx.debugDescription
-            tx.description
+//            tx.debugDescription
+//            tx.description
             
             expectation.fulfill()
         })
