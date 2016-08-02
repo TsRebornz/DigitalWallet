@@ -617,6 +617,7 @@ void PBKDF2(void *dk, size_t dklen, void (*hash)(void *, const void *, size_t), 
 }
 
 // an array of NSNumber and NSData objects representing each script element
+// divide script for OP_Codes and byte data
 - (NSArray *)scriptElements
 {
     NSMutableArray *a = [NSMutableArray array];

@@ -70,9 +70,10 @@ typedef union _UInt256 UInt256;
 + (instancetype)transactionWithMessage:(NSData *)message testnet:(BOOL)isTestnet;
 
 - (instancetype)initWithMessage:(NSData *)message testnet:(BOOL)isTestnet;
-- (instancetype)initWithInputHashes:(NSArray *)hashes inputIndexes:(NSArray *)indexes inputScripts:(NSArray *)scripts
-outputAddresses:(NSArray *)addresses outputAmounts:(NSArray *)amounts;
+- (instancetype)initWithInputHashes:(NSArray<NSString*> *)hashes inputIndexes:(NSArray<NSNumber*> *)indexes inputScripts:(NSArray<NSString*> *)scripts outputAddresses:(NSArray<NSString*> *)addresses outputAmounts:(NSArray<NSNumber*> *)amounts isTesnet:(BOOL)testnet;
 
+-(NSData *)getRawTxData;
+-(NSString *)getRawTxDataStr;
 - (void)addInputHash:(UInt256)hash index:(NSUInteger)index script:(NSData *)script;
 - (void)addInputHash:(UInt256)hash index:(NSUInteger)index script:(NSData *)script signature:(NSData *)signature
 sequence:(uint32_t)sequence;

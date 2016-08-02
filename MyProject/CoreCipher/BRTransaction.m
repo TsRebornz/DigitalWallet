@@ -36,8 +36,10 @@
 
 @interface BRTransaction ()
 
-@property (nonatomic, strong) NSMutableArray *hashes, *indexes, *inScripts, *signatures, *sequences;
-@property (nonatomic, strong) NSMutableArray *amounts, *addresses, *outScripts;
+@property (nonatomic, strong) NSMutableArray<NSValue*> *hashes;
+@property (nonatomic, strong) NSMutableArray<NSNumber*> *indexes, *sequences, *amounts ;
+@property (nonatomic, strong) NSMutableArray<NSMutableData *>  *inScripts, *outScripts, *signatures ;
+@property (nonatomic, strong) NSMutableArray<NSString *> *addresses ;
 
 @end
 
@@ -63,7 +65,7 @@
     self.sequences = [NSMutableArray array];
     _lockTime = TX_LOCKTIME;
     _blockHeight = TX_UNCONFIRMED;
-	_isTestnet = NO;
+	//_isTestnet = NO;
     return self;
 }
 
@@ -122,9 +124,13 @@
 	return [NSString hexWithData:[NSData dataWithUInt256:_txHash]];
 }
 
-- (instancetype)initWithInputHashes:(NSArray *)hashes inputIndexes:(NSArray *)indexes inputScripts:(NSArray *)scripts
-outputAddresses:(NSArray *)addresses outputAmounts:(NSArray *)amounts
+/* This constructor works well
+   dont forget to sign you tx after being initialized
+*/
+- (instancetype)initWithInputHashes:(NSArray<NSString*> *)hashes inputIndexes:(NSArray<NSNumber*> *)indexes inputScripts:(NSArray<NSString*> *)scripts outputAddresses:(NSArray<NSString*> *)addresses outputAmounts:(NSArray<NSNumber*> *)amounts isTesnet:(BOOL)testnet
 {
+    self.isTestnet = testnet;
+
     if (hashes.count == 0 || hashes.count != indexes.count) return nil;
     if (scripts.count > 0 && hashes.count != scripts.count) return nil;
     if (addresses.count != amounts.count) return nil;
@@ -132,14 +138,22 @@ outputAddresses:(NSArray *)addresses outputAmounts:(NSArray *)amounts
     if (! (self = [super init])) return nil;
 
     _version = TX_VERSION;
-    self.hashes = [NSMutableArray arrayWithArray:hashes];
-    self.indexes = [NSMutableArray arrayWithArray:indexes];
-
-    if (scripts.count > 0) {
-        self.inScripts = [NSMutableArray arrayWithArray:scripts];
+    
+    self.hashes = [NSMutableArray arrayWithCapacity:hashes.count];
+    for (NSString* hash in hashes){
+        NSData* hashData = [[hash hexToData] reverse];
+        UInt256 hashNumber = [hashData asUInt256];
+        NSValue* value = uint256_obj(hashNumber);
+        [self.hashes addObject:value];
     }
-    else self.inScripts = [NSMutableArray arrayWithCapacity:hashes.count];
-
+    
+    self.indexes = [NSMutableArray arrayWithArray:indexes];
+    
+    self.inScripts = [ NSMutableArray arrayWithCapacity:scripts.count];
+    for (NSString* script in scripts) {
+        [self.inScripts addObject: [ script hexToMutableData ] ];
+    }
+    
     while (self.inScripts.count < hashes.count) {
         [self.inScripts addObject:[NSNull null]];
     }
@@ -150,7 +164,7 @@ outputAddresses:(NSArray *)addresses outputAmounts:(NSArray *)amounts
 
     for (int i = 0; i < addresses.count; i++) {
         [self.outScripts addObject:[NSMutableData data]];
-        [self.outScripts.lastObject appendScriptPubKeyForAddress:self.addresses[i] testnet:NO];
+        [self.outScripts.lastObject appendScriptPubKeyForAddress:self.addresses[i] testnet:self.isTestnet];
     }
 
     self.signatures = [NSMutableArray arrayWithCapacity:hashes.count];
@@ -241,6 +255,15 @@ outputAddresses:(NSArray *)addresses outputAmounts:(NSArray *)amounts
 {
     return (self.signatures.count > 0 && self.signatures.count == self.hashes.count &&
             ! [self.signatures containsObject:[NSNull null]]) ? YES : NO;
+}
+
+-(NSString *)getRawTxDataStr{    
+    return [NSString hexWithData:[self getRawTxData]];
+}
+
+//returns the entire signed transaction
+-(NSData *)getRawTxData{
+    return [self toDataWithSubscriptIndex:NSNotFound];
 }
 
 - (NSData *)toData
@@ -400,7 +423,7 @@ sequence:(uint32_t)sequence
         if (keyIdx == NSNotFound) continue;
         
         NSMutableData *sig = [NSMutableData data];
-        //hash - транзакция которую можно подписать
+        //hash - raw [byte] tx which should be signed
         UInt256 hash = [self toDataWithSubscriptIndex:i].SHA256_2;
         NSMutableData *s = [NSMutableData dataWithData:[keys[keyIdx] sign:hash]];
         NSArray *elem = [self.inScripts[i] scriptElements];

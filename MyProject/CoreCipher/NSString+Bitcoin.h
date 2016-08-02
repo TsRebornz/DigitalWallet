@@ -50,6 +50,7 @@
 - (NSData *)base58ToData;
 - (NSData *)base58checkToData;
 - (NSData *)hexToData;
+-(NSMutableData*)hexToMutableData;
 - (NSData *)addressToHash160;
 
 - (BOOL)isValidBitcoinAddress:(BOOL) isTestNet;

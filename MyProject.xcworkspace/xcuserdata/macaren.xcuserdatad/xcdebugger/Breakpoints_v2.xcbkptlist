@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProjectTesting/MyProjectTesting.swift"
-            timestampString = "491408674.557708"
+            timestampString = "491832057.907088"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "49"
@@ -137,11 +137,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProjectTesting/MyProjectTesting.swift"
-            timestampString = "491418215.474836"
+            timestampString = "491832057.907088"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "testGetFullAdressFunction()"
             landmarkType = "5">
             <Locations>
@@ -153,12 +153,12 @@
                   moduleName = "MyProjectTesting"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProjectTesting/MyProjectTesting.swift"
-                  timestampString = "491478245.555873"
+                  timestampString = "491846016.086498"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "92"
-                  endingLineNumber = "92"
-                  offsetFromSymbolStart = "30">
+                  startingLineNumber = "100"
+                  endingLineNumber = "100"
+                  offsetFromSymbolStart = "72">
                </Location>
                <Location
                   shouldBeEnabled = "No"
@@ -168,60 +168,12 @@
                   moduleName = "MyProjectTesting"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProjectTesting/MyProjectTesting.swift"
-                  timestampString = "491478245.556217"
+                  timestampString = "491846016.086984"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "92"
-                  endingLineNumber = "92"
-                  offsetFromSymbolStart = "158">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MyProject/Model/Tx.swift"
-            timestampString = "491408674.557708"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "init(json:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MyProject.Tx.init (json : Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;) -&gt; Swift.Optional&lt;MyProject.Tx&gt;"
-                  moduleName = "MyProject"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProject/Model/Tx.swift"
-                  timestampString = "491235271.799815"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "32"
-                  endingLineNumber = "32"
-                  offsetFromSymbolStart = "1565">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MyProject.Tx.init (json : Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;) -&gt; Swift.Optional&lt;MyProject.Tx&gt;"
-                  moduleName = "MyProject"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProject/Model/Tx.swift"
-                  timestampString = "491235271.800009"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "32"
-                  endingLineNumber = "32"
-                  offsetFromSymbolStart = "1781">
+                  startingLineNumber = "100"
+                  endingLineNumber = "100"
+                  offsetFromSymbolStart = "289">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -281,11 +233,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/Network/BlockCypherApi.swift"
-            timestampString = "491408674.557708"
+            timestampString = "491841932.440408"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
             landmarkName = "getBalanceByAddress(_:testnet:parameters:succes:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -313,7 +265,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/Network/BlockCypherApi.swift"
-            timestampString = "491416225.639716"
+            timestampString = "491847446.152603"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "38"
@@ -357,16 +309,256 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProjectTesting/MyProjectTesting.swift"
+            timestampString = "491844896.332117"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "testBRTransactionContstructor()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/CoreCipher/BRTransaction.m"
-            timestampString = "491417541.182904"
+            timestampString = "491847446.152603"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
-            landmarkName = "-initWithInputHashes:inputIndexes:inputScripts:outputAddresses:outputAmounts:"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "-initWithInputHashes:inputIndexes:inputScripts:outputAddresses:outputAmounts:isTesnet:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/CoreCipher/BRTransaction.m"
+            timestampString = "491847446.152603"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
+            landmarkName = "-initWithInputHashes:inputIndexes:inputScripts:outputAddresses:outputAmounts:isTesnet:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/CoreCipher/NSString+Bitcoin.m"
+            timestampString = "491765633.957182"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
+            landmarkName = "-base58checkToData"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/CoreCipher/NSString+Bitcoin.m"
+            timestampString = "491765633.957182"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
+            landmarkName = "-base58ToData"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/CoreCipher/NSString+Bitcoin.m"
+            timestampString = "491765633.957182"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
+            landmarkName = "-base58ToData"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/CoreCipher/BRTransaction.m"
+            timestampString = "491847446.152603"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
+            landmarkName = "-initWithInputHashes:inputIndexes:inputScripts:outputAddresses:outputAmounts:isTesnet:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/CoreCipher/NSString+Bitcoin.m"
+            timestampString = "491765633.957182"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
+            landmarkName = "-base58checkToData"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/CoreCipher/NSString+Bitcoin.m"
+            timestampString = "491765633.957182"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "246"
+            endingLineNumber = "246"
+            landmarkName = "-base58ToData"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/CoreCipher/BRTransaction.m"
+            timestampString = "491847446.152603"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "420"
+            endingLineNumber = "420"
+            landmarkName = "-signWithPrivateKeys:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/CoreCipher/NSString+Bitcoin.m"
+            timestampString = "491504135.986497"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "+addressWithScriptPubKey:testnet:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/CoreCipher/NSData+Bitcoin.m"
+            timestampString = "491752626.130891"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "623"
+            endingLineNumber = "623"
+            landmarkName = "-scriptElements"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/CoreCipher/BRTransaction.m"
+            timestampString = "491847446.152603"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "412"
+            endingLineNumber = "412"
+            landmarkName = "-signWithPrivateKeys:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/CoreCipher/BRTransaction.m"
+            timestampString = "491847446.152603"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "368"
+            endingLineNumber = "368"
+            landmarkName = "-toDataWithSubscriptIndex:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/CoreCipher/BRTransaction.m"
+            timestampString = "491847446.152603"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
+            landmarkName = "-initWithInputHashes:inputIndexes:inputScripts:outputAddresses:outputAmounts:isTesnet:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/CoreCipher/NSMutableData+Bitcoin.m"
+            timestampString = "491825715.408108"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
+            landmarkName = "-appendScriptPushData:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -377,12 +569,91 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProjectTesting/MyProjectTesting.swift"
-            timestampString = "491420254.037887"
+            timestampString = "491844896.332117"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
-            landmarkName = "testGetFullAdressFunction()"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
+            landmarkName = "testRawTx()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyProjectTesting.MyProjectTests.(testRawTx () -&gt; ()).(closure #1)"
+                  moduleName = "MyProjectTesting"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProjectTesting/MyProjectTesting.swift"
+                  timestampString = "491846016.087719"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "156"
+                  endingLineNumber = "156"
+                  offsetFromSymbolStart = "141">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyProjectTesting.MyProjectTests.(testRawTx () -&gt; ()).(closure #1).(implicit closure #1)"
+                  moduleName = "MyProjectTesting"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProjectTesting/MyProjectTesting.swift"
+                  timestampString = "491846016.088568"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "156"
+                  endingLineNumber = "156"
+                  offsetFromSymbolStart = "166">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyProjectTesting.MyProjectTests.(testRawTx () -&gt; ()).(closure #1).(implicit closure #2)"
+                  moduleName = "MyProjectTesting"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProjectTesting/MyProjectTesting.swift"
+                  timestampString = "491846016.088975"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "156"
+                  endingLineNumber = "156"
+                  offsetFromSymbolStart = "134">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProjectTesting/MyProjectTesting.swift"
+            timestampString = "491844896.332117"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
+            landmarkName = "testRawTx()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/Model/Tx.swift"
+            timestampString = "491847446.152603"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "init(json:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

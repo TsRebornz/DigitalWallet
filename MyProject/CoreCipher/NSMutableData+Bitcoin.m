@@ -206,13 +206,15 @@ CFAllocatorRef SecureAllocator()
 
 - (void)appendScriptPubKeyForAddress:(NSString *)address testnet:(BOOL)isTestnet
 {
+    
     static uint8_t pubkeyAddress = BITCOIN_PUBKEY_ADDRESS, scriptAddress = BITCOIN_SCRIPT_ADDRESS;
+    //Addres must be 25 bytes long
     NSData *d = address.base58checkToData;
 
     if (d.length != 21) return;
 
     uint8_t version = *(const uint8_t *)d.bytes;
-    NSData *hash = [d subdataWithRange:NSMakeRange(1, d.length - 1)];
+    NSData *hash = [d subdataWithRange:NSMakeRange(1, d.length - 1)]; // delete first byte 00 for MainNet and 6f for TestNet now hash must be 20 bytes long
 
 #if BITCOIN_TESTNET
     pubkeyAddress = BITCOIN_PUBKEY_ADDRESS_TEST;
@@ -222,7 +224,20 @@ CFAllocatorRef SecureAllocator()
 		pubkeyAddress = BITCOIN_PUBKEY_ADDRESS_TEST;
 		scriptAddress = BITCOIN_SCRIPT_ADDRESS_TEST;
 	}
-
+    
+    /*
+     Example of output Script 
+     OP_DUP
+     OP_HASH160
+     
+     06 f1 b6 70 79 1f 92 56
+     bf fc 89 8f 47 42 71 c2
+     2f 4b b9 49 -- 20 bytes long hash
+     
+     OP_EQUALVERIFY
+     OP_CHECKSIG
+    
+    */
     if (version == pubkeyAddress) {
         [self appendUInt8:OP_DUP];
         [self appendUInt8:OP_HASH160];

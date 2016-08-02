@@ -2,14 +2,14 @@ import Foundation
 import Gloss
 
 public class TxRef : Decodable{
-    public let tx_hash : AnyObject?
+    public let tx_hash : String?
     public let block_heigth : UInt64?
     public let tx_input_n : UInt64?
     public let tx_output_n : UInt64?
     public let value : UInt64?
     public let ref_balance : UInt64?
     public let spent : Bool?
-    public let script : AnyObject?
+    public let script : String?
     public let confirmations : UInt64?
     public let double_spent : Bool?
     public required init?(json: JSON) {

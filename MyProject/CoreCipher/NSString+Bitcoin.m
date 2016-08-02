@@ -102,6 +102,7 @@ static const UniChar base58chars[] = {
 {
     if (script == (id)[NSNull null]) return nil;
 
+    //divide and rule section
     NSArray *elem = [script scriptElements];
     NSUInteger l = elem.count;
     NSMutableData *d = [NSMutableData data];
@@ -111,7 +112,8 @@ static const UniChar base58chars[] = {
     v = BITCOIN_PUBKEY_ADDRESS_TEST;
 #endif
 	if (isTestnet) v = BITCOIN_PUBKEY_ADDRESS_TEST;
-
+    
+    //Is data match standart script pattern
     if (l == 5 && [elem[0] intValue] == OP_DUP && [elem[1] intValue] == OP_HASH160 && [elem[2] intValue] == 20 &&
         [elem[3] intValue] == OP_EQUALVERIFY && [elem[4] intValue] == OP_CHECKSIG) {
         // pay-to-pubkey-hash scriptPubKey
@@ -294,6 +296,10 @@ static const UniChar base58chars[] = {
     }
     
     return d;
+}
+
+-(NSMutableData*)hexToMutableData{
+    return [ [ NSMutableData alloc ] initWithData: [ self hexToData ] ];
 }
 
 - (NSData *)addressToHash160
