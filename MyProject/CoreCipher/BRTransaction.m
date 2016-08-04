@@ -141,7 +141,7 @@
     
     self.hashes = [NSMutableArray arrayWithCapacity:hashes.count];
     for (NSString* hash in hashes){
-        NSData* hashData = [[hash hexToData] reverse];
+        NSData* hashData = [[hash hexToData] reverse] ; 
         UInt256 hashNumber = [hashData asUInt256];
         NSValue* value = uint256_obj(hashNumber);
         [self.hashes addObject:value];
@@ -154,6 +154,10 @@
         [self.inScripts addObject: [ script hexToMutableData ] ];
     }
     
+    /*
+     What this code do?
+     scripts.count can not be more or less hashes.count because of if statements at the start of method
+    */
     while (self.inScripts.count < hashes.count) {
         [self.inScripts addObject:[NSNull null]];
     }
@@ -162,6 +166,7 @@
     self.addresses = [NSMutableArray arrayWithArray:addresses];
     self.outScripts = [NSMutableArray arrayWithCapacity:addresses.count];
 
+    //Create outPutScripts
     for (int i = 0; i < addresses.count; i++) {
         [self.outScripts addObject:[NSMutableData data]];
         [self.outScripts.lastObject appendScriptPubKeyForAddress:self.addresses[i] testnet:self.isTestnet];
@@ -392,6 +397,7 @@ sequence:(uint32_t)sequence
     
     [d appendVarInt:self.amounts.count];
     
+    //Ouputs formation
     for (NSUInteger i = 0; i < self.amounts.count; i++) {
         [d appendUInt64:[self.amounts[i] unsignedLongLongValue]];
         [d appendVarInt:[self.outScripts[i] length]];

@@ -35,8 +35,11 @@ public class BlockCypherApi{
     // FIXME: Need refactoring
     class func getAddress(address: String, testnet: Bool, parameters: [String: AnyObject]?, doAfterRequest: ([String: AnyObject]) -> Void) {
         let testStr = testnet ? "test3" : "main"
-        let requestStr = "https://api.blockcypher.com/v1/btc/test3/addrs/mzSetpsidLwd2nhwSTeBv8uNVuGQDs3wdY"
-        //let requestStr = "https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"
+        let requestStr = "https://api.blockcypher.com/v1/btc/\(testStr)/addrs/\(address)"
+        //let requestStr = "https://api.blockcypher.com/v1/btc/test3/addrs/mzSetpsidLwd2nhwSTeBv8uNVuGQDs3wdY"
+        //let requestStr = "https://api.blockcypher.com/v1/btc/test3/addrs/moVeRgCBbJj1w7nhzzoSCffVJTpwH8N8SH"
+        //let requestStr = "https://api.blockcypher.com/v1/btc/test3/addrs/mqMi3XYqsPvBWtrJTk8euPWDVmFTZ5jHuK"
+        
         // TO:DO And what about cache?
         Alamofire.request(.GET, requestStr, parameters: parameters)
             .validate()

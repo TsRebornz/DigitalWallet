@@ -19,7 +19,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-MyProjectTests.xcscheme</key>
+		<key>Pods-MyProjectTesting.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -42,7 +42,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4FD05203128F743D944DAB2D956DE748</key>
+		<key>34F61E34EBD05C40ECFAA10E433A42B5</key>
 		<dict>
 			<key>primary</key>
 			<true/>

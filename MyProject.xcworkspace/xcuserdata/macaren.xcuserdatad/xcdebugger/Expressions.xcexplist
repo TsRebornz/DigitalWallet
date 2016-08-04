@@ -3,12 +3,26 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "MyProjectTests.testBRTransactionContstructor() -&gt; ():MyProjectTesting.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "txRawData.characters.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[BRTransaction signWithPrivateKeys:]:BRTransaction.m">
+      </ContextState>
+      <ContextState
          contextName = "main:AppDelegate.swift">
          <PersistentStrings>
             <PersistentString
                value = "">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[BRTransaction initWithInputHashes:inputIndexes:inputScripts:outputAddresses:outputAmounts:isTesnet:]:BRTransaction.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>
