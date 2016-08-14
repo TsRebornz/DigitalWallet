@@ -24,7 +24,7 @@ public class Tx : Decodable{
     }
     
     public func description() {
-        print( "addressed \(addresses)" )
+        print( "addresses \(addresses)" )
         print( "block_hash \(block_hash)" )
         print( "block_height \(block_height)" )
         print( "block_index \(block_index)" )

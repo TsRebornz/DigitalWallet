@@ -20,7 +20,7 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
         super.viewDidLoad()
         nextBtn.enabled = submited
         privateKeyTextField.layer.cornerRadius = 5
-        privateKeyTextField.delegate = self
+        privateKeyTextField.delegate = self        
         //let device: String = UIDevice.currentDevice().model
         
         //Valiadtion in privateKeyTextField

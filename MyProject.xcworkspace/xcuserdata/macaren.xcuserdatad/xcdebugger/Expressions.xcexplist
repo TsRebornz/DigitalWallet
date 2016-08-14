@@ -3,12 +3,19 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "MyProjectTests.(testRawTx() -&gt; ()).(closure #1):MyProjectTesting.swift">
+      </ContextState>
+      <ContextState
          contextName = "MyProjectTests.testBRTransactionContstructor() -&gt; ():MyProjectTesting.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "txRawData.characters.count">
-            </PersistentString>
-         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MyProjectTests.(testPushRawTx() -&gt; ()).(closure #1).(implicit closure #1):MyProjectTesting.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static BlockCypherApi.(getBalanceByAddress(String, testnet : Bool, parameters : [String : AnyObject]?, succes : (bal : Balance) -&gt; ()) -&gt; ()).(closure #1):BlockCypherApi.swift">
+      </ContextState>
+      <ContextState
+         contextName = "MyProjectTests.(testGetFullAdressFunction() -&gt; ()).(closure #1):MyProjectTesting.swift">
       </ContextState>
       <ContextState
          contextName = "-[BRTransaction signWithPrivateKeys:]:BRTransaction.m">
@@ -22,7 +29,30 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "static BlockCypherApi.(getFeeData(([String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):BlockCypherApi.swift">
+      </ContextState>
+      <ContextState
+         contextName = "MyProjectTests.(testGetFeeData() -&gt; ()).(closure #1):MyProjectTesting.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Fee.init(json : [String : AnyObject]) -&gt; Fee?:Fee.swift">
+      </ContextState>
+      <ContextState
          contextName = "-[BRTransaction initWithInputHashes:inputIndexes:inputScripts:outputAddresses:outputAmounts:isTesnet:]:BRTransaction.m">
+      </ContextState>
+      <ContextState
+         contextName = "MyProjectTests.(testPushRawTx() -&gt; ()).(closure #1):MyProjectTesting.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "jsonResp[0]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MyProjectTests.(testPushRawTx() -&gt; ()).(closure #1).(implicit closure #2):MyProjectTesting.swift">
+      </ContextState>
+      <ContextState
+         contextName = "MyProjectTests.testPushRawTx() -&gt; ():MyProjectTesting.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

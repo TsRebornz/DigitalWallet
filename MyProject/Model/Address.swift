@@ -11,7 +11,7 @@ public class Address : Decodable{
     public let n_tx : UInt64? // n_tx n -- number tx -- transaction
     public let unconfirmed_n_tx : UInt64?
     public let final_n_tx : UInt64?
-    public let txsrefs : [TxRef]?
+    public var txsrefs : [TxRef]?
     
     public required init?(json: JSON) {
         self.address = "address" <~~ json
