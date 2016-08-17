@@ -111,7 +111,7 @@ public class InspectViewController : UIViewController {
             
             dispatch_async(self.GlobalUserInteractiveQueue){
                 self.dataLoadingUpdate()
-            }
+            }                        
             
             self.getBalanceByAdress((self.brkey?.brkey?.address)!, testnet: (self.brkey?.bool)!)
             

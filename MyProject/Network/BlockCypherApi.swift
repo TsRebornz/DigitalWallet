@@ -95,9 +95,9 @@ public class BlockCypherApi{
             return //["Error": "Error"]
         }
         
-        guard let json = response.result.value as? [String: AnyObject] else {
-            print("Balance is not a JSON Type")
-            return //["Error": "Error"]
-        }
+//        guard let json = response.result.value as? [String: AnyObject] else {
+//            print("Balance is not a JSON Type")
+//            return //["Error": "Error"]
+//        }
     }
 }
