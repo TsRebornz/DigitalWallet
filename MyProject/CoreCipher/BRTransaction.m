@@ -256,8 +256,8 @@ outputAddresses:(NSArray *)addresses outputAmounts:(NSArray *)amounts
 - (void)addInputHashStr:(NSString*)hash index:(NSUInteger)index script:(NSData *)script signature:(NSData *)signature
 			   sequence:(uint32_t)sequence
 {
-	NSData * hash_data = [hash hexToData];
-	UInt256 hash_digital = [hash_data asUInt256];
+	NSData * hash_data = [[hash hexToData] reverse];        // string tx hash representation is big-endian
+	UInt256 hash_digital = [hash_data asUInt256];       // but here we work with little-endian
 	if(uint256_is_zero(hash_digital))
 	{
 		return;
@@ -400,6 +400,7 @@ sequence:(uint32_t)sequence
         if (keyIdx == NSNotFound) continue;
         
         NSMutableData *sig = [NSMutableData data];
+        //hash - транзакция которую можно подписать
         UInt256 hash = [self toDataWithSubscriptIndex:i].SHA256_2;
         NSMutableData *s = [NSMutableData dataWithData:[keys[keyIdx] sign:hash]];
         NSArray *elem = [self.inScripts[i] scriptElements];

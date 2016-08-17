@@ -1,17 +1,12 @@
-//
-//  MyProjectTests.swift
-//  MyProjectTests
-//
-//  Created by Макаренков Антон Вячеславович on 20/07/16.
-//  Copyright © 2016 BCA. All rights reserved.
-//
-
 import XCTest
 import Alamofire
+
 
 @testable import MyProject
 
 class MyProjectTests: XCTestCase {
+    
+    let defaultTimeOut: NSTimeInterval = 60
     
     let base58TestArr : Array = ["O000000000000000000","l0000000","&*^$&*^$&*^$&*^$&*^$&*^$&*^$","asd;lfj falksdjflj  dslkjflkasj flksdajflj ", "" ]
     
@@ -23,18 +18,6 @@ class MyProjectTests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
-    }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-        }
     }
     
     func testKey() {
@@ -50,10 +33,8 @@ class MyProjectTests: XCTestCase {
     func testGetBalance() {
         let adress = "mzSetpsidLwd2nhwSTeBv8uNVuGQDs3wdY"
         //Define an expectation
-        let expectation = expectationWithDescription("Alamofire send request and handle respnse using the callback closure")
-        let request = Alamofire.request(.GET, "https://api.blockcypher.com/v1/btc/test3/addrs/\(adress)/balance")
-        let timeout = request.task.originalRequest?.timeoutInterval
-        
+        let expectation = expectationWithDescription("Alamofire send BC.Balance request and handle respnse using the callback closure")
+        let request = Alamofire.request(.GET, "https://api.blockcypher.com/v1/btc/test3/addrs/\(adress)/balance", parameters: nil)
         request.validate()
         request.responseJSON { response in
                     XCTAssert(response.result.isSuccess, "Error reqursting balance \(response.result.error)")
@@ -66,65 +47,73 @@ class MyProjectTests: XCTestCase {
                     let bal = Balance(json: jsonResp)
                     XCTAssertNotNil(bal, "Error initializing object")
                     
-                    XCTAssert(bal!.final_balance == 4433416, "Balance not match bal = \(bal!.final_balance)")
+                    XCTAssert(bal!.final_balance == 126132857, "Balance not match bal = \(bal!.final_balance)")
                     print(bal!.final_balance)
             
                     //Exercise the asynchronous code
                     expectation.fulfill()
                 }
+        
+        let timeout = request.task.originalRequest?.timeoutInterval
         //Wait for the expectation to be fulfilled
         waitForExpectationsWithTimeout(timeout!, handler: { error in
-            if let error = error{
+            if let error = error {
                 XCTFail("waitForExpectationsWithTimeout errored: \(error)")
             }
         })
     }
     
-//    func testAsyncCalback() {
-//        let service = SomeService()
-    
-        // 1. Define an expectation
-//        let expectation = expectationWithDescription("SomeService does stuff and runs the callback closure")
-    
-        // 2. Exercise the asynchronous code
-//        service.doSomethingAsync { success in
-//            XCTAssertTrue(success)
-    
-            // Don't forget to fulfill the expectation in the async callback
-//            expectation.fulfill()
-//        }
-    
-        // 3. Wait for the expectation to be fulfilled
-//        waitForExpectationsWithTimeout(1) { error in
-//            if let error = error {
-//                XCTFail("waitForExpectationsWithTimeout errored: \(error)")
-//            }
-//        }
-    
-    func testBrkeyAdress(){
-        
+    // FIXME: Test for data validation in PKViewController
+    func testBrkeyAdressValidation(){
         //initialize etalon private key
         
         //create brkey
         // compare
     }
     
-    func addressHandle(_ json: [String: AnyObject]) {
-        for string in json {
-            print(string)
-        }
-    }
-    
-    func testGetFullAdressFunction(){
-        //        let address = "mzSetpsidLwd2nhwSTeBv8uNVuGQDs3wdY"
+    func testGetFullAdressFunction() {
+        //let address = "mzSetpsidLwd2nhwSTeBv8uNVuGQDs3wdY"
+        let parameters = [
+            "includeScript" : true,
+            "unspentOnly" : true
+        ]
+
+        let testnet = false
         let addressAlwayaWorkable = "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"
-        print("0")
+        let outPutAddress : String = "mzSetpsidLwd2nhwSTeBv8uNVuGQDs3wdY"
+        let amount = 1500
+        let expectation = expectationWithDescription("Alamofire send BC.Balance request and handle respnse using the callback")
+        var address : Address!
+        var f_inputHashes : [AnyObject] = []
+        var f_inputIndexes : [AnyObject] = []
+        var f_inputScripts : [AnyObject] = []
         
-        BlockCypherApi.getFullAddress(addressAlwayaWorkable, testnet: false, doAfterRequest: addressHandle)
-        
-        print("2")
+        BlockCypherApi.getAddress(addressAlwayaWorkable, testnet: testnet, parameters: parameters,  doAfterRequest: {json in
+            if let t_address = Address(json: json){
+                XCTAssertNotNil(t_address, "Bad response from Api")
+                address = t_address
+            }
+            for tx_ref in address.txsrefs! {
+                //TODO: add validation for nill
+                //create input hashes
+                f_inputHashes.append( tx_ref.tx_hash! as AnyObject )
+                //create inputIndexes
+                f_inputIndexes.append( tx_ref.tx_output_n! as AnyObject )
+                //create inputScripts
+                f_inputScripts.append( tx_ref.script! as AnyObject )
+            }
+            //Create your own transaction
+            let tx = BRTransaction(inputHashes: f_inputHashes, inputIndexes: f_inputIndexes, inputScripts: f_inputScripts, outputAddresses: [outPutAddress], outputAmounts: [amount])
+            //tx.addInputHashStr(f_inputHashes[0], index: f_inputIndexes[0], script: f_inputScripts)
+            tx.debugDescription
+            tx.description
+            
+            expectation.fulfill()
+        })
+        waitForExpectationsWithTimeout(self.defaultTimeOut, handler: { error in
+            if let error = error{
+                XCTFail("waitForExpectationsWithTimeout errored: \(error)")
+            }
+        })
     }
-    
-    
-    
 }

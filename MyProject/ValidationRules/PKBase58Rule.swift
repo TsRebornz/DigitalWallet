@@ -1,11 +1,3 @@
-//
-//  PKBase54Rule.swift
-//  MyProject
-//
-//  Created by Макаренков Антон Вячеславович on 21/07/16.
-//  Copyright © 2016 BCA. All rights reserved.
-//
-
 import Foundation
 import SwiftValidator
 

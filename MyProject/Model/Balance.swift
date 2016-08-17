@@ -1,11 +1,3 @@
-//
-//  Balance.swift
-//  MyProject
-//
-//  Created by Макаренков Антон Вячеславович on 20/07/16.
-//  Copyright © 2016 BCA. All rights reserved.
-//
-
 import Foundation
 import Gloss
 
@@ -22,10 +14,7 @@ public struct Balance : Decodable {
     
     public init?(json: JSON) {
         guard let fin_bal : UInt64 = "final_balance" <~~ json
-            else {
-                return nil
-            }
-        
+        else { return nil }
         self.adress = "address" <~~ json
         self.total_received = "total_received" <~~ json
         self.total_sent = "total_sent" <~~ json

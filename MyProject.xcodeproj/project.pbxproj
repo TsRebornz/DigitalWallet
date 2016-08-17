@@ -20,6 +20,9 @@
 		5E242CA41D45EB590065482C /* TxInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E242CA31D45EB590065482C /* TxInput.swift */; };
 		5E242CA61D45EB700065482C /* TxOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E242CA51D45EB700065482C /* TxOutput.swift */; };
 		5E242CA81D45EB810065482C /* TxRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E242CA71D45EB810065482C /* TxRef.swift */; };
+		5E2A3EA81D476BEB008171B3 /* FullAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A3EA71D476BEB008171B3 /* FullAddress.swift */; };
+		5EACAF9B1D47BFF200D9B062 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EACAF9A1D47BFF200D9B062 /* Address.swift */; };
+		5EACAF9E1D4A789900D9B062 /* DataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EACAF9D1D4A789900D9B062 /* DataConverter.swift */; };
 		5EBFB4791D3E228700D8B938 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBFB4781D3E228700D8B938 /* AppDelegate.swift */; };
 		5EBFB47E1D3E228700D8B938 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EBFB47C1D3E228700D8B938 /* Main.storyboard */; };
 		5EBFB4801D3E228700D8B938 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EBFB47F1D3E228700D8B938 /* Assets.xcassets */; };
@@ -68,7 +71,6 @@
 /* Begin PBXFileReference section */
 		117F810125FC2E0110DDFF79 /* Pods_MyProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		27AECDCD68D0D5E764D4C425 /* Pods-MyProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyProjectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyProjectTests/Pods-MyProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5E1136821D3F7B8F0045D716 /* Balance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
 		5E1136C41D3FC7310045D716 /* MyProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E1136E01D40EC510045D716 /* PKBase58Rule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKBase58Rule.swift; sourceTree = "<group>"; };
 		5E1136F01D414B9E0045D716 /* Balance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
@@ -84,6 +86,9 @@
 		5E242CA31D45EB590065482C /* TxInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxInput.swift; sourceTree = "<group>"; };
 		5E242CA51D45EB700065482C /* TxOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxOutput.swift; sourceTree = "<group>"; };
 		5E242CA71D45EB810065482C /* TxRef.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxRef.swift; sourceTree = "<group>"; };
+		5E2A3EA71D476BEB008171B3 /* FullAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullAddress.swift; sourceTree = "<group>"; };
+		5EACAF9A1D47BFF200D9B062 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		5EACAF9D1D4A789900D9B062 /* DataConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataConverter.swift; sourceTree = "<group>"; };
 		5EBFB4751D3E228700D8B938 /* MyProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EBFB4781D3E228700D8B938 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EBFB47D1D3E228700D8B938 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -169,6 +174,8 @@
 				5E242CA31D45EB590065482C /* TxInput.swift */,
 				5E242CA51D45EB700065482C /* TxOutput.swift */,
 				5E242CA71D45EB810065482C /* TxRef.swift */,
+				5E2A3EA71D476BEB008171B3 /* FullAddress.swift */,
+				5EACAF9A1D47BFF200D9B062 /* Address.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -200,6 +207,14 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		5EACAF9C1D4A787800D9B062 /* ClangToSwiftIntBus */ = {
+			isa = PBXGroup;
+			children = (
+				5EACAF9D1D4A789900D9B062 /* DataConverter.swift */,
+			);
+			path = ClangToSwiftIntBus;
+			sourceTree = "<group>";
+		};
 		5EBFB46C1D3E228700D8B938 = {
 			isa = PBXGroup;
 			children = (
@@ -224,6 +239,7 @@
 		5EBFB4771D3E228700D8B938 /* MyProject */ = {
 			isa = PBXGroup;
 			children = (
+				5EACAF9C1D4A787800D9B062 /* ClangToSwiftIntBus */,
 				5E242C9E1D4267390065482C /* Network */,
 				5E1136EF1D414B9E0045D716 /* Model */,
 				5E1136F21D414B9E0045D716 /* Views */,
@@ -235,7 +251,6 @@
 				5EBFB4811D3E228700D8B938 /* LaunchScreen.storyboard */,
 				5EBFB4841D3E228700D8B938 /* Info.plist */,
 				5EBFB4A31D3E527800D8B938 /* MyProject-Bridging-Header.h */,
-				5E1136821D3F7B8F0045D716 /* Balance.swift */,
 			);
 			path = MyProject;
 			sourceTree = "<group>";
@@ -535,11 +550,14 @@
 				5E1136FA1D414B9E0045D716 /* SendViewController.swift in Sources */,
 				5E242CA41D45EB590065482C /* TxInput.swift in Sources */,
 				5EBFB5101D3E531000D8B938 /* Reachability.m in Sources */,
+				5EACAF9E1D4A789900D9B062 /* DataConverter.swift in Sources */,
 				5E1136F61D414B9E0045D716 /* Balance.swift in Sources */,
 				5EBFB4791D3E228700D8B938 /* AppDelegate.swift in Sources */,
+				5E2A3EA81D476BEB008171B3 /* FullAddress.swift in Sources */,
 				5E1136F71D414B9E0045D716 /* BRSwiftKey.swift in Sources */,
 				5EBFB5081D3E531000D8B938 /* BRKey.m in Sources */,
 				5EBFB50D1D3E531000D8B938 /* NSManagedObject+Sugar.m in Sources */,
+				5EACAF9B1D47BFF200D9B062 /* Address.swift in Sources */,
 				5E242CA01D42675C0065482C /* BlockCypherApi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -782,6 +800,7 @@
 				5E179D701D469E63003856F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5EBFB4701D3E228700D8B938 /* Build configuration list for PBXProject "MyProject" */ = {
 			isa = XCConfigurationList;
