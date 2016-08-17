@@ -1,11 +1,11 @@
 import Foundation
 import Gloss
 
-public class Address : Decodable{
-    public let address : String?
+public class Address : NSObject, Decodable {
+    public dynamic let address : String?
     public let total_received : UInt64?
     public let total_sent : UInt64?
-    public let balance : UInt64?
+    public dynamic let balance : NSNumber?
     public let unconfimed_balance : UInt64? //Баланс с неподтвержденных транзакций
     public let final_balance : UInt64?
     public let n_tx : UInt64? // n_tx n -- number tx -- transaction
@@ -26,6 +26,19 @@ public class Address : Decodable{
         //guard let t_txrefs : [TxRef] = "txrefs" <~~ json
             //else { return nil }
         self.txsrefs = "txrefs" <~~ json
+    }
+    
+    public override init(){
+        self.address = nil
+        self.total_received = nil
+        self.total_sent = nil
+        self.balance = 0
+        self.unconfimed_balance = nil
+        self.final_balance = nil
+        self.n_tx = nil
+        self.unconfirmed_n_tx = nil
+        self.final_n_tx = nil
+        self.txsrefs = nil
     }
 }
 

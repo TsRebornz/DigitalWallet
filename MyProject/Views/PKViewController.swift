@@ -8,8 +8,7 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
     
     @IBOutlet weak var privateKeyTextField: UITextField!
     @IBOutlet weak var prkErrorLbl : UILabel!
-    @IBOutlet weak var nextBtn : UIButton!
-    let maxSymbolPKLength = 64
+    @IBOutlet weak var nextBtn : UIButton!    
     
     var submited: Bool = false
 
@@ -20,14 +19,13 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
         super.viewDidLoad()
         nextBtn.enabled = submited
         privateKeyTextField.layer.cornerRadius = 5
-        privateKeyTextField.delegate = self        
-        //let device: String = UIDevice.currentDevice().model
+        privateKeyTextField.delegate = self
+        
         
         //Valiadtion in privateKeyTextField
-        validator.registerField(privateKeyTextField, errorLabel: prkErrorLbl, rules: [RequiredRule(), PKBase58Rule(),  MaxLengthRule(length : maxSymbolPKLength) ])
+        validator.registerField(privateKeyTextField, errorLabel: prkErrorLbl, rules: [RequiredRule(), PKBase58() ])
     }
     
-
     // ValidationDelegate methods
     public func validationSuccessful() {
         nextBtn.enabled = true

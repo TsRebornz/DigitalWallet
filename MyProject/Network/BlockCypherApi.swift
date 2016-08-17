@@ -63,7 +63,9 @@ public class BlockCypherApi{
                     print("Balance is not a JSON Type")
                     return
                 }
-                doAfterRequest(json)
+                dispatch_async(dispatch_get_main_queue(), {
+                    doAfterRequest(json)
+                })
             }
     }
     

@@ -19,7 +19,7 @@ public class SendViewController : UIViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        //load address here
     }
     
     override public func didReceiveMemoryWarning() {

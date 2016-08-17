@@ -13,11 +13,15 @@ class UsingTransactionsTests: TestBase {
      NSException(name: "TransactionAddresGetException", reason: "Addres get failed", userInfo: nil).raise()
     */
     
+    
+    
+    let defaultTimeOut: NSTimeInterval = 45
+    
     var testTransaction : Transaction!
     
     override func setUp() {
         super.setUp()
-        self.testTransaction = createTransactionTestObject()
+        //self.testTransaction = createTransactionTestObject()
     }
     
     override func tearDown() {
@@ -26,16 +30,31 @@ class UsingTransactionsTests: TestBase {
     }
     
     
+//    func testResetButtonEnabledOnceRaceComplete() {
+//        let expectation = keyValueObservingExpectationForObject(viewController.resetButton,
+//                                                                keyPath: "enabled",
+//                                                                expectedValue: true)
+//        
+//        // Simulate tapping the start race button
+//        viewController.handleStartRaceButton(viewController.startRaceButton)
+//        
+//        // Wait for the test to run
+//        waitForExpectationsWithTimeout(5, handler: nil)
+//    }
+    
 //    func testTransactionClassGetAddressFromApi() {
-        //let expectation = expectationWithDescription("Alamofire send BC.Balance request and handle response using the callback")
-//        let address: Address = self.testTransaction.getAddress()
+//
+//        let expectation = keyValueObservingExpectationForObject( (self.testTransaction.address as! Address) , keyPath: "balance", expectedValue: nil )
+//        
+//        self.testTransaction.getAddress()
+//        
 //        waitForExpectationsWithTimeout(self.defaultTimeOut, handler: { error in
 //            if let error = error{
 //                XCTFail("waitForExpectationsWithTimeout errored: \(error)")
 //            }
 //            
 //        })
-//        XCTAssertNotNil(address, "Test Address is nill")
+//        XCTAssertNotNil(self.testTransaction.address, "Test Address is nil")
 //    }
     
 //    func testTransactionClass() {
@@ -48,5 +67,29 @@ class UsingTransactionsTests: TestBase {
 //        self.testTransaction.prepareMetaDataForTx()
 //        
 //    }
+    
+    func testOptimizeImports(){
+        
+    }
+    
+    func testPrepareTxDataForTransaction(){
+        
+    }
+    
+    func testOptimizeInputs(){
+        
+    }
+    
+    func testCreateOutputs(){
+        
+    }
+    
+    func testCreateTransaction(){
+        
+    }
+    
+    func testSendTransaction(){
+        
+    }
 
 }

@@ -13,9 +13,9 @@ public class Transaction : NSObject {
     
     private let brkey : BRKey
     
-    private var address : AnyObject?
+    public var address : AnyObject?
     
-    private let transaction : BRTransaction?
+    private var transaction : BRTransaction?
     
     private var txData : TxData?
     
@@ -37,33 +37,31 @@ public class Transaction : NSObject {
         self.brkey = brkey
         
         //Need fill data bellow after initialization
-        self.address = nil
+        self.address = Address()
+        
         self.transaction = nil
         self.txData = nil
+        
     }
     
-    public func getAddress() -> Address {
-        if (nil == self.address){
+    public func getAddress() {
+        //NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(addressUpdated), name: "blockcypher.api.addressupdated", object: nil)
+        if (nil == (self.address as! Address).address ){
             self.getAddressFromApi()
-            let timeout : Int = 60
-            var time = 0
-            //FIXME: Rewrite this code!
-                while(nil == self.address){
-                    if (time <= timeout){
-                        sleep(2)
-                        time += 2
-                    }else{
-                        NSException(name: "Transaction.getAddres", reason: "Timeout reached", userInfo: nil).raise()
-                    }
-                    
-                }
-            return self.address as! Address
-        }else{
-            return self.address as! Address
+            
         }
     }
     
-    private func getAddressFromApi() {
+    func delay(delay:Double, closure:()->()) {
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
+    }
+    
+    public func getAddressFromApi() {
         let parameters = [
             "includeScript" : true,
             "unspentOnly" : true
@@ -77,14 +75,21 @@ public class Transaction : NSObject {
                     return
                 }
                 self.address = t_address
+                //NSNotificationCenter.defaultCenter().postNotificationName("blockcypher.api.addressupdated", object: self.address)
             })
         }
     }
     
+    public func addressUpdated(){
+        NSException(name: "Transaction.getAddres", reason: "AddressUpdated", userInfo: nil).raise()
+    }
+    
+    
+    
     //Allow to use minimal inputs in forming transaction
     func optimizeInputsAccordingToAmount() -> [TxRef] {
         var optimized_txrefs = [TxRef]()
-        if self.address is Address {
+        if nil != (self.address as! Address).address  {
             let t_address : Address =  self.address as! Address
             //Sort txRefs by value
             let ui_amount = self.amount
@@ -106,7 +111,23 @@ public class Transaction : NSObject {
         //Initialization        
         let otimizedTsRefs : [TxRef] = optimizeInputsAccordingToAmount()
         let addressModel : Address = self.address as! Address
+        guard let t_balance = addressModel.balance else {
+            return
+        }
+        self.txData = TxData(txrefs: otimizedTsRefs, balance: UInt64(Int(t_balance)) , brkey: self.brkey, sendAddress: self.sendAddress, amount: self.amount , selectedFee: self.fee)
+    }
+    
+    
+    func createTransaction(){
+//        self.transaction = BRTransaction(inputHashes: self.txData?.input.ha,
+//                                            inputIndexes: TxData.inputIndexes,
+//                                            inputScripts: TxData.inputScripts,
+//                                            outputAddresses: TxData.outputScripts,
+//                                            outputAmounts: TxData.outputAmounts,
+//                                            isTesnet: self.testnet)
+    }
+    
+    func sendTransaction(){
         
-        self.txData = TxData(txrefs: otimizedTsRefs, balance: addressModel.balance!, brkey: self.brkey, sendAddress: self.sendAddress, amount: self.amount , selectedFee: self.fee)        
     }
 }
