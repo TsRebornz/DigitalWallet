@@ -212,7 +212,10 @@ size_t secp256k1_point_mul(void *r, const void *p, UInt256 i, int compressed)
         _seckey = *(const UInt256 *)((const uint8_t *)d.bytes + 1);
         _compressed = (d.length == sizeof(UInt256) + 2) ? YES : NO;
     }
-    else if (d.length == sizeof(UInt256)) _seckey = *(const UInt256 *)d.bytes;
+    else if (d.length == sizeof(UInt256)) {
+        _seckey = *(const UInt256 *)d.bytes;
+        _compressed = YES;
+    }
     
     return (secp256k1_ec_seckey_verify(_ctx, _seckey.u8)) ? self : nil;
 }

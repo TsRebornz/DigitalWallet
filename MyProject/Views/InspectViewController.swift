@@ -80,7 +80,7 @@ public class InspectViewController : UIViewController {
         if (!(balanceLbl!.text!.isEmpty)){
             balanceLbl!.text! = ""
         }
-        balanceLbl?.text = String(balance.final_balance)
+        balanceLbl?.text = String(balance.final_balance!)
     }
     
     func errorLoadingData(){

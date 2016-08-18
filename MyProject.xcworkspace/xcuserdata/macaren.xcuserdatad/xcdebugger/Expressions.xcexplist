@@ -17,6 +17,20 @@
          contextName = "MyProjectTests.testBRTransactionContstructor() -&gt; ():MyProjectTesting.swift">
       </ContextState>
       <ContextState
+         contextName = "DataValidationTests.testBRkeyConstructorWithHexDataCreatesValidAddress() -&gt; ():DataValidationTests.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "brkey.privateKey!">
+            </PersistentString>
+            <PersistentString
+               value = "brkey.address">
+            </PersistentString>
+            <PersistentString
+               value = "wifPK.characters.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "MyProjectTests.(testPushRawTx() -&gt; ()).(closure #1).(implicit closure #1):MyProjectTesting.swift">
       </ContextState>
       <ContextState

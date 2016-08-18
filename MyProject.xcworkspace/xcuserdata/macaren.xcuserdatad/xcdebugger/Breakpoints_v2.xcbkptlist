@@ -648,11 +648,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/CoreCipher/BRKey.m"
-            timestampString = "491902724.285574"
+            timestampString = "493212053.520217"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "259"
-            endingLineNumber = "259"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
             landmarkName = "-privateKey"
             landmarkType = "5">
          </BreakpointContent>
@@ -942,6 +942,22 @@
             startingLineNumber = "86"
             endingLineNumber = "86"
             landmarkName = "prepareForSegue(_:sender:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProjectTesting/DataValidationTests.swift"
+            timestampString = "493202019.978152"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "testBRkeyConstructorWithHexDataCreatesValidAddress()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

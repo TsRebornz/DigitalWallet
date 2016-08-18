@@ -36,4 +36,20 @@ class DataValidationTests: XCTestCase {
         print("Matches count \(matchArr.count)")
         XCTAssert(matchArr.count == testPassCount, "Validation failed!")
     }
+    
+    func testBRkeyConstructorWithHexDataCreatesValidAddress(){
+        let testNet = true
+        let wifPK = "cSF9RngdtVNaKpbsKYiv68tb8KhhumagEb9gX6fWDvM38RQ3NVLf"
+        let pkHexData = "8b207b41291057701bcf4abd6627fb1dfdd77c05e12f56f75a80c0e3317a8111"
+        let adrStandart = BRKey(privateKey: wifPK, testnet: testNet)?.address
+        let brkey : BRKey = BRKey(privateKey: pkHexData, testnet: testNet)!
+        
+        XCTAssert(brkey.address == adrStandart , "\n Not valid private key \(brkey.address) not equals \(adrStandart)\n")
+        print(brkey.privateKey)
+    }
+    
+    func testHexDataAndWifPkkeysAreSame(){
+        
+    }
+    
 }
