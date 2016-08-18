@@ -48,8 +48,24 @@ class DataValidationTests: XCTestCase {
         print(brkey.privateKey)
     }
     
-    func testHexDataAndWifPkkeysAreSame(){
+    func testCheckCompressedWIFFormatTestNet(){
+        let  wifCompressedStandart = "cSF9RngdtVNaKpbsH6eBgWGm8xFNc3ViRXgZpfQddQxaGe2G4uXJ"
         
+        let result:WifFormat = BRKey.checkWIFformatPKkey(wifCompressedStandart)
+        
+        XCTAssert( result == WifCompressedTestNet , "Incorrect WIF Compressed pkFormat" )
     }
+    
+    func testCheckUnCompressedWIFFormatTestNet(){
+        let wifStandart = "92eByNE4NdnfpK31XV2o1iD9Bir6eLASeyDqq46YzkogTBb3HZH"
+        let result: WifFormat = BRKey.checkWIFformatPKkey(wifStandart)
+        
+        XCTAssert(result == WifTestNet , "Incorrect WIF uncompressed pkFormat")
+    }
+    
+//    func testCheckUnCompressedWIFFormatTestNet{
+//        
+//        XCTAssert( pkWif == wifUnCompressedStandart )
+//    }
     
 }

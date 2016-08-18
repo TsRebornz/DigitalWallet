@@ -28,11 +28,13 @@
 #import "NSData+Bitcoin.h"
 #import "NSMutableData+Bitcoin.h"
 
-#define USE_BASIC_CONFIG       1
-#define ENABLE_MODULE_RECOVERY 1
-#define DETERMINISTIC          1
+#define WIF_COMPRESSED_LENGTH   52
+#define WIF_UNCOMPRESSED_LENGTH 51
+#define USE_BASIC_CONFIG        1
+#define ENABLE_MODULE_RECOVERY  1
+#define DETERMINISTIC           1
 #if __BIG_ENDIAN__
-#define WORDS_BIGENDIAN        1
+#define WORDS_BIGENDIAN         1
 #endif
 
 #pragma clang diagnostic push
@@ -368,6 +370,30 @@ size_t secp256k1_point_mul(void *r, const void *p, UInt256 i, int compressed)
     else sig = nil;
     
     return sig;
+}
+
+//Hindu code
++(WifFormat)checkWIFformatPKkey:(nonnull NSString*)wifPk
+{
+    unichar firstChar = [wifPk characterAtIndex:0];
+    NSUInteger charCount = [ wifPk length ];
+    //is characters count equals 52?
+    if (  charCount == WIF_COMPRESSED_LENGTH  ){
+        if ( firstChar == 'c' ){
+            return WifCompressedTestNet;
+        }else if( firstChar == 'K' ){
+            return WifCompressedMainNet;
+        }            
+    }
+    else if ( charCount == WIF_UNCOMPRESSED_LENGTH ) {
+        if ( firstChar == '9' ){
+            return WifTestNet;
+        }
+        else if( firstChar == '5' ){
+            return WifMainNet;
+        }
+    }
+    return WifNot;
 }
 
 @end

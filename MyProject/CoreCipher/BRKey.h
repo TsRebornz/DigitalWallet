@@ -46,6 +46,15 @@ size_t secp256k1_point_add( void  * _Nonnull r, const void * _Nonnull a, const v
 // multiply secp256k1 ec-point by 256bit big endian int
 size_t secp256k1_point_mul(void * _Nonnull r, const void * _Nullable p, UInt256 i, int compressed);
 
+//
+typedef enum : NSUInteger {
+    WifMainNet = 1,
+    WifCompressedMainNet,
+    WifTestNet,
+    WifCompressedTestNet,
+    WifNot
+} WifFormat;
+
 @interface BRKey : NSObject
 
 @property (nullable, nonatomic, readonly) NSString *privateKey;
@@ -57,6 +66,8 @@ size_t secp256k1_point_mul(void * _Nonnull r, const void * _Nullable p, UInt256 
 + (nullable instancetype)keyWithSecret:(UInt256)secret compressed:(BOOL)compressed;
 + (nullable instancetype)keyWithPublicKey:(nonnull NSData *)publicKey;
 + (nullable instancetype)keyRecoveredFromCompactSig:(nonnull NSData *)compactSig andMessageDigest:(UInt256)md;
+
++(WifFormat)checkWIFformatPKkey:(nonnull NSString*)wifPk;
 
 - (nullable instancetype)initWithPrivateKey:(nonnull NSString *)privateKey testnet:(BOOL)isTestnet;
 - (nullable instancetype)initWithSecret:(UInt256)secret compressed:(BOOL)compressed;
