@@ -186,8 +186,12 @@ size_t secp256k1_point_mul(void *r, const void *p, UInt256 i, int compressed)
 {
     if (privateKey.length == 0) return nil;
     if (! (self = [self init])) return nil;
-
-	self.isTestnet = isTestnet;
+    
+    WifFormat wifFormat = [BRKey checkWIFformatPKkey:privateKey];
+    
+    self.isTestnet = (wifFormat == WifTestNet || wifFormat == WifCompressedTestNet) ? YES : NO ;
+    //Users input is more important
+    self.isTestnet = isTestnet;
 
     // mini private key format
     if ((privateKey.length == 30 || privateKey.length == 22) && [privateKey characterAtIndex:0] == 'S') {
@@ -216,7 +220,7 @@ size_t secp256k1_point_mul(void *r, const void *p, UInt256 i, int compressed)
     }
     else if (d.length == sizeof(UInt256)) {
         _seckey = *(const UInt256 *)d.bytes;
-        _compressed = YES;
+        _compressed = wifFormat == WifCompressedTestNet || wifFormat == WifCompressedMainNet || wifFormat == WifNot ? YES : NO;
     }
     
     return (secp256k1_ec_seckey_verify(_ctx, _seckey.u8)) ? self : nil;

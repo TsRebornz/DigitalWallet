@@ -24,6 +24,7 @@
 		5E2A3EA81D476BEB008171B3 /* FullAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A3EA71D476BEB008171B3 /* FullAddress.swift */; };
 		5E99946B1D6350B400FC7850 /* DataValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E99946A1D6350B400FC7850 /* DataValidationTests.swift */; };
 		5E99946D1D64B8B200FC7850 /* PKBase58Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E99946C1D64B8B200FC7850 /* PKBase58Rule.swift */; };
+		5E99946F1D66169200FC7850 /* UsingBrKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E99946E1D66169200FC7850 /* UsingBrKeyTests.swift */; };
 		5EACAF9B1D47BFF200D9B062 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EACAF9A1D47BFF200D9B062 /* Address.swift */; };
 		5EACAFA01D4F956F00D9B062 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EACAF9F1D4F956F00D9B062 /* Alamofire.framework */; };
 		5EACAFA21D4F957100D9B062 /* Gloss.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EACAFA11D4F957100D9B062 /* Gloss.framework */; };
@@ -94,6 +95,8 @@
 		5E2A3EA71D476BEB008171B3 /* FullAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullAddress.swift; sourceTree = "<group>"; };
 		5E99946A1D6350B400FC7850 /* DataValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataValidationTests.swift; sourceTree = "<group>"; };
 		5E99946C1D64B8B200FC7850 /* PKBase58Rule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKBase58Rule.swift; sourceTree = "<group>"; };
+		5E99946E1D66169200FC7850 /* UsingBrKeyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsingBrKeyTests.swift; sourceTree = "<group>"; };
+		5E9994741D66281A00FC7850 /* MyProjectTesting-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyProjectTesting-Bridging-Header.h"; sourceTree = "<group>"; };
 		5EACAF9A1D47BFF200D9B062 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		5EACAF9F1D4F956F00D9B062 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/MyProject-aohdjttuyeacileqngbnfypteddp/Build/Products/Debug-iphonesimulator/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		5EACAFA11D4F957100D9B062 /* Gloss.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Gloss.framework; path = "../../../Library/Developer/Xcode/DerivedData/MyProject-aohdjttuyeacileqngbnfypteddp/Build/Products/Debug-iphonesimulator/Gloss/Gloss.framework"; sourceTree = "<group>"; };
@@ -216,9 +219,11 @@
 			children = (
 				5E179D691D469E63003856F4 /* MyProjectTesting.swift */,
 				5E1302B71D60DEDD0089BEAD /* UsingTransactionsTests.swift */,
+				5E99946E1D66169200FC7850 /* UsingBrKeyTests.swift */,
 				5E99946A1D6350B400FC7850 /* DataValidationTests.swift */,
 				5E1302B31D60D26D0089BEAD /* TestBase.swift */,
 				5E179D6B1D469E63003856F4 /* Info.plist */,
+				5E9994741D66281A00FC7850 /* MyProjectTesting-Bridging-Header.h */,
 			);
 			path = MyProjectTesting;
 			sourceTree = "<group>";
@@ -524,6 +529,7 @@
 				5E1302B41D60D26D0089BEAD /* TestBase.swift in Sources */,
 				5E179D6A1D469E63003856F4 /* MyProjectTesting.swift in Sources */,
 				5E1302B81D60DEDD0089BEAD /* UsingTransactionsTests.swift in Sources */,
+				5E99946F1D66169200FC7850 /* UsingBrKeyTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,10 +603,13 @@
 			baseConfigurationReference = C5AB1976C39E8C12AF920288 /* Pods-MyProjectTesting.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = MyProjectTesting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = none.MyProjectTesting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyProjectTesting/MyProjectTesting-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyProject.app/MyProject";
 			};
 			name = Debug;
@@ -610,10 +619,12 @@
 			baseConfigurationReference = BC846B980F757D8228694B92 /* Pods-MyProjectTesting.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = MyProjectTesting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = none.MyProjectTesting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyProjectTesting/MyProjectTesting-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyProject.app/MyProject";
 			};
 			name = Release;
