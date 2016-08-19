@@ -73,15 +73,16 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
     
     // ScanViewControllerDelegate
     
-    func DelegateScanViewController(controller: ScanViewController){
-        self.privateKeyTextField.text = controller.dataFromCamera
+    func DelegateScanViewController(controller: ScanViewController, dataFromQrCode : String){
+        self.privateKeyTextField.text = dataFromQrCode
         validator.validate(self)
     }
-    
+        
     // End
     
     //Actions
     @IBAction func qrCodeBrnTapped(sender: AnyObject) {
+        self.scanViewController.delegate = self
         self.navigationController?.presentViewController(self.scanViewController , animated: true, completion: nil)
     }
     
@@ -104,10 +105,7 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
         }
     }
     //End
-    
-    
-    
-    
+                
     override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let navigationController = segue.destinationViewController as! UINavigationController
             if (segue.identifier == "PKSegue"){
