@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import Alamofire
+import CoreImage
 
 
 public class InspectViewController : UIViewController {
@@ -11,11 +12,15 @@ public class InspectViewController : UIViewController {
     
     @IBOutlet weak var balanceLbl : UILabel?
     
+    @IBOutlet weak var qrCodeImageView : UIImageView?
+    
     var a : AnyObject = 5 as Int
     
     var isDataLoading: Bool = false
     
     var brkey:BRSwiftKey?
+    
+    var qrcodeImage: CIImage!
     
     
     //MultiThreading shit
@@ -73,8 +78,38 @@ public class InspectViewController : UIViewController {
         if let brk = self.brkey{
                 adressLbl?.text = brk.brkey?.address
         }
+        self.generateQrCodeImage()
         balanceLbl?.text = "Balance no loaded"
     }
+    
+    func generateQrCodeImage(){
+        let dataForQrCode = self.balanceLbl?.text
+        guard (nil == self.qrcodeImage && "" != dataForQrCode) else {
+            return
+        }
+        
+        let data: NSData = (dataForQrCode!.dataUsingEncoding(NSISOLatin1StringEncoding, allowLossyConversion: false))!
+        
+        let filter = CIFilter(name: "CIQRCodeGenerator")
+        
+        filter!.setValue(data, forKey: "inputMessage")
+        filter!.setValue("Q", forKey: "inputCorrectionLevel")
+        
+        self.qrcodeImage = filter!.outputImage
+        
+        displayQRCodeImage()
+    }
+    
+    func displayQRCodeImage(){
+        let scaleX = self.qrCodeImageView!.frame.size.width / qrcodeImage.extent.size.width
+        let scaleY = self.qrCodeImageView!.frame.size.height / qrcodeImage.extent.size.height
+        
+        let transformedImage = qrcodeImage.imageByApplyingTransform(CGAffineTransformMakeScale(scaleX, scaleY))
+        
+        self.qrCodeImageView!.image = UIImage(CIImage: transformedImage)
+    }
+    
+    
     
     func updateData(balance : Balance){
         if (!(balanceLbl!.text!.isEmpty)){
