@@ -115,6 +115,9 @@
                                                 <exclude reference="rmk-EK-AWm"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <action selector="qrCodeBrnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="F9Z-93-igq"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fqM-Bq-5wQ">
                                         <rect key="frame" x="199" y="0.0" width="75" height="47"/>
@@ -214,6 +217,58 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="603" y="-385"/>
+        </scene>
+        <!--Scan View Controller-->
+        <scene sceneID="TYg-ln-Qfm">
+            <objects>
+                <viewController storyboardIdentifier="ScanViewController" id="e1k-9N-qqT" customClass="ScanViewController" customModule="MyProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CqQ-2R-cNk"/>
+                        <viewControllerLayoutGuide type="bottom" id="zA9-qL-70K"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RID-Nn-7mZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="71l-3L-ZEU">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qrcode_crosschair_simple" translatesAutoresizingMaskIntoConstraints="NO" id="wHJ-fa-nry">
+                                <rect key="frame" x="180" y="185" width="240" height="230"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="230" id="Aef-Xj-M4c"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="230" id="NOV-h9-889"/>
+                                    <constraint firstAttribute="width" constant="240" id="Z0k-SJ-tVd"/>
+                                </constraints>
+                            </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HVU-16-Jpa">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem title="Back" id="eQi-6H-EBm">
+                                        <connections>
+                                            <action selector="backBtnTapped:" destination="e1k-9N-qqT" id="VSf-2T-Umb"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="HVU-16-Jpa" firstAttribute="bottom" secondItem="zA9-qL-70K" secondAttribute="top" id="1Ni-jX-XMy"/>
+                            <constraint firstItem="HVU-16-Jpa" firstAttribute="centerX" secondItem="RID-Nn-7mZ" secondAttribute="centerX" id="CQD-Z2-yE6"/>
+                            <constraint firstItem="wHJ-fa-nry" firstAttribute="centerX" secondItem="RID-Nn-7mZ" secondAttribute="centerX" id="fcK-W8-dNo"/>
+                            <constraint firstItem="HVU-16-Jpa" firstAttribute="leading" secondItem="RID-Nn-7mZ" secondAttribute="leadingMargin" constant="-20" id="yzS-iC-FhH"/>
+                            <constraint firstItem="wHJ-fa-nry" firstAttribute="centerY" secondItem="RID-Nn-7mZ" secondAttribute="centerY" id="zAO-V2-mK3"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cameraView" destination="71l-3L-ZEU" id="ROO-4g-WvY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="krn-IH-sy1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1366" y="-385"/>
         </scene>
         <!--Title-->
         <scene sceneID="hge-Og-Jt8">
@@ -349,7 +404,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u4x-De-zGA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2110" y="398"/>
+            <point key="canvasLocation" x="2238" y="1168"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QEE-D4-SHq">
@@ -365,7 +420,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uLv-dJ-RpT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1290" y="398"/>
+            <point key="canvasLocation" x="1418" y="1168"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="byj-5V-gN8">
@@ -657,4 +712,7 @@
             <point key="canvasLocation" x="-182" y="-385"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="qrcode_crosschair_simple" width="115" height="115"/>
+    </resources>
 </document>

@@ -25,6 +25,7 @@
 		5E99946B1D6350B400FC7850 /* DataValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E99946A1D6350B400FC7850 /* DataValidationTests.swift */; };
 		5E99946D1D64B8B200FC7850 /* PKBase58Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E99946C1D64B8B200FC7850 /* PKBase58Rule.swift */; };
 		5E99946F1D66169200FC7850 /* UsingBrKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E99946E1D66169200FC7850 /* UsingBrKeyTests.swift */; };
+		5E9994761D67143B00FC7850 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9994751D67143B00FC7850 /* ScanViewController.swift */; };
 		5EACAF9B1D47BFF200D9B062 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EACAF9A1D47BFF200D9B062 /* Address.swift */; };
 		5EACAFA01D4F956F00D9B062 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EACAF9F1D4F956F00D9B062 /* Alamofire.framework */; };
 		5EACAFA21D4F957100D9B062 /* Gloss.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EACAFA11D4F957100D9B062 /* Gloss.framework */; };
@@ -97,6 +98,7 @@
 		5E99946C1D64B8B200FC7850 /* PKBase58Rule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKBase58Rule.swift; sourceTree = "<group>"; };
 		5E99946E1D66169200FC7850 /* UsingBrKeyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsingBrKeyTests.swift; sourceTree = "<group>"; };
 		5E9994741D66281A00FC7850 /* MyProjectTesting-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyProjectTesting-Bridging-Header.h"; sourceTree = "<group>"; };
+		5E9994751D67143B00FC7850 /* ScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
 		5EACAF9A1D47BFF200D9B062 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		5EACAF9F1D4F956F00D9B062 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/MyProject-aohdjttuyeacileqngbnfypteddp/Build/Products/Debug-iphonesimulator/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		5EACAFA11D4F957100D9B062 /* Gloss.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Gloss.framework; path = "../../../Library/Developer/Xcode/DerivedData/MyProject-aohdjttuyeacileqngbnfypteddp/Build/Products/Debug-iphonesimulator/Gloss/Gloss.framework"; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				5E1136F31D414B9E0045D716 /* InspectViewController.swift */,
 				5E1136F51D414B9E0045D716 /* SendViewController.swift */,
 				5EBAC1321D54EE6300AE422B /* TxTableViewController.swift */,
+				5E9994751D67143B00FC7850 /* ScanViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -540,6 +543,7 @@
 				5E242CA21D45EB210065482C /* Tx.swift in Sources */,
 				5E1136F81D414B9E0045D716 /* InspectViewController.swift in Sources */,
 				5E242CA81D45EB810065482C /* TxRef.swift in Sources */,
+				5E9994761D67143B00FC7850 /* ScanViewController.swift in Sources */,
 				5EBAC12F1D53AA9600AE422B /* Fee.swift in Sources */,
 				5E99946D1D64B8B200FC7850 /* PKBase58Rule.swift in Sources */,
 				5EBFB5091D3E531000D8B938 /* BRSocketHelpers.c in Sources */,

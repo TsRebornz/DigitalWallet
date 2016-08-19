@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import SwiftValidator
 
-public class PKViewController : UIViewController, ValidationDelegate, UITextFieldDelegate  {
+public class PKViewController : UIViewController, ValidationDelegate, UITextFieldDelegate, ScanViewControllerDelegate  {
     
     let validator = Validator()
     
@@ -13,6 +13,7 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
     
     var submited: Bool = false
     var testnet: Bool = false
+    var scanViewController : ScanViewController!
 
     //var privateKey: String = "cSF9RngdtVNaKpbsH6eBgWGm8xFNc3ViRXgZpfQddQxaGe2G4uXJ"
     var privateKey: String = ""
@@ -27,6 +28,10 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
         
         //Valiadtion in privateKeyTextField
         validator.registerField(privateKeyTextField, errorLabel: prkErrorLbl, rules: [RequiredRule(), PKBase58() ])
+    }
+    
+    override public func viewWillAppear(animated: Bool) {
+        self.scanViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ScanViewController") as! ScanViewController
     }
     
     // ValidationDelegate methods
@@ -66,6 +71,20 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
     }
     //end
     
+    // ScanViewControllerDelegate
+    
+    func DelegateScanViewController(controller: ScanViewController){
+        self.privateKeyTextField.text = controller.dataFromCamera
+        validator.validate(self)
+    }
+    
+    // End
+    
+    //Actions
+    @IBAction func qrCodeBrnTapped(sender: AnyObject) {
+        self.navigationController?.presentViewController(self.scanViewController , animated: true, completion: nil)
+    }
+    
     @IBAction func testNetSwitchChanged(sender: AnyObject) {
         self.testnet = (sender as! UISwitch).on
     }
@@ -84,6 +103,10 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
             privateKeyTextField?.text? = privateKey
         }
     }
+    //End
+    
+    
+    
     
     override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let navigationController = segue.destinationViewController as! UINavigationController
