@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 
 protocol ScanViewControllerDelegate : class {
-    func DelegateScanViewController(controller: ScanViewController, dataFromQrCode : String)
+    func DelegateScanViewController(controller: ScanViewController, dataFromQrCode : String?)
 }
 
 
@@ -19,7 +19,7 @@ public class ScanViewController : UIViewController, AVCaptureMetadataOutputObjec
     
     @IBOutlet weak var cameraView: UIView!
     
-    var dataFromCamera : String!
+    var dataFromCamera : String?
     
     var delegate : ScanViewControllerDelegate?
     

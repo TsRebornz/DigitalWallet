@@ -73,8 +73,9 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
     
     // ScanViewControllerDelegate
     
-    func DelegateScanViewController(controller: ScanViewController, dataFromQrCode : String){
-        self.privateKeyTextField.text = dataFromQrCode
+    func DelegateScanViewController(controller: ScanViewController, dataFromQrCode : String?){
+        guard let t_dataQrCode = dataFromQrCode else {return}
+        self.privateKeyTextField.text = t_dataQrCode
         validator.validate(self)
     }
         
