@@ -83,7 +83,7 @@ public class InspectViewController : UIViewController {
     }
     
     func generateQrCodeImage(){
-        let dataForQrCode = self.balanceLbl?.text
+        let dataForQrCode = self.adressLbl?.text
         guard (nil == self.qrcodeImage && "" != dataForQrCode) else {
             return
         }
