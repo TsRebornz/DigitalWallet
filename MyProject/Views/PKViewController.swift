@@ -8,15 +8,18 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
     
     @IBOutlet weak var privateKeyTextField: UITextField!
     @IBOutlet weak var prkErrorLbl : UILabel!
-    @IBOutlet weak var nextBtn : UIButton!    
+    @IBOutlet weak var nextBtn : UIButton!
+    @IBOutlet weak var testNetSwitch : UISwitch!
     
     var submited: Bool = false
+    var testnet: Bool = false
 
     //var privateKey: String = "cSF9RngdtVNaKpbsH6eBgWGm8xFNc3ViRXgZpfQddQxaGe2G4uXJ"
     var privateKey: String = ""
     
     override public func viewDidLoad() {
         super.viewDidLoad()
+        testnet = testNetSwitch.on
         nextBtn.enabled = submited
         privateKeyTextField.layer.cornerRadius = 5
         privateKeyTextField.delegate = self
@@ -63,6 +66,10 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
     }
     //end
     
+    @IBAction func testNetSwitchChanged(sender: AnyObject) {
+        self.testnet = (sender as! UISwitch).on
+    }
+    
     @IBAction func insertDataFromPasteBoard() {
         let pasteBoard = UIPasteboard.generalPasteboard().strings
         if  ((privateKeyTextField.text?.isEmpty) != nil){
@@ -83,7 +90,7 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
             if (segue.identifier == "PKSegue"){
                 let inspectViewController = navigationController.topViewController as! InspectViewController
                 
-                let brkey = BRSwiftKey.init(privateKey: privateKeyTextField!.text!, testnet: true)
+                let brkey = BRSwiftKey.init(privateKey: privateKeyTextField!.text!, testnet: self.testnet)
                 
                 inspectViewController.brkey = brkey
             }

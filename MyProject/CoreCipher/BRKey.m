@@ -190,8 +190,7 @@ size_t secp256k1_point_mul(void *r, const void *p, UInt256 i, int compressed)
     WifFormat wifFormat = [BRKey checkWIFformatPKkey:privateKey];
     
     self.isTestnet = (wifFormat == WifTestNet || wifFormat == WifCompressedTestNet) ? YES : NO ;
-    //Users input is more important
-    self.isTestnet = isTestnet;
+    self.isTestnet = wifFormat == WifNot ? isTestnet : self.isTestnet;
 
     // mini private key format
     if ((privateKey.length == 30 || privateKey.length == 22) && [privateKey characterAtIndex:0] == 'S') {
