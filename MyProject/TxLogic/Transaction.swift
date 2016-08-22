@@ -17,7 +17,7 @@ public class Transaction : NSObject {
     
     private var transaction : BRTransaction?
     
-    private var txData : TxData?
+    public var txData : TxData?
     
     var GlobalUserInitiatedQueue: dispatch_queue_t {
         let qualityOfServiceClass = QOS_CLASS_USER_INITIATED
@@ -109,6 +109,7 @@ public class Transaction : NSObject {
     }
     
     //Version 2.0
+    //Алгоритм стремиться потратить самые UTXO с самыми маленькими значениями
     func optimizeInputsByAmount(inputs: [TxRef], ui_amount : Int ) -> [TxRef]{
         // We know what balance > ui_amount
         var optimized_txrefs = [TxRef]()        
@@ -134,7 +135,7 @@ public class Transaction : NSObject {
     }
     
     func createArrayFromArrayAndIndex(inputArray: [TxRef], index : Int) -> [TxRef]{
-        let optimized_txrefs = Array(inputArray[0..<index])
+        let optimized_txrefs = Array(inputArray[0..<index+1])
         return optimized_txrefs
     }
     
@@ -151,8 +152,15 @@ public class Transaction : NSObject {
         guard let t_balance = addressModel.balance else {
             return
         }
-        self.txData = TxData(txrefs: otimizedTsRefs, balance: UInt64(Int(t_balance)) , brkey: self.brkey, sendAddress: self.sendAddress, amount: self.amount , selectedFee: self.fee)
+        self.createMetaData(otimizedTsRefs, balance: Int(t_balance), brkey: self.brkey, sendAddresses: [self.sendAddress], amounts: [self.amount], feeValue: self.fee)
     }
+    
+    
+    //Easy to test
+    func createMetaData(optimizedRefs: [TxRef], balance : Int, brkey : BRKey, sendAddresses : [String], amounts : [Int], feeValue : Int  ){
+        self.txData = TxData(txrefs: optimizedRefs, balance: Int(balance) , brkey: brkey, sendAddresses: sendAddresses, amounts: amounts , selectedFee: feeValue)
+    }
+    
     
     
     func createTransaction(){
@@ -167,4 +175,5 @@ public class Transaction : NSObject {
     func sendTransaction(){
         
     }
+    
 }

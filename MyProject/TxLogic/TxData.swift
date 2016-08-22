@@ -14,12 +14,12 @@ struct InputModel {
     let values : [Int]
 }
 
-class TxData {
+public class TxData {
     //User Input Varaibles
     let brkey : BRKey
-    let sendAddress : String
+    let sendAddresses : [String]
     var input : InputModel
-    let amount : Int
+    let amounts : [Int]
     let balance : Int
     let fee : Int
     
@@ -28,12 +28,12 @@ class TxData {
     var miners_fee : Int?
     
     
-    internal init(txrefs : [TxRef], balance : UInt64 , brkey : BRKey ,  sendAddress : String, amount : Int , selectedFee: Int  ){
+    public init(txrefs : [TxRef], balance : Int , brkey : BRKey ,  sendAddresses : [String], amounts : [Int] , selectedFee: Int  ){
         
         self.brkey = brkey
-        self.sendAddress = sendAddress
-        self.amount = amount
-        self.balance = Int( balance )
+        self.sendAddresses = sendAddresses
+        self.amounts = amounts
+        self.balance = balance
         self.fee = selectedFee
         
         var hashes = [String]()
@@ -70,6 +70,8 @@ class TxData {
     }    
     
     func createOuputModelByInputAndAmount() -> OutputModel {
+        
+        
         return OutputModel(addresses: ["yreqi"], amounts: [1])
     }
     

@@ -660,7 +660,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProjectTesting/MyProjectTesting.swift"
@@ -673,14 +673,14 @@
             landmarkType = "5">
             <Locations>
                <Location
-                  shouldBeEnabled = "No"
+                  shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "MyProjectTesting.MyProjectTests.(testGetFullAdressFunction () -&gt; ()).(closure #1)"
                   moduleName = "MyProjectTesting"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProjectTesting/MyProjectTesting.swift"
-                  timestampString = "492897981.621821"
+                  timestampString = "493577487.00433"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "104"
@@ -688,14 +688,14 @@
                   offsetFromSymbolStart = "30">
                </Location>
                <Location
-                  shouldBeEnabled = "No"
+                  shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "MyProjectTesting.MyProjectTests.(testGetFullAdressFunction () -&gt; ()).(closure #1)"
                   moduleName = "MyProjectTesting"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProjectTesting/MyProjectTesting.swift"
-                  timestampString = "492897981.62203"
+                  timestampString = "493577487.004554"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "104"
@@ -991,6 +991,133 @@
             endingLineNumber = "82"
             landmarkName = "stopReading()"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/TxLogic/Transaction.swift"
+            timestampString = "493573124.919538"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "optimizeInputsByAmount(_:ui_amount:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/TxLogic/Transaction.swift"
+            timestampString = "493573127.291388"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "createArrayFromArrayAndIndex(_:index:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProjectTesting/UsingTransactionsTests.swift"
+            timestampString = "493573299.065057"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "testOptimizeImports()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProjectTesting/UsingTransactionsTests.swift"
+            timestampString = "493573797.54908"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "testOptimizeImports()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyProjectTesting.UsingTransactionsTests.testOptimizeImports () -&gt; ()"
+                  moduleName = "MyProjectTesting"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProjectTesting/UsingTransactionsTests.swift"
+                  timestampString = "493577487.004947"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "85"
+                  endingLineNumber = "85"
+                  offsetFromSymbolStart = "2367">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyProjectTesting.UsingTransactionsTests.(testOptimizeImports () -&gt; ()).(implicit closure #1)"
+                  moduleName = "MyProjectTesting"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProjectTesting/UsingTransactionsTests.swift"
+                  timestampString = "493577487.005266"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "85"
+                  endingLineNumber = "85"
+                  offsetFromSymbolStart = "33">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyProjectTesting.UsingTransactionsTests.(testOptimizeImports () -&gt; ()).(implicit closure #2)"
+                  moduleName = "MyProjectTesting"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProjectTesting/UsingTransactionsTests.swift"
+                  timestampString = "493577487.005661"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "85"
+                  endingLineNumber = "85"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/TxLogic/TxData.swift"
+            timestampString = "493577419.948111"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "TxData"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

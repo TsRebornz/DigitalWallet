@@ -37,5 +37,7 @@ class UsingBrKeyTests: XCTestCase {
         XCTAssert(key?.privateKey == wifStandart, "Wif not uncompressed and testnet")
         print("key privateKey \(key?.privateKey) wifStandart \(wifStandart)")
     }
+    
+    
 
 }

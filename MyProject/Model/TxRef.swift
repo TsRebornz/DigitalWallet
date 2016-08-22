@@ -26,4 +26,18 @@ public class TxRef : Decodable{
         self.double_spent = "double_spent" <~~ json
         self.spent_by = "spent_by" <~~ json
     }
+    
+    public init(tx_hash: String , block_heigth : UInt64, tx_input_n : UInt64 , tx_output_n : UInt64 , value : Int, ref_balance : UInt64, spent : Bool , script : String, confirmations : UInt64 ){
+        self.tx_hash = tx_hash
+        self.block_heigth = block_heigth
+        self.tx_input_n = tx_input_n
+        self.tx_output_n = tx_output_n
+        self.value = value
+        self.ref_balance = ref_balance
+        self.spent = spent
+        self.script = script
+        self.confirmations = confirmations
+        self.double_spent = nil
+        self.spent_by = nil
+    }
 }

@@ -52,6 +52,4 @@ class DataValidationTests: XCTestCase {
         XCTAssert(result == WifTestNet , "Incorrect WIF uncompressed pkFormat")
     }
     
-    
-
 }
