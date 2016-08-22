@@ -87,29 +87,66 @@ public class Transaction : NSObject {
     
     
     //Allow to use minimal inputs in forming transaction
-    func optimizeInputsAccordingToAmount() -> [TxRef] {
+    //Version 1.0
+    func optimizeInputsAccordingToAmount(inputs: [TxRef]) -> [TxRef] {
         var optimized_txrefs = [TxRef]()
         if nil != (self.address as! Address).address  {
             let t_address : Address =  self.address as! Address
             //Sort txRefs by value
             let ui_amount = self.amount
-            let sorted_txrefs = t_address.txsrefs!.sort( { s1, s2 in return s1.value < s2.value } )
+            let sorted_txrefs = inputs.sort( { s1, s2 in return s1.value < s2.value } )
             var utxo_sum_val : Int = 0
             for txref in sorted_txrefs {
                 utxo_sum_val += txref.value!
                 optimized_txrefs += [txref]
-                guard utxo_sum_val > ui_amount && utxo_sum_val - ui_amount > default_max_fee else {
+                let fee = utxo_sum_val - ui_amount
+                guard utxo_sum_val > ui_amount && fee > default_max_fee else {
                     return optimized_txrefs
                 }
             }
         }
         return optimized_txrefs
     }
+    
+    //Version 2.0
+    func optimizeInputsByAmount(inputs: [TxRef], ui_amount : Int ) -> [TxRef]{
+        // We know what balance > ui_amount
+        var optimized_txrefs = [TxRef]()        
+        var sorted_tx_refs = inputs.sort( { s1, s2 in return s1.value < s2.value } )
+        let amountAndFee = ui_amount + default_max_fee
+        var utxo_sum_val : Int = 0
+        for (index, tx_ref) in sorted_tx_refs.enumerate() {
+            utxo_sum_val += tx_ref.value!            
+            if ( utxo_sum_val > amountAndFee ){
+                optimized_txrefs = createArrayFromArrayAndIndex(sorted_tx_refs, index: index)
+                break
+            }else if((amountAndFee - utxo_sum_val) < (sorted_tx_refs[(index+1)].value! - sorted_tx_refs[index].value!) ) {
+                // Swap tx_refs
+                let tempValue = sorted_tx_refs[index]
+                sorted_tx_refs[index] = sorted_tx_refs[index+1]
+                sorted_tx_refs[index+1] = tempValue
+                optimized_txrefs = createArrayFromArrayAndIndex(sorted_tx_refs, index: index)
+                break
+            }
+            
+        }
+        return optimized_txrefs
+    }
+    
+    func createArrayFromArrayAndIndex(inputArray: [TxRef], index : Int) -> [TxRef]{
+        let optimized_txrefs = Array(inputArray[0..<index])
+        return optimized_txrefs
+    }
+    
+
+//    for (index, value) in shoppingList.enumerate() {
+//    print("Item \(index + 1): \(value)")
+//    }
    
     //HINT: Dont forget to optimize inputs optimizeInputsAccordingToAmount
     func prepareMetaDataForTx(){
         //Initialization        
-        let otimizedTsRefs : [TxRef] = optimizeInputsAccordingToAmount()
+        let otimizedTsRefs : [TxRef] = optimizeInputsByAmount((self.address as! Address).txsrefs! , ui_amount: self.amount )
         let addressModel : Address = self.address as! Address
         guard let t_balance = addressModel.balance else {
             return
