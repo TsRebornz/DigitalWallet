@@ -40,10 +40,11 @@ class UsingTransactionsTests: TestBase {
 //        XCTAssertNotNil(self.testTransaction.address, "Test Address is nil")
 //    }
     
-    func testOptimizeImports(){
-        let transaction : Transaction = self.createTransactionTestObjectWithEmptyAddres()
-        transaction.address = Address()
+    func testOptimizeImports(){        
         let ui_amount = 1650000
+        let transaction : Transaction = self.createTransactionTestObjectWithEmptyAddres(ui_amount)
+        transaction.address = Address()
+        
         let txref_a : TxRef = self.createTestObjectTxRef(1500000)
         let txref_b : TxRef = self.createTestObjectTxRef(1200000)
         let txref_c : TxRef = self.createTestObjectTxRef(200000)
@@ -54,9 +55,8 @@ class UsingTransactionsTests: TestBase {
         address.txsrefs?.append(txref_b)
         address.txsrefs?.append(txref_c)
         address.txsrefs?.append(txref_d)
-        let txRefs : [TxRef] = transaction.optimizeInputsByAmount(address.txsrefs!, ui_amount: ui_amount)
-        XCTAssert(txRefs.count == 3 , "Bad tx opimiztion")
-        
+        let optimizedInputs : [TxRef] = transaction.optimizeInputsByAmount( address.txsrefs! , ui_amount: ui_amount)
+        XCTAssert(optimizedInputs.count == 3 , "Bad tx opimiztion")
     }
     
     func testPrepareTxDataForTransaction(){
@@ -67,7 +67,7 @@ class UsingTransactionsTests: TestBase {
         let amounts = 350000
         let feeValue = 60
         let brKey : BRKey = BRKey(privateKey: privateKey, testnet: testnet)!
-        let transaction : Transaction = self.createTransactionTestObjectWithEmptyAddres()
+        let transaction : Transaction = self.createTransactionTestObjectWithEmptyAddres(amounts)
         transaction.address = Address()
         let txref_a : TxRef = self.createTestObjectTxRef(200000)
         let txref_b : TxRef = self.createTestObjectTxRef(300000)
@@ -89,16 +89,44 @@ class UsingTransactionsTests: TestBase {
     }
     
     
-//    func testCalculateAdditionalMetaData(){
-//        var txData : TxData = self.createTestTxData()
-//        txData.calculateVariables()
-//        XCTAssert(false, "Output and fee values doesn't calculated")
-//    }        
-    
-    
-    
+    func testCalculateAdditionalMetaData(){
+        let txData : TxData = self.createTestTxData()
+        txData.calculateVariables()
+        XCTAssert((txData.output?.addresses)! != (txData.output?.amounts)! , "Addresses count not equal amounts count" )
+    }        
+            
     func testCreateTransaction(){
+        //Init transaction
+        let testnet = true
+        let privateKey : String = "cSF9RngdtVNaKpbsH6eBgWGm8xFNc3ViRXgZpfQddQxaGe2G4uXJ"
+        let brKey : BRKey = BRKey(privateKey: privateKey, testnet: testnet)!
+        let balance = 100000000
         
+        let amountToSend = 58000000
+        
+        let txref_a : TxRef = self.createTestObjectTxRef(50000000)
+        let txref_b : TxRef = self.createTestObjectTxRef(4500000)
+        let txref_c : TxRef = self.createTestObjectTxRef(15500000)
+        let txref_d : TxRef = self.createTestObjectTxRef(30000000)
+        
+        var refs : [TxRef] = [TxRef]()
+        refs.append(txref_a)
+        refs.append(txref_b)
+        refs.append(txref_c)
+        refs.append(txref_d)
+        
+        let transaction : Transaction = createTransactionTestObjectWithEmptyAddres(amountToSend)
+        
+        transaction.address = Address(address: brKey.address!, total_received: 0, total_sent: 0, balance: balance, unconfirmed_balance: 0, final_balance: UInt64(balance), n_tx: 0, unconfirmed_n_tx: 0, final_n_tx: 0, txrefs: refs)
+        
+        
+        transaction.prepareMetaDataForTx()
+        transaction.calculateVariablesForMetaData()
+        transaction.createTransaction()
+        
+        XCTAssert(nil != transaction.transaction, "Transaction not created")
+        transaction.signTransaction()
+        let rawTxData = transaction.transaction?.getRawTxDataStr()
     }
     
     func testSendTransaction(){

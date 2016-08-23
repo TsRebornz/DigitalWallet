@@ -8,14 +8,18 @@ import Foundation
 
 public class TestBase : XCTestCase {
     
-    func createTransactionTestObjectWithEmptyAddres() -> Transaction{
+    let privateKey : String = "cSF9RngdtVNaKpbsH6eBgWGm8xFNc3ViRXgZpfQddQxaGe2G4uXJ"
+    let sendAddress : String = "moVeRgCBbJj1w7nhzzoSCffVJTpwH8N8SH"
+    
+    
+    func createTransactionTestObjectWithEmptyAddres(amount : Int) -> Transaction{
         //User input variables
         let testnet = true
-        let privateKey : String = "92eByNE4NdnfpK31XV2o1iD9Bir6eLASeyDqq46YzkogTBb3HZH"
+        let privateKey : String = self.privateKey
         let brkey : BRKey = BRKey(privateKey: privateKey, testnet: testnet)!
-        let sendAddress = "mzSetpsidLwd2nhwSTeBv8uNVuGQDs3wdY"
+        let sendAddress = self.sendAddress
         let fee = 60
-        let amount = 1500000
+        let amount = amount
         let transaction : Transaction = Transaction(brkey: brkey, sendAddress: sendAddress, fee: fee, amount: amount, testnet: testnet)
         return transaction
     }
@@ -36,7 +40,7 @@ public class TestBase : XCTestCase {
     
     func createTestTxData() -> TxData {
         let txref_a : TxRef = self.createTestObjectTxRef(200000)
-        let txref_b : TxRef = self.createTestObjectTxRef(250000)
+        let txref_b : TxRef = self.createTestObjectTxRef(300000)
         
         var optimizedRefs : [TxRef] = [TxRef]()
         optimizedRefs.append(txref_a)
@@ -45,10 +49,10 @@ public class TestBase : XCTestCase {
         let balance : Int = 15000000
         
         let testnet = true
-        let privateKey : String = "cSF9RngdtVNaKpbsH6eBgWGm8xFNc3ViRXgZpfQddQxaGe2G4uXJ"
+        let privateKey : String = self.privateKey
         let brKey = BRKey(privateKey: privateKey, testnet: testnet)
         
-        let sendAddresses = "moVeRgCBbJj1w7nhzzoSCffVJTpwH8N8SH"
+        let sendAddresses = self.sendAddress
         
         let amount = 500000
         

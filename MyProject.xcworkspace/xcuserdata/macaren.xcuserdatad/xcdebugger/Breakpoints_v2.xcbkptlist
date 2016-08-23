@@ -680,7 +680,7 @@
                   moduleName = "MyProjectTesting"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProjectTesting/MyProjectTesting.swift"
-                  timestampString = "493652355.871833"
+                  timestampString = "493662030.479416"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "104"
@@ -695,7 +695,7 @@
                   moduleName = "MyProjectTesting"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProjectTesting/MyProjectTesting.swift"
-                  timestampString = "493652355.872032"
+                  timestampString = "493662030.479753"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "104"
@@ -808,11 +808,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/TxLogic/Transaction.swift"
-            timestampString = "493062745.217227"
+            timestampString = "493655066.677329"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
             landmarkName = "getAddressFromApi()"
             landmarkType = "5">
          </BreakpointContent>
@@ -840,11 +840,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/TxLogic/Transaction.swift"
-            timestampString = "493062745.217227"
+            timestampString = "493655066.677329"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "getAddressFromApi()"
             landmarkType = "5">
          </BreakpointContent>
@@ -856,11 +856,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/TxLogic/Transaction.swift"
-            timestampString = "493062745.217227"
+            timestampString = "493655066.677329"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "addressUpdated()"
             landmarkType = "5">
          </BreakpointContent>
@@ -872,7 +872,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/TxLogic/Transaction.swift"
-            timestampString = "493062745.217227"
+            timestampString = "493655952.973645"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "47"
@@ -984,11 +984,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/TxLogic/Transaction.swift"
-            timestampString = "493652302.134849"
+            timestampString = "493661783.184674"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
             landmarkName = "optimizeInputsByAmount(_:ui_amount:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1000,11 +1000,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/TxLogic/Transaction.swift"
-            timestampString = "493652302.134849"
+            timestampString = "493661783.184674"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
             landmarkName = "createArrayFromArrayAndIndex(_:index:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1016,11 +1016,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProjectTesting/UsingTransactionsTests.swift"
-            timestampString = "493651747.403107"
+            timestampString = "493661516.66265"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
             landmarkName = "testOptimizeImports()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1032,11 +1032,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProjectTesting/UsingTransactionsTests.swift"
-            timestampString = "493651747.403107"
+            timestampString = "493661516.66265"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "testOptimizeImports()"
             landmarkType = "5">
             <Locations>
@@ -1165,6 +1165,38 @@
                   offsetFromSymbolStart = "4">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/TxLogic/TxData.swift"
+            timestampString = "493661516.66265"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "calculateVariables()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProjectTesting/UsingTransactionsTests.swift"
+            timestampString = "493662027.924865"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "testCreateTransaction()"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -15,7 +15,7 @@ public class Transaction : NSObject {
     
     public var address : AnyObject?
     
-    private var transaction : BRTransaction?
+    public var transaction : BRTransaction?
     
     public var txData : TxData?
     
@@ -40,11 +40,11 @@ public class Transaction : NSObject {
         self.address = Address()
         
         self.transaction = nil
-        self.txData = nil        
+        self.txData = nil
     }
     
     public func getAddress() {
-        //NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(addressUpdated), name: "blockcypher.api.addressupdated", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(addressUpdated), name: "blockcypher.api.addressupdated", object: nil)
         if (nil == (self.address as! Address).address ){
             self.getAddressFromApi()
             
@@ -74,13 +74,31 @@ public class Transaction : NSObject {
                     return
                 }
                 self.address = t_address
-                //NSNotificationCenter.defaultCenter().postNotificationName("blockcypher.api.addressupdated", object: self.address)
+                NSNotificationCenter.defaultCenter().postNotificationName("blockcypher.api.addressupdated", object: self.address)
             })
         }
     }
     
     public func addressUpdated(){
         NSException(name: "Transaction.getAddres", reason: "AddressUpdated", userInfo: nil).raise()
+    }
+    
+    func prepareMetaDataForTx(){
+        //Initialization
+        let otimizedTsRefs : [TxRef] = optimizeInputsByAmount((self.address as! Address).txsrefs! , ui_amount: self.amount )
+        let addressModel : Address = self.address as! Address
+        guard let t_balance = addressModel.balance else {
+            return
+        }
+        self.createMetaData(otimizedTsRefs, balance: Int(t_balance), brkey: self.brkey, sendAddresses: [self.sendAddress], amounts: [self.amount], feeValue: self.fee)
+    }
+    
+    func calculateVariablesForMetaData() {
+        guard let t_txdata = self.txData else {
+            NSException(name: "TransactionCreateExceiption", reason: "TxData is nil", userInfo: nil).raise()
+            return
+        }
+        t_txdata.calculateVariables()
     }
     
     //Version 2.0
@@ -117,18 +135,6 @@ public class Transaction : NSObject {
         return optimized_txrefs
     }
     
-    //HINT: Dont forget to optimize inputs optimizeInputsAccordingToAmount
-    func prepareMetaDataForTx(){
-        //Initialization        
-        let otimizedTsRefs : [TxRef] = optimizeInputsByAmount((self.address as! Address).txsrefs! , ui_amount: self.amount )
-        let addressModel : Address = self.address as! Address
-        guard let t_balance = addressModel.balance else {
-            return
-        }
-        self.createMetaData(otimizedTsRefs, balance: Int(t_balance), brkey: self.brkey, sendAddresses: [self.sendAddress], amounts: [self.amount], feeValue: self.fee)
-    }
-    
-    
     //Easy to test
     func createMetaData(optimizedRefs: [TxRef], balance : Int, brkey : BRKey, sendAddresses : [String], amounts : [Int], feeValue : Int  ){
         self.txData = TxData(txrefs: optimizedRefs, balance: Int(balance) , brkey: brkey, sendAddresses: sendAddresses, amounts: amounts , selectedFee: feeValue)
@@ -137,12 +143,28 @@ public class Transaction : NSObject {
     
     
     func createTransaction(){
-//        self.transaction = BRTransaction(inputHashes: self.txData?.input.ha,
-//                                            inputIndexes: TxData.inputIndexes,
-//                                            inputScripts: TxData.inputScripts,
-//                                            outputAddresses: TxData.outputScripts,
-//                                            outputAmounts: TxData.outputAmounts,
-//                                            isTesnet: self.testnet)
+        guard let t_txdata = self.txData else {
+            NSException(name: "TransactionCreateExceiption", reason: "TxData is nil", userInfo: nil).raise()
+            return
+        }
+        guard let t_output = t_txdata.output else {
+            NSException(name: "TransactionCreateExceiption", reason: "OutPut in TxData is nil", userInfo: nil).raise()
+            return
+        }
+        self.transaction = BRTransaction(inputHashes: t_txdata.input.hashes,
+                                            inputIndexes: t_txdata.input.indexes,
+                                            inputScripts: t_txdata.input.scripts,
+                                            outputAddresses: t_output.addresses,
+                                            outputAmounts: t_output.amounts,
+                                            isTesnet: self.testnet)
+    }
+    
+    func signTransaction(){
+        guard let t_tx = self.transaction else {
+            NSException(name: "TransactionSignExceiption", reason: "Transaction is nil, maybe forgotten to create it?", userInfo: nil).raise()
+            return
+        }
+        t_tx.signWithPrivateKeys([brkey.privateKey!])
     }
     
     func sendTransaction(){

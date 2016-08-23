@@ -60,6 +60,17 @@
          contextName = "MyProjectTests.(testRawTx() -&gt; ()).(closure #1):MyProjectTesting.swift">
       </ContextState>
       <ContextState
+         contextName = "UsingTransactionsTests.(testCreateOutputs() -&gt; ()).(implicit closure #3):UsingTransactionsTests.swift">
+      </ContextState>
+      <ContextState
+         contextName = "UsingTransactionsTests.testCreateTransaction() -&gt; ():UsingTransactionsTests.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "rawTxData.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "MyProjectTests.(testPushRawTx() -&gt; ()).(closure #1).(implicit closure #1):MyProjectTesting.swift">
       </ContextState>
       <ContextState

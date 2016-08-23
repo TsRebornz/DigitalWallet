@@ -27,7 +27,6 @@ public class TxData {
     var output : OutputModel?
     
     public init?(txrefs : [TxRef], balance : Int , brkey : BRKey ,  sendAddresses : [String], amounts : [Int] , selectedFee: Int  ){
-        
         guard sendAddresses.count == amounts.count else {
             NSException(name: "TxDataInitException", reason: "Sendaddresse count must equal amounts count", userInfo: nil).raise()
             return nil
@@ -59,14 +58,13 @@ public class TxData {
     func calculateVariables(){
         
         let inputsCount = self.input.scripts.count
-        let outputsCount = self.output?.addresses.count
+        let outputsCount = self.sendAddresses.count
 
-        let miners_fee = TXService.calculateMinersFee(inputsCount, outputsCount: outputsCount!, fee: self.fee)
+        let miners_fee = TXService.calculateMinersFee(inputsCount, outputsCount: outputsCount, fee: self.fee)
         createOuputModelByInputAndAmount(miners_fee)
     }
     
     func createOuputModelByInputAndAmount(minersFee : Int )  {
-        
         var adressesArr = [String]()
         adressesArr += self.sendAddresses
         var amountsArr = [Int]()
