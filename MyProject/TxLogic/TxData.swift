@@ -25,10 +25,13 @@ public class TxData {
     
     //Calculatable variables
     var output : OutputModel?
-    var miners_fee : Int?
     
-    
-    public init(txrefs : [TxRef], balance : Int , brkey : BRKey ,  sendAddresses : [String], amounts : [Int] , selectedFee: Int  ){
+    public init?(txrefs : [TxRef], balance : Int , brkey : BRKey ,  sendAddresses : [String], amounts : [Int] , selectedFee: Int  ){
+        
+        guard sendAddresses.count == amounts.count else {
+            NSException(name: "TxDataInitException", reason: "Sendaddresse count must equal amounts count", userInfo: nil).raise()
+            return nil
+        }
         
         self.brkey = brkey
         self.sendAddresses = sendAddresses
@@ -53,26 +56,28 @@ public class TxData {
         self.output = nil
     }
     
-    // Initialize
-    // OpitmizeInputs
-    // CalculateVariables
-        
-    func optimizeInputs(){
-        
-    }
-    
     func calculateVariables(){
-        self.output = createOuputModelByInputAndAmount()
+        
         let inputsCount = self.input.scripts.count
         let outputsCount = self.output?.addresses.count
 
-        self.miners_fee = TXService.calculateMinersFee(inputsCount, outputsCount: outputsCount!, fee: self.fee)
-    }    
+        let miners_fee = TXService.calculateMinersFee(inputsCount, outputsCount: outputsCount!, fee: self.fee)
+        createOuputModelByInputAndAmount(miners_fee)
+    }
     
-    func createOuputModelByInputAndAmount() -> OutputModel {
+    func createOuputModelByInputAndAmount(minersFee : Int )  {
         
+        var adressesArr = [String]()
+        adressesArr += self.sendAddresses
+        var amountsArr = [Int]()
+        amountsArr += self.amounts
+        let sumAmmounts = amountsArr.reduce(0, combine: +)
+        let fee_yourself = self.balance - sumAmmounts - minersFee
+        let selfAddress = brkey.address
+        adressesArr += [selfAddress!]
+        amountsArr += [fee_yourself]
         
-        return OutputModel(addresses: ["yreqi"], amounts: [1])
+        self.output = OutputModel(addresses: adressesArr, amounts: amountsArr)
     }
     
 }

@@ -34,4 +34,28 @@ public class TestBase : XCTestCase {
         return testTxRef
     }
     
+    func createTestTxData() -> TxData {
+        let txref_a : TxRef = self.createTestObjectTxRef(200000)
+        let txref_b : TxRef = self.createTestObjectTxRef(250000)
+        
+        var optimizedRefs : [TxRef] = [TxRef]()
+        optimizedRefs.append(txref_a)
+        optimizedRefs.append(txref_b)
+        
+        let balance : Int = 15000000
+        
+        let testnet = true
+        let privateKey : String = "cSF9RngdtVNaKpbsH6eBgWGm8xFNc3ViRXgZpfQddQxaGe2G4uXJ"
+        let brKey = BRKey(privateKey: privateKey, testnet: testnet)
+        
+        let sendAddresses = "moVeRgCBbJj1w7nhzzoSCffVJTpwH8N8SH"
+        
+        let amount = 500000
+        
+        let fee = 60
+        
+        let txData = TxData(txrefs: optimizedRefs, balance: balance, brkey: brKey!, sendAddresses: [sendAddresses], amounts: [amount], selectedFee: fee)
+        return txData!
+    }
+    
 }

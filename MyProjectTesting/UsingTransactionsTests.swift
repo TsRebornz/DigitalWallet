@@ -13,34 +13,17 @@ class UsingTransactionsTests: TestBase {
      NSException(name: "TransactionAddresGetException", reason: "Addres get failed", userInfo: nil).raise()
     */
     
-    
-    
     let defaultTimeOut: NSTimeInterval = 45
     
     var testTransaction : Transaction!
     
     override func setUp() {
         super.setUp()
-        //self.testTransaction = createTransactionTestObject()
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    
-//    func testResetButtonEnabledOnceRaceComplete() {
-//        let expectation = keyValueObservingExpectationForObject(viewController.resetButton,
-//                                                                keyPath: "enabled",
-//                                                                expectedValue: true)
-//        
-//        // Simulate tapping the start race button
-//        viewController.handleStartRaceButton(viewController.startRaceButton)
-//        
-//        // Wait for the test to run
-//        waitForExpectationsWithTimeout(5, handler: nil)
-//    }
     
 //    func testTransactionClassGetAddressFromApi() {
 //
@@ -57,20 +40,10 @@ class UsingTransactionsTests: TestBase {
 //        XCTAssertNotNil(self.testTransaction.address, "Test Address is nil")
 //    }
     
-//    func testTransactionClass() {
-//        //Expectation
-//        
-//        //User input variables
-//        self.testTransaction.getAddress()
-//        
-//        self.testTransaction.optimizeInputsAccordingToAmount()
-//        self.testTransaction.prepareMetaDataForTx()
-//        
-//    }
-    
     func testOptimizeImports(){
         let transaction : Transaction = self.createTransactionTestObjectWithEmptyAddres()
         transaction.address = Address()
+        let ui_amount = 1650000
         let txref_a : TxRef = self.createTestObjectTxRef(1500000)
         let txref_b : TxRef = self.createTestObjectTxRef(1200000)
         let txref_c : TxRef = self.createTestObjectTxRef(200000)
@@ -81,7 +54,7 @@ class UsingTransactionsTests: TestBase {
         address.txsrefs?.append(txref_b)
         address.txsrefs?.append(txref_c)
         address.txsrefs?.append(txref_d)
-        let txRefs : [TxRef] = transaction.optimizeInputsByAmount(address.txsrefs!, ui_amount: 600000)
+        let txRefs : [TxRef] = transaction.optimizeInputsByAmount(address.txsrefs!, ui_amount: ui_amount)
         XCTAssert(txRefs.count == 3 , "Bad tx opimiztion")
         
     }
@@ -97,7 +70,7 @@ class UsingTransactionsTests: TestBase {
         let transaction : Transaction = self.createTransactionTestObjectWithEmptyAddres()
         transaction.address = Address()
         let txref_a : TxRef = self.createTestObjectTxRef(200000)
-        let txref_b : TxRef = self.createTestObjectTxRef(250000)
+        let txref_b : TxRef = self.createTestObjectTxRef(300000)
         
         var optimizedRefs : [TxRef] = [TxRef]()
         optimizedRefs.append(txref_a)
@@ -107,13 +80,22 @@ class UsingTransactionsTests: TestBase {
         XCTAssert( nil != transaction.txData , "TxData not created" )
     }
     
-//    func testCalculateAdditionalMetaData(){
-//        XCTAssert(<#T##expression: BooleanType##BooleanType#>)
-//    }
-    
     func testCreateOutputs(){
-        
+        let minersFee = 60
+        let txData : TxData = self.createTestTxData()
+        txData.createOuputModelByInputAndAmount(minersFee)
+        XCTAssert( nil != txData.output , "Output is nil")
+        XCTAssert( (txData.output?.addresses)! != (txData.output?.amounts)! , "Addresses count not equal amounts count" )
     }
+    
+    
+//    func testCalculateAdditionalMetaData(){
+//        var txData : TxData = self.createTestTxData()
+//        txData.calculateVariables()
+//        XCTAssert(false, "Output and fee values doesn't calculated")
+//    }        
+    
+    
     
     func testCreateTransaction(){
         

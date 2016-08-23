@@ -2,8 +2,11 @@ import Foundation
 
 class TXService {
     
+    static let averageInputCost : Int = 146
+    static let averageOuputCost : Int = 33
+    
     class func calculateMinersFee(inputsCount : Int, outputsCount : Int, fee : Int ) -> Int {
-        let aprTxBytes : Int = TXService.aproximateSizeInBytes(inputsCount, outputsCount: outputsCount)
+        let aprTxBytes : Int = TXService.aproximateSizeInBytes(inputsCount, outputsCount: outputsCount, isNeedFee: true)
         return aprTxBytes * fee
     }
     
@@ -11,9 +14,10 @@ class TXService {
         
     }
     
-    private class func aproximateSizeInBytes(inputsCount : Int, outputsCount : Int) -> Int
+    private class func aproximateSizeInBytes(inputsCount : Int, outputsCount : Int, isNeedFee : Bool) -> Int
     {
-        return 180 * inputsCount + 34 * outputsCount + 10
+        let outPutToSelf = 1
+        return averageInputCost * inputsCount + averageOuputCost * (outputsCount + ( isNeedFee ? outPutToSelf : 0 ) ) + 10
     }
 }
 

@@ -40,8 +40,7 @@ public class Transaction : NSObject {
         self.address = Address()
         
         self.transaction = nil
-        self.txData = nil
-        
+        self.txData = nil        
     }
     
     public func getAddress() {
@@ -84,34 +83,13 @@ public class Transaction : NSObject {
         NSException(name: "Transaction.getAddres", reason: "AddressUpdated", userInfo: nil).raise()
     }
     
-    
-    
-    //Allow to use minimal inputs in forming transaction
-    //Version 1.0
-    func optimizeInputsAccordingToAmount(inputs: [TxRef]) -> [TxRef] {
-        var optimized_txrefs = [TxRef]()
-        if nil != (self.address as! Address).address  {
-            let t_address : Address =  self.address as! Address
-            //Sort txRefs by value
-            let ui_amount = self.amount
-            let sorted_txrefs = inputs.sort( { s1, s2 in return s1.value < s2.value } )
-            var utxo_sum_val : Int = 0
-            for txref in sorted_txrefs {
-                utxo_sum_val += txref.value!
-                optimized_txrefs += [txref]
-                let fee = utxo_sum_val - ui_amount
-                guard utxo_sum_val > ui_amount && fee > default_max_fee else {
-                    return optimized_txrefs
-                }
-            }
-        }
-        return optimized_txrefs
-    }
-    
     //Version 2.0
-    //Алгоритм стремиться потратить самые UTXO с самыми маленькими значениями
     func optimizeInputsByAmount(inputs: [TxRef], ui_amount : Int ) -> [TxRef]{
         // We know what balance > ui_amount
+        guard inputs.count > 1 else{
+            return inputs
+        }
+        
         var optimized_txrefs = [TxRef]()        
         var sorted_tx_refs = inputs.sort( { s1, s2 in return s1.value < s2.value } )
         let amountAndFee = ui_amount + default_max_fee
@@ -139,11 +117,6 @@ public class Transaction : NSObject {
         return optimized_txrefs
     }
     
-
-//    for (index, value) in shoppingList.enumerate() {
-//    print("Item \(index + 1): \(value)")
-//    }
-   
     //HINT: Dont forget to optimize inputs optimizeInputsAccordingToAmount
     func prepareMetaDataForTx(){
         //Initialization        
