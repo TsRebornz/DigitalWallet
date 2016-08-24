@@ -28,6 +28,7 @@ public class SendViewController : UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         self.updateFeeData()
+        self.updateMinersFee()
         self.loadFeeData()
         //load address here
     }
@@ -61,14 +62,32 @@ public class SendViewController : UIViewController {
         }
     }
     
+    func updateMinersFee(){
+        self.feeValLbl?.text = "0"
+    }
+    
     //Actions
     @IBAction func cancel(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func inserBtnTapped(sender: AnyObject) {
-        
+        let pasteBoard = UIPasteboard.generalPasteboard().strings
+        if  ((addressTxtField.text?.isEmpty) != nil){
+            addressTxtField?.text = ""
+        }
+        addressTxtField?.text = pasteBoard?.last
+        //validator.validate(self)
     }
+    
+//    @IBAction func insertDataFromPasteBoard() {
+//        let pasteBoard = UIPasteboard.generalPasteboard().strings
+//        if  ((privateKeyTextField.text?.isEmpty) != nil){
+//            privateKeyTextField?.text = ""
+//        }
+//        privateKeyTextField?.text = pasteBoard?.last
+//        validator.validate(self)
+//    }
     
     @IBAction func qrCodeBtnTapped(sender: AnyObject) {
         
