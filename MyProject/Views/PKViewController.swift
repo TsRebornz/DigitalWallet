@@ -24,8 +24,7 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
         nextBtn.enabled = submited
         privateKeyTextField.layer.cornerRadius = 5
         privateKeyTextField.delegate = self
-        
-        
+                
         //Valiadtion in privateKeyTextField
         validator.registerField(privateKeyTextField, errorLabel: prkErrorLbl, rules: [RequiredRule(), PKBase58() ])
     }
@@ -65,11 +64,11 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
     public func textFieldDidEndEditing(textField: UITextField) {
         validator.validate(self)
     }
+    //end
 
     override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()        
     }
-    //end
     
     // ScanViewControllerDelegate
     

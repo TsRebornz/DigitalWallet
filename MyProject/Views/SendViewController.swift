@@ -1,9 +1,11 @@
 import Foundation
 import UIKit
+import SwiftValidator
 
-public class SendViewController : UIViewController {
+public class SendViewController : UIViewController, ValidationDelegate, UITextFieldDelegate {
         
     @IBOutlet weak var addressTxtField: UITextField!
+    @IBOutlet weak var errorLabel : UILabel?
     
     @IBOutlet weak var ffLbl : UILabel?
     @IBOutlet weak var hhLbl : UILabel?
@@ -16,6 +18,8 @@ public class SendViewController : UIViewController {
     @IBOutlet weak var amountTxtField: UITextField!
     
     @IBOutlet weak var feeValLbl : UILabel?
+    
+    let validator = Validator()
     
     var address : Address?
     var feeData : Fee?
@@ -30,7 +34,11 @@ public class SendViewController : UIViewController {
         self.updateFeeData()
         self.updateMinersFee()
         self.loadFeeData()
-        //load address here
+        addressTxtField.layer.cornerRadius = 5
+        addressTxtField.delegate = self        
+        
+        //Valiadtion in privateKeyTextField
+        validator.registerField(addressTxtField, errorLabel: errorLabel, rules: [RequiredRule(), AddressRule() ])
     }
     
     override public func didReceiveMemoryWarning() {
@@ -66,6 +74,38 @@ public class SendViewController : UIViewController {
         self.feeValLbl?.text = "0"
     }
     
+    //TextDelegate
+    public func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    public func textFieldDidEndEditing(textField: UITextField) {
+        validator.validate(self)
+    }
+    //End
+    
+    //Validtion
+    public func validationSuccessful(){
+        //nextBtn.enabled = true
+        addressTxtField.layer.borderColor = UIColor.greenColor().CGColor
+        addressTxtField.layer.borderWidth = 1.0
+        errorLabel!.hidden = true
+    }
+    
+    public func validationFailed(errors: [(Validatable, SwiftValidator.ValidationError)]){
+        // turn the fields to red
+        for (field, error) in errors {
+            if let field = field as? UITextField {
+                field.layer.borderColor = UIColor.redColor().CGColor
+                field.layer.borderWidth = 1.0
+            }
+            error.errorLabel?.text = error.errorMessage // works if you added labels
+            error.errorLabel?.hidden = false            
+        }
+    }
+    //End
+    
     //Actions
     @IBAction func cancel(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -77,7 +117,7 @@ public class SendViewController : UIViewController {
             addressTxtField?.text = ""
         }
         addressTxtField?.text = pasteBoard?.last
-        //validator.validate(self)
+        validator.validate(self)
     }
     
 //    @IBAction func insertDataFromPasteBoard() {

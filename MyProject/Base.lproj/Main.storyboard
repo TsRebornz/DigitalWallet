@@ -514,7 +514,7 @@
                                     </switch>
                                 </subviews>
                             </stackView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3LO-hj-f8P">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3LO-hj-f8P">
                                 <rect key="frame" x="35" y="112" width="530" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="7"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -588,18 +588,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ValError" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ZT-0t-e9H">
-                                <rect key="frame" x="502" y="95" width="61" height="17"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="61" id="3fS-P6-s4c"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="140" translatesAutoresizingMaskIntoConstraints="NO" id="Hdr-j5-4YR">
-                                <rect key="frame" x="107" y="406" width="42" height="21"/>
-                            </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rnJ-bt-zfS">
                                 <rect key="frame" x="226" y="482" width="149" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -608,6 +596,18 @@
                                     <action selector="acceptTxBtnTapped:" destination="Duz-W7-df1" eventType="touchUpInside" id="jAt-o6-kjl"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ValError" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ZT-0t-e9H">
+                                <rect key="frame" x="386" y="95" width="177" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="177" id="3fS-P6-s4c"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="140" translatesAutoresizingMaskIntoConstraints="NO" id="Hdr-j5-4YR">
+                                <rect key="frame" x="107" y="406" width="42" height="21"/>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -647,7 +647,7 @@
                             <constraint firstItem="oqF-0K-iAJ" firstAttribute="width" secondItem="cix-N9-KFo" secondAttribute="width" id="iGn-qY-ppm"/>
                             <constraint firstItem="2ZT-0t-e9H" firstAttribute="trailing" secondItem="ZBT-d4-h3b" secondAttribute="trailing" id="nN4-v2-mpo"/>
                             <constraint firstItem="3LO-hj-f8P" firstAttribute="top" secondItem="2ZT-0t-e9H" secondAttribute="bottom" id="ogq-Gb-zCc"/>
-                            <constraint firstItem="L5Q-hA-Tsg" firstAttribute="baseline" secondItem="2ZT-0t-e9H" secondAttribute="firstBaseline" id="p7w-CJ-zar"/>
+                            <constraint firstItem="L5Q-hA-Tsg" firstAttribute="baseline" secondItem="2ZT-0t-e9H" secondAttribute="firstBaseline" constant="3" id="p7w-CJ-zar"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qTh-uP-i6Q" secondAttribute="trailing" constant="20" id="qKS-UL-BDZ"/>
                             <constraint firstItem="3LO-hj-f8P" firstAttribute="centerX" secondItem="u9g-c0-3Um" secondAttribute="centerX" id="qeo-r5-hPL"/>
                             <constraint firstItem="vUr-28-Ih2" firstAttribute="centerX" secondItem="u9g-c0-3Um" secondAttribute="centerX" id="rpV-av-XTV"/>
@@ -674,6 +674,7 @@
                     <connections>
                         <outlet property="addressTxtField" destination="3LO-hj-f8P" id="Kls-DB-T7P"/>
                         <outlet property="amountTxtField" destination="6pG-vN-AYt" id="f4K-zs-V5N"/>
+                        <outlet property="errorLabel" destination="2ZT-0t-e9H" id="RX8-Nf-GO9"/>
                         <outlet property="feeValLbl" destination="Tm4-xi-nIU" id="ojA-Jt-DXO"/>
                         <outlet property="ffLbl" destination="53O-Gg-Hih" id="6uT-OZ-ddV"/>
                         <outlet property="ffSwitch" destination="Y3i-2e-3RP" id="gYg-Jl-qm7"/>
