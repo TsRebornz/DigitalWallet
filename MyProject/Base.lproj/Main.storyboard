@@ -328,7 +328,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <state key="normal" title="Send"/>
                                         <connections>
-                                            <segue destination="S4S-iF-ZTi" kind="show" id="ZhO-Ar-2gP"/>
+                                            <segue destination="S4S-iF-ZTi" kind="show" identifier="SendSegue" id="ZhO-Ar-2gP"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3VI-sz-WA5">

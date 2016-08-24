@@ -86,7 +86,10 @@ public class Transaction : NSObject {
     func prepareMetaDataForTx(){
         //Initialization
         let otimizedTsRefs : [TxRef] = optimizeInputsByAmount((self.address as! Address).txsrefs! , ui_amount: self.amount )
-        let addressModel : Address = self.address as! Address
+        guard let addressModel : Address = self.address as? Address else {
+            NSException(name: "TransactionPrepareMetaData", reason: "Wrong address data", userInfo: nil).raise()
+            return
+        }
         guard let t_balance = addressModel.balance else {
             return
         }

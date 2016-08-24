@@ -8,8 +8,8 @@ import Foundation
 
 public class TestBase : XCTestCase {
     
-    let privateKey : String = "cSF9RngdtVNaKpbsH6eBgWGm8xFNc3ViRXgZpfQddQxaGe2G4uXJ"
-    let sendAddress : String = "moVeRgCBbJj1w7nhzzoSCffVJTpwH8N8SH"
+    let privateKey : String = "92eByNE4NdnfpK31XV2o1iD9Bir6eLASeyDqq46YzkogTBb3HZH"
+    let sendAddress : String = "mzSetpsidLwd2nhwSTeBv8uNVuGQDs3wdY"
     
     
     func createTransactionTestObjectWithEmptyAddres(amount : Int) -> Transaction{

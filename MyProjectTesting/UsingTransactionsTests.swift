@@ -61,9 +61,9 @@ class UsingTransactionsTests: TestBase {
     
     func testPrepareTxDataForTransaction(){
         let testnet = true
-        let privateKey : String = "cSF9RngdtVNaKpbsH6eBgWGm8xFNc3ViRXgZpfQddQxaGe2G4uXJ"
+        let privateKey : String = self.privateKey
         let balance = 500000
-        let sendAddresses = "moVeRgCBbJj1w7nhzzoSCffVJTpwH8N8SH"
+        let sendAddresses = self.sendAddress
         let amounts = 350000
         let feeValue = 60
         let brKey : BRKey = BRKey(privateKey: privateKey, testnet: testnet)!
@@ -98,7 +98,7 @@ class UsingTransactionsTests: TestBase {
     func testCreateTransaction(){
         //Init transaction
         let testnet = true
-        let privateKey : String = "cSF9RngdtVNaKpbsH6eBgWGm8xFNc3ViRXgZpfQddQxaGe2G4uXJ"
+        let privateKey : String = self.privateKey
         let brKey : BRKey = BRKey(privateKey: privateKey, testnet: testnet)!
         let balance = 100000000
         
