@@ -1,7 +1,7 @@
 import Foundation
 import Gloss
 
-public class TxInput : Decodable{
+public class TxInput : Decodable {
     public let addresses : Array<String>
     public let output_index : UInt64?
     public let output_value : UInt64?

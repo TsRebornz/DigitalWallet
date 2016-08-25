@@ -1,7 +1,7 @@
 import Foundation
 import Gloss
 
-public class FullAddress : Decodable{
+public class FullAddress : Decodable {
     public let address : String?
     public let final_n_tx : UInt64? //Колличество подтврежденных транзакций
     public let final_balance : UInt64?
@@ -24,8 +24,10 @@ public class FullAddress : Decodable{
               let t_unconfirmed_n_tx : UInt64 = "unconfirmed_n_tx" <~~ json,
               let t_total_received : UInt64 = "total_received" <~~ json
         else { return nil }
+        
         guard let t_txs : [Tx] = "txs" <~~ json
         else { return nil }
+        
         self.address = t_address
         self.final_n_tx = t_final_n_tx
         self.final_balance = t_final_balance

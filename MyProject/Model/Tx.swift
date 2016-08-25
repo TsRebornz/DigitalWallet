@@ -1,7 +1,7 @@
 import Foundation
 import Gloss
 
-public class Tx : Decodable{
+public class Tx : Decodable {
     public let addresses : [String]?
     public let block_hash : String?
     public let block_height : UInt64?

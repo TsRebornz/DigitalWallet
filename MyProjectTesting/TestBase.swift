@@ -45,9 +45,7 @@ public class TestBase : XCTestCase {
         var optimizedRefs : [TxRef] = [TxRef]()
         optimizedRefs.append(txref_a)
         optimizedRefs.append(txref_b)
-        
-        let balance : Int = 15000000
-        
+                        
         let testnet = true
         let privateKey : String = self.privateKey
         let brKey = BRKey(privateKey: privateKey, testnet: testnet)
@@ -58,7 +56,7 @@ public class TestBase : XCTestCase {
         
         let fee = 60
         
-        let txData = TxData(txrefs: optimizedRefs, balance: balance, brkey: brKey!, sendAddresses: [sendAddresses], amounts: [amount], selectedFee: fee)
+        let txData = TxData(txrefs: optimizedRefs, brkey: brKey!, sendAddresses: [sendAddresses], amounts: [amount], selectedFee: fee)
         return txData!
     }
     

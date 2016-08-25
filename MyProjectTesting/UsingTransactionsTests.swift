@@ -62,7 +62,6 @@ class UsingTransactionsTests: TestBase {
     func testPrepareTxDataForTransaction(){
         let testnet = true
         let privateKey : String = self.privateKey
-        let balance = 500000
         let sendAddresses = self.sendAddress
         let amounts = 350000
         let feeValue = 60
@@ -76,7 +75,7 @@ class UsingTransactionsTests: TestBase {
         optimizedRefs.append(txref_a)
         optimizedRefs.append(txref_b)
         
-        transaction.createMetaData(optimizedRefs, balance: balance, brkey: brKey, sendAddresses: [sendAddresses], amounts: [amounts], feeValue: feeValue)
+        transaction.createMetaData(optimizedRefs, brkey: brKey, sendAddresses: [sendAddresses], amounts: [amounts], feeValue: feeValue)
         XCTAssert( nil != transaction.txData , "TxData not created" )
     }
     

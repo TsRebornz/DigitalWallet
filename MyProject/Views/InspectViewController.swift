@@ -112,8 +112,8 @@ public class InspectViewController : UIViewController {
         if let brk = self.brkey{
             adressLbl?.text = brk.brkey?.address
         }
-        self.generateQrCodeImage()
         self.updateBalance()
+        self.generateQrCodeImage()
     }
     
     func errorLoadingData(){

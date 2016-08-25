@@ -11,6 +11,4 @@ public class Fee : Decodable {
         self.halfHourFee = "halfHourFee" <~~ json
         self.hourFee = "hourFee" <~~ json
     }
-    
-    
 }

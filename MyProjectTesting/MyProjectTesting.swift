@@ -158,8 +158,7 @@ class MyProjectTests: TestBase {
     func testDecodeRawTx(){
         //Rest api variables
         let txRawData = "010000000146626a054c26fe64d26166d8c7c357b120e1b96ed3718813538c07f03de24874010000008b4830450221009d967b020d735cbb09f7a1ba1749d3567c20149adb6220c6ae749038b7d32b2a022032ef09cc0f323d46eb2ddaa1685d9fe482626f985112de21671249d51d9604870141041160ff19a135938a82e177784744af3901914e4a253e8694e154f603d2eab3b0e2f4c7ffb649ae424570c2802762b475a3692f4341dcb3cd9e1d1956ef3828dcffffffff02aa860100000000001976a9145781aca39c743a68b97e5f35cee622be3e60a20188ac363c1e01000000001976a9145781aca39c743a68b97e5f35cee622be3e60a20188ac00000000"
-            
-        
+                    
         let expectation = expectationWithDescription("Alamofire send raw tx check request")
         let parameters = ["tx" : txRawData ]
         let request = Alamofire.request(.POST, "https://api.blockcypher.com/v1/btc/test3/txs/decode?", parameters: parameters, encoding: .JSON )

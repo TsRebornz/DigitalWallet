@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import SwiftValidator
 
-public class SendViewController : UIViewController, ValidationDelegate, UITextFieldDelegate {
+public class SendViewController : UIViewController, ValidationDelegate, UITextFieldDelegate, ScanViewControllerDelegate {
         
     @IBOutlet weak var addressTxtField: UITextField!
     @IBOutlet weak var errorLabel : UILabel?
@@ -24,6 +24,8 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     var address : Address?
     var feeData : Fee?
     
+    var scanViewController : ScanViewController!
+    
     var GlobalUserInitiatedQueue: dispatch_queue_t {
         let qualityOfServiceClass = QOS_CLASS_USER_INITIATED
         return dispatch_get_global_queue(qualityOfServiceClass, 0)
@@ -39,6 +41,10 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         
         //Valiadtion in privateKeyTextField
         validator.registerField(addressTxtField, errorLabel: errorLabel, rules: [RequiredRule(), AddressRule() ])
+    }
+    
+    override public func viewWillAppear(animated: Bool) {
+        self.scanViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ScanViewController") as! ScanViewController
     }
     
     override public func didReceiveMemoryWarning() {
@@ -73,6 +79,16 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     func updateMinersFee(){
         self.feeValLbl?.text = "0"
     }
+    
+    //ScanViewControllerDelegate
+    
+    func DelegateScanViewController(controller: ScanViewController, dataFromQrCode : String?){
+        guard let t_dataQrCode = dataFromQrCode else {return}
+        self.addressTxtField.text = t_dataQrCode
+        validator.validate(self)
+    }
+    
+    //End
     
     //TextDelegate
     public func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -120,21 +136,14 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         validator.validate(self)
     }
     
-//    @IBAction func insertDataFromPasteBoard() {
-//        let pasteBoard = UIPasteboard.generalPasteboard().strings
-//        if  ((privateKeyTextField.text?.isEmpty) != nil){
-//            privateKeyTextField?.text = ""
-//        }
-//        privateKeyTextField?.text = pasteBoard?.last
-//        validator.validate(self)
-//    }
-    
     @IBAction func qrCodeBtnTapped(sender: AnyObject) {
-        
+        self.scanViewController.delegate = self
+        self.navigationController?.presentViewController(self.scanViewController , animated: true, completion: nil)
     }
     
     @IBAction func acceptTxBtnTapped(sender: AnyObject) {
         
     }
     //End
+    
 }

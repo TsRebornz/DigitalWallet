@@ -90,10 +90,7 @@ public class Transaction : NSObject {
             NSException(name: "TransactionPrepareMetaData", reason: "Wrong address data", userInfo: nil).raise()
             return
         }
-        guard let t_balance = addressModel.balance else {
-            return
-        }
-        self.createMetaData(otimizedTsRefs, balance: Int(t_balance), brkey: self.brkey, sendAddresses: [self.sendAddress], amounts: [self.amount], feeValue: self.fee)
+        self.createMetaData(otimizedTsRefs, brkey: self.brkey, sendAddresses: [self.sendAddress], amounts: [self.amount], feeValue: self.fee)
     }
     
     func calculateVariablesForMetaData() {
@@ -112,15 +109,17 @@ public class Transaction : NSObject {
         }
         
         var optimized_txrefs = [TxRef]()        
-        var sorted_tx_refs = inputs.sort( { s1, s2 in return s1.value < s2.value } )
+        var sorted_tx_refs = inputs.sort { $0.value < $1.value }
         let amountAndFee = ui_amount + default_max_fee
         var utxo_sum_val : Int = 0
+        
         for (index, tx_ref) in sorted_tx_refs.enumerate() {
             utxo_sum_val += tx_ref.value!            
-            if ( utxo_sum_val > amountAndFee ){
+            if ( utxo_sum_val > amountAndFee ) {
+                //optimized_txrefs = Array(sorted_tx_refs[0...index])
                 optimized_txrefs = createArrayFromArrayAndIndex(sorted_tx_refs, index: index)
                 break
-            }else if((amountAndFee - utxo_sum_val) < (sorted_tx_refs[(index+1)].value! - sorted_tx_refs[index].value!) ) {
+            } else if((amountAndFee - utxo_sum_val) < (sorted_tx_refs[(index+1)].value! - sorted_tx_refs[index].value!) ) {
                 // Swap tx_refs
                 let tempValue = sorted_tx_refs[index]
                 sorted_tx_refs[index] = sorted_tx_refs[index+1]
@@ -139,8 +138,8 @@ public class Transaction : NSObject {
     }
     
     //Easy to test
-    func createMetaData(optimizedRefs: [TxRef], balance : Int, brkey : BRKey, sendAddresses : [String], amounts : [Int], feeValue : Int  ){
-        self.txData = TxData(txrefs: optimizedRefs, balance: Int(balance) , brkey: brkey, sendAddresses: sendAddresses, amounts: amounts , selectedFee: feeValue)
+    func createMetaData(optimizedRefs: [TxRef], brkey : BRKey, sendAddresses : [String], amounts : [Int], feeValue : Int  ){
+        self.txData = TxData(txrefs: optimizedRefs, brkey: brkey, sendAddresses: sendAddresses, amounts: amounts , selectedFee: feeValue)
     }
     
     

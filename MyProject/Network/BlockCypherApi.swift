@@ -1,9 +1,9 @@
 import Foundation
 import Alamofire
 
-public class BlockCypherApi{
+public class BlockCypherApi {
     
-    public enum RequestType: String{
+    public enum RequestType: String {
         case TestNet = "https://api.blockcypher.com/v1/btc/test3"
         case MainNet = "https://api.blockcypher.com/v1/btc/main"
         case TestNetPushTx = "https://api.blockcypher.com/v1/btc/test3/txs/push?"
@@ -69,7 +69,7 @@ public class BlockCypherApi{
             }
     }
     
-    class func getFeeData(doWithJson: ([String : AnyObject]) -> Void ){
+    class func getFeeData(doWithJson: ([String : AnyObject]) -> Void ) {
         let url : String = RequestType.Fee.rawValue
         let request = Alamofire.request(.GET, url)
         request.validate()

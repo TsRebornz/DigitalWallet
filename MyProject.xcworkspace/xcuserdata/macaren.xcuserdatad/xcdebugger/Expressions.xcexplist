@@ -32,7 +32,23 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "InspectViewController.fillData() -&gt; ():InspectViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "adressLbl?.text">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "MyProjectTests.(testGetFullAdressFunction() -&gt; ()).(closure #1):MyProjectTesting.swift">
+      </ContextState>
+      <ContextState
+         contextName = "UsingTransactionsTests.testCreateTransaction() -&gt; ():UsingTransactionsTests.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "rawTxData.count">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "main:AppDelegate.swift">
@@ -41,6 +57,12 @@
                value = "">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MyProjectTests.(testRawTx() -&gt; ()).(closure #1):MyProjectTesting.swift">
+      </ContextState>
+      <ContextState
+         contextName = "UsingTransactionsTests.(testCreateOutputs() -&gt; ()).(implicit closure #3):UsingTransactionsTests.swift">
       </ContextState>
       <ContextState
          contextName = "DataValidationTests.testBRkeyConstructorWithHexDataCreatesValidAddress() -&gt; ():DataValidationTests.swift">
@@ -53,20 +75,6 @@
             </PersistentString>
             <PersistentString
                value = "wifPK.characters.count">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "MyProjectTests.(testRawTx() -&gt; ()).(closure #1):MyProjectTesting.swift">
-      </ContextState>
-      <ContextState
-         contextName = "UsingTransactionsTests.(testCreateOutputs() -&gt; ()).(implicit closure #3):UsingTransactionsTests.swift">
-      </ContextState>
-      <ContextState
-         contextName = "UsingTransactionsTests.testCreateTransaction() -&gt; ():UsingTransactionsTests.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "rawTxData.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -103,6 +111,14 @@
       </ContextState>
       <ContextState
          contextName = "MyProjectTests.(testPushRawTx() -&gt; ()).(closure #1).(implicit closure #2):MyProjectTesting.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SendViewController.DelegateScanViewController(ScanViewController, dataFromQrCode : String?) -&gt; ():SendViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.addressTxtField.text">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>

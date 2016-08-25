@@ -15,7 +15,7 @@ protocol ScanViewControllerDelegate : class {
 }
 
 
-public class ScanViewController : UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+public class ScanViewController : UIViewController, AVCaptureMetadataOutputObjectsDelegate  {
     
     @IBOutlet weak var cameraView: UIView!
     
@@ -26,6 +26,8 @@ public class ScanViewController : UIViewController, AVCaptureMetadataOutputObjec
     var captureSession : AVCaptureSession?
     
     var videoPreviewLayer : AVCaptureVideoPreviewLayer?
+    
+    var qrCodeCaptured : Bool = false
     
     override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -61,14 +63,11 @@ public class ScanViewController : UIViewController, AVCaptureMetadataOutputObjec
         
         self.cameraView.layer.addSublayer(videoPreviewLayer)
         self.captureSession?.startRunning()
-
     }
     
     public override func viewDidLoad() {
         //code
     }
-    
-    
     
     public override func viewWillAppear(animated: Bool) {
         startReadingVideoOutput()
@@ -76,6 +75,7 @@ public class ScanViewController : UIViewController, AVCaptureMetadataOutputObjec
     
     public override func viewDidDisappear(animated: Bool) {
         self.stopReading()
+        //self.qrCodeCaptured = false
     }
     
     func stopReading(){
@@ -87,13 +87,18 @@ public class ScanViewController : UIViewController, AVCaptureMetadataOutputObjec
     }
     
     //AVCaptureMetadataOutputObjectsDelegate
-    public func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!){        
+    public func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
         if (metadataObjects.count > 0){
             guard let metaDataObject : AVMetadataMachineReadableCodeObject = metadataObjects[0] as? AVMetadataMachineReadableCodeObject else {
                 return
             }
             
+            if( metaDataObject.type != AVMetadataObjectTypeQRCode || qrCodeCaptured ) {
+                return
+            }
+            
             dispatch_async(dispatch_get_main_queue(), {
+                dispatch_async(dispatch_get_main_queue(), { self.qrCodeCaptured = true })
                 self.dataFromCamera = metaDataObject.stringValue
                 self.sendDataToDelegateAndReturnToSuperView()
             })

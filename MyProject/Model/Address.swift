@@ -27,7 +27,8 @@ public class Address : NSObject, Decodable {
             //else { return nil }
         self.txsrefs = "txrefs" <~~ json
     }
-    public init(address: String, total_received : UInt64, total_sent : UInt64, balance : NSNumber, unconfirmed_balance : UInt64, final_balance : UInt64, n_tx : UInt64, unconfirmed_n_tx : UInt64, final_n_tx : UInt64 , txrefs : [TxRef]){
+    
+    public init(address: String, total_received : UInt64, total_sent : UInt64, balance : NSNumber, unconfirmed_balance : UInt64, final_balance : UInt64, n_tx : UInt64, unconfirmed_n_tx : UInt64, final_n_tx : UInt64 , txrefs : [TxRef]) {
         self.address = address
         self.total_received = total_received
         self.total_sent = total_sent
@@ -40,7 +41,7 @@ public class Address : NSObject, Decodable {
         self.txsrefs = txrefs
     }
     
-    public override init(){
+    public override init() {
         self.address = nil
         self.total_received = nil
         self.total_sent = nil
