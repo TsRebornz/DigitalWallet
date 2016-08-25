@@ -495,8 +495,11 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="O8S-dX-dGh">
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O8S-dX-dGh">
                                         <rect key="frame" x="0.0" y="19" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="hhSwitched:" destination="Duz-W7-df1" eventType="valueChanged" id="W3C-dv-WdQ"/>
+                                        </connections>
                                     </switch>
                                 </subviews>
                             </stackView>
@@ -511,6 +514,9 @@
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pgf-kf-Agf">
                                         <rect key="frame" x="0.0" y="19" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="hSwitched:" destination="Duz-W7-df1" eventType="valueChanged" id="inF-4B-vQJ"/>
+                                        </connections>
                                     </switch>
                                 </subviews>
                             </stackView>
@@ -567,6 +573,9 @@
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Y3i-2e-3RP">
                                         <rect key="frame" x="0.0" y="19" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="ffSwitched:" destination="Duz-W7-df1" eventType="valueChanged" id="rl1-Qn-lgz"/>
+                                        </connections>
                                     </switch>
                                 </subviews>
                             </stackView>

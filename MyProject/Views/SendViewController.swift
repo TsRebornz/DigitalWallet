@@ -26,18 +26,30 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     
     var scanViewController : ScanViewController!
     
+    var selectedFee : Int!
+    
     var GlobalUserInitiatedQueue: dispatch_queue_t {
         let qualityOfServiceClass = QOS_CLASS_USER_INITIATED
         return dispatch_get_global_queue(qualityOfServiceClass, 0)
     }
+    
+    var switchArr : [UISwitch?] = []
+    
+    var switchDictionary: [UISwitch : UILabel] = [:]
     
     override public func viewDidLoad() {
         super.viewDidLoad()
         self.updateFeeData()
         self.updateMinersFee()
         self.loadFeeData()
+        self.selectedFee = 0
         addressTxtField.layer.cornerRadius = 5
         addressTxtField.delegate = self        
+        
+        switchArr += [ffSwitch,hhSwitch,hSwitch]
+        switchDictionary = [ self.ffSwitch! : self.ffLbl! , self.hhSwitch! : self.hhLbl! , self.hSwitch! : self.hLbl! ]
+        
+        self.updateSelectedFee(self.hhSwitch!)
         
         //Valiadtion in privateKeyTextField
         validator.registerField(addressTxtField, errorLabel: errorLabel, rules: [RequiredRule(), AddressRule() ])
@@ -78,6 +90,22 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     
     func updateMinersFee(){
         self.feeValLbl?.text = "0"
+    }
+    
+    func setFeeForSelectedSwitchAndTurnOffSwitchesExcept(switched: UISwitch){
+            self.updateSelectedFee(switched)
+            for uiSwitch in self.switchArr{
+                if (uiSwitch! != switched && uiSwitch!.on){
+                    uiSwitch?.enabled = true
+                    uiSwitch?.setOn(false, animated: true)
+                }
+            }
+    }
+    
+    func updateSelectedFee(switcherSelected: UISwitch){
+        switcherSelected.enabled = false
+        let switchLbl = switchDictionary[switcherSelected]
+        self.selectedFee = Int( (switchLbl?.text)! )
     }
     
     //ScanViewControllerDelegate
@@ -135,11 +163,24 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         addressTxtField?.text = pasteBoard?.last
         validator.validate(self)
     }
-    
+
     @IBAction func qrCodeBtnTapped(sender: AnyObject) {
         self.scanViewController.delegate = self
         self.navigationController?.presentViewController(self.scanViewController , animated: true, completion: nil)
     }
+    
+    @IBAction func ffSwitched(sender: UISwitch) {
+        setFeeForSelectedSwitchAndTurnOffSwitchesExcept(sender)
+    }
+    
+    @IBAction func hhSwitched(sender: UISwitch) {
+        setFeeForSelectedSwitchAndTurnOffSwitchesExcept(sender)
+    }
+    
+    @IBAction func hSwitched(sender: UISwitch) {
+        setFeeForSelectedSwitchAndTurnOffSwitchesExcept(sender)
+    }
+    
     
     @IBAction func acceptTxBtnTapped(sender: AnyObject) {
         
