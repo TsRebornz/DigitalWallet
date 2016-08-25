@@ -14,6 +14,7 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
     var submited: Bool = false
     var testnet: Bool = false
     var scanViewController : ScanViewController!
+    var key : BRKey?
 
     //var privateKey: String = "cSF9RngdtVNaKpbsH6eBgWGm8xFNc3ViRXgZpfQddQxaGe2G4uXJ"
     var privateKey: String = ""
@@ -39,6 +40,16 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
         privateKeyTextField.layer.borderColor = UIColor.greenColor().CGColor
         privateKeyTextField.layer.borderWidth = 1.0
         prkErrorLbl.hidden = true
+        self.checkWifFormatAndDisableTestnetSwitch(privateKeyTextField.text!)
+    }
+    
+    func checkWifFormatAndDisableTestnetSwitch(pk: String){
+        let wifFormat : WifFormat = BRKey.checkWIFformatPKkey(pk)
+        if (wifFormat != WifNot){
+            testNetSwitch.enabled = false
+        }else{
+            testNetSwitch.enabled = true
+        }
     }
     
     public func validationFailed(errors:[(Validatable ,ValidationError)]) {

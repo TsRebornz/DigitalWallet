@@ -888,11 +888,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/Views/PKViewController.swift"
-            timestampString = "493748469.333188"
+            timestampString = "493838333.138187"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "testNetSwitchChanged(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -900,7 +900,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/CoreCipher/BRKey.m"
@@ -920,11 +920,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/Views/PKViewController.swift"
-            timestampString = "493748469.333188"
+            timestampString = "493838333.138187"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
             landmarkName = "DelegateScanViewController(_:dataFromQrCode:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1086,53 +1086,6 @@
             endingLineNumber = "87"
             landmarkName = "testCreateOutputs()"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MyProjectTesting.UsingTransactionsTests.testCreateOutputs () -&gt; ()"
-                  moduleName = "MyProjectTesting"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProjectTesting/UsingTransactionsTests.swift"
-                  timestampString = "493837047.008741"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "87"
-                  endingLineNumber = "87"
-                  offsetFromSymbolStart = "228">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MyProjectTesting.UsingTransactionsTests.(testCreateOutputs () -&gt; ()).(implicit closure #3)"
-                  moduleName = "MyProjectTesting"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProjectTesting/UsingTransactionsTests.swift"
-                  timestampString = "493837047.009232"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "87"
-                  endingLineNumber = "87"
-                  offsetFromSymbolStart = "36">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MyProjectTesting.UsingTransactionsTests.(testCreateOutputs () -&gt; ()).(implicit closure #4)"
-                  moduleName = "MyProjectTesting"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProjectTesting/UsingTransactionsTests.swift"
-                  timestampString = "493837047.009549"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "87"
-                  endingLineNumber = "87"
-                  offsetFromSymbolStart = "4">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

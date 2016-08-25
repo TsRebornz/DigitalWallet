@@ -194,7 +194,7 @@ size_t secp256k1_point_mul(void *r, const void *p, UInt256 i, int compressed)
 
     // mini private key format
     if ((privateKey.length == 30 || privateKey.length == 22) && [privateKey characterAtIndex:0] == 'S') {
-		if (! [privateKey isValidBitcoinPrivateKey:_isTestnet]) return nil;
+		if (! [privateKey isValidBitcoinPrivateKey:self.isTestnet]) return nil;
         
         _seckey = [CFBridgingRelease(CFStringCreateExternalRepresentation(SecureAllocator(), (CFStringRef)privateKey,
                                                                           kCFStringEncodingUTF8, 0)) SHA256];
