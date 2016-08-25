@@ -44,7 +44,8 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         self.loadFeeData()
         self.selectedFee = 0
         addressTxtField.layer.cornerRadius = 5
-        addressTxtField.delegate = self        
+        addressTxtField.delegate = self
+        
         
         switchArr += [ffSwitch,hhSwitch,hSwitch]
         switchDictionary = [ self.ffSwitch! : self.ffLbl! , self.hhSwitch! : self.hhLbl! , self.hSwitch! : self.hLbl! ]

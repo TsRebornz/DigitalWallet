@@ -7,6 +7,7 @@ import CoreImage
 public class InspectViewController : UIViewController {
     
     let defaultLoadingTime: Int = 60
+    @IBOutlet weak var sendBtn: UIButton?
     
     @IBOutlet weak var adressLbl : UILabel?
     
@@ -41,6 +42,7 @@ public class InspectViewController : UIViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
+        self.sendBtn?.enabled = false
         fillData()
     }
     
@@ -141,6 +143,7 @@ public class InspectViewController : UIViewController {
         
         BlockCypherApi.getAddress(address, testnet: testnet, parameters: parameters, doAfterRequest: { json in
             self.isDataLoading = false
+            self.sendBtn?.enabled = true
             guard let t_address = Address(json: json) else {
                 return
             }

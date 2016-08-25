@@ -376,6 +376,7 @@
                         <outlet property="adressLbl" destination="myk-0C-Lzq" id="7Jo-sE-9Cp"/>
                         <outlet property="balanceLbl" destination="rpV-Y5-pfc" id="mjP-Au-91W"/>
                         <outlet property="qrCodeImageView" destination="Jxa-1t-L5M" id="qbG-2M-1P1"/>
+                        <outlet property="sendBtn" destination="MIf-5T-5zU" id="WCr-gm-Ped"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cAJ-O4-Hf7" userLabel="First Responder" sceneMemberID="firstResponder"/>
