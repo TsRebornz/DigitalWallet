@@ -22,6 +22,7 @@
 		5E242CA61D45EB700065482C /* TxOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E242CA51D45EB700065482C /* TxOutput.swift */; };
 		5E242CA81D45EB810065482C /* TxRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E242CA71D45EB810065482C /* TxRef.swift */; };
 		5E2A3EA81D476BEB008171B3 /* FullAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A3EA71D476BEB008171B3 /* FullAddress.swift */; };
+		5E79C19D1D705E7E009CA5F7 /* DigitRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E79C19C1D705E7E009CA5F7 /* DigitRule.swift */; };
 		5E8921151D6DF8D700E288DC /* AddressRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8921141D6DF8D700E288DC /* AddressRule.swift */; };
 		5E99946B1D6350B400FC7850 /* DataValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E99946A1D6350B400FC7850 /* DataValidationTests.swift */; };
 		5E99946D1D64B8B200FC7850 /* PKBase58Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E99946C1D64B8B200FC7850 /* PKBase58Rule.swift */; };
@@ -95,6 +96,7 @@
 		5E242CA51D45EB700065482C /* TxOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxOutput.swift; sourceTree = "<group>"; };
 		5E242CA71D45EB810065482C /* TxRef.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxRef.swift; sourceTree = "<group>"; };
 		5E2A3EA71D476BEB008171B3 /* FullAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullAddress.swift; sourceTree = "<group>"; };
+		5E79C19C1D705E7E009CA5F7 /* DigitRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigitRule.swift; sourceTree = "<group>"; };
 		5E8921141D6DF8D700E288DC /* AddressRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressRule.swift; sourceTree = "<group>"; };
 		5E99946A1D6350B400FC7850 /* DataValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataValidationTests.swift; sourceTree = "<group>"; };
 		5E99946C1D64B8B200FC7850 /* PKBase58Rule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKBase58Rule.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 			children = (
 				5E99946C1D64B8B200FC7850 /* PKBase58Rule.swift */,
 				5E8921141D6DF8D700E288DC /* AddressRule.swift */,
+				5E79C19C1D705E7E009CA5F7 /* DigitRule.swift */,
 			);
 			path = ValidationRules;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				5E242CA81D45EB810065482C /* TxRef.swift in Sources */,
 				5E9994761D67143B00FC7850 /* ScanViewController.swift in Sources */,
 				5EBAC12F1D53AA9600AE422B /* Fee.swift in Sources */,
+				5E79C19D1D705E7E009CA5F7 /* DigitRule.swift in Sources */,
 				5E99946D1D64B8B200FC7850 /* PKBase58Rule.swift in Sources */,
 				5EBFB5091D3E531000D8B938 /* BRSocketHelpers.c in Sources */,
 				5E1136F91D414B9E0045D716 /* PKViewController.swift in Sources */,

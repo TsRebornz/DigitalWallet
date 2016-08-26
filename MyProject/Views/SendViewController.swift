@@ -4,8 +4,9 @@ import SwiftValidator
 
 public class SendViewController : UIViewController, ValidationDelegate, UITextFieldDelegate, ScanViewControllerDelegate {
         
+    // errorLabel
     @IBOutlet weak var addressTxtField: UITextField!
-    @IBOutlet weak var errorLabel : UILabel?
+    @IBOutlet weak var addressErrorLabel : UILabel?
     
     @IBOutlet weak var ffLbl : UILabel?
     @IBOutlet weak var hhLbl : UILabel?
@@ -15,7 +16,9 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     @IBOutlet weak var hhSwitch : UISwitch?
     @IBOutlet weak var hSwitch : UISwitch?
     
-    @IBOutlet weak var amountTxtField: UITextField!
+    
+    @IBOutlet weak var amountErrorLabel: UILabel!
+    @IBOutlet weak var amountTxtField: UITextField!    
     
     @IBOutlet weak var feeValLbl : UILabel?
     
@@ -26,34 +29,45 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     
     var scanViewController : ScanViewController!
     
-    var selectedFee : Int!
+    var selectedFeeRate : Int!
+    
+    var switchArr : [UISwitch?] = []
+    
+    var switchDictionary: [UISwitch : UILabel] = [:]
     
     var GlobalUserInitiatedQueue: dispatch_queue_t {
         let qualityOfServiceClass = QOS_CLASS_USER_INITIATED
         return dispatch_get_global_queue(qualityOfServiceClass, 0)
     }
     
-    var switchArr : [UISwitch?] = []
-    
-    var switchDictionary: [UISwitch : UILabel] = [:]
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        self.updateFeeData()
-        self.updateMinersFee()
-        self.loadFeeData()
-        self.selectedFee = 0
-        addressTxtField.layer.cornerRadius = 5
-        addressTxtField.delegate = self
         
-        
+        //UISwitchLogic
         switchArr += [ffSwitch,hhSwitch,hSwitch]
         switchDictionary = [ self.ffSwitch! : self.ffLbl! , self.hhSwitch! : self.hhLbl! , self.hSwitch! : self.hLbl! ]
         
-        self.updateSelectedFee(self.hhSwitch!)
+        self.updateselectedFeeRate(self.hhSwitch!)
+        
+        self.prepareAndLoadViewData()
+        
+        //Notifications
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(calculateMinersFeeByAmountAndFeeRate), name: "sendviewcontroller.validation.succes", object: nil)
         
         //Valiadtion in privateKeyTextField
-        validator.registerField(addressTxtField, errorLabel: errorLabel, rules: [RequiredRule(), AddressRule() ])
+        validator.registerField(addressTxtField, errorLabel: addressErrorLabel, rules: [RequiredRule(), AddressRule() ])
+        validator.registerField(amountTxtField, errorLabel: amountErrorLabel, rules: [RequiredRule(), DigitRule() ])
+    }
+    
+    func prepareAndLoadViewData(){
+        self.updateFeeData()
+        self.updateMinersFee()
+        self.loadFeeData()
+        self.selectedFeeRate = 0
+        addressTxtField.layer.cornerRadius = 5
+        addressTxtField.delegate = self
+        amountTxtField.delegate = self
     }
     
     override public func viewWillAppear(animated: Bool) {
@@ -94,7 +108,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     }
     
     func setFeeForSelectedSwitchAndTurnOffSwitchesExcept(switched: UISwitch){
-            self.updateSelectedFee(switched)
+            self.updateselectedFeeRate(switched)
             for uiSwitch in self.switchArr{
                 if (uiSwitch! != switched && uiSwitch!.on){
                     uiSwitch?.enabled = true
@@ -103,11 +117,19 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
             }
     }
     
-    func updateSelectedFee(switcherSelected: UISwitch){
+    func updateselectedFeeRate(switcherSelected: UISwitch){
         switcherSelected.enabled = false
         let switchLbl = switchDictionary[switcherSelected]
-        self.selectedFee = Int( (switchLbl?.text)! )
+        guard let switchText : String = switchLbl?.text! else {
+            return
+        }
+        self.selectedFeeRate = Int( switchText )
     }
+    
+    func calculateMinersFeeByAmountAndFeeRate( feeRate : Int , amount : Int ) {
+        print("\n\nЫЫЫЫЫЫ\n\n")
+    }
+    
     
     //ScanViewControllerDelegate
     
@@ -122,20 +144,51 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     //TextDelegate
     public func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        if(textField == self.amountTxtField) {
+            validator.validateField(textField){ error in
+                if error == nil {
+                    //Field validation was successful
+                    let amount : Int = Int(textField.text!)!
+                    self.amountTxtField.layer.borderColor = UIColor.greenColor().CGColor
+                    self.amountTxtField.layer.borderWidth = 1.0
+                    self.amountErrorLabel.hidden = true
+                    self.calculateMinersFeeByAmountAndFeeRate(self.selectedFeeRate, amount: amount )
+                    
+                } else {
+                    // Validation error occurred
+                    let field = error?.field as? UITextField
+                    field!.layer.borderColor = UIColor.redColor().CGColor
+                    field!.layer.borderWidth = 1.0
+                    error!.errorLabel?.text = error!.errorMessage // works if you added labels
+                    error!.errorLabel?.hidden = false
+                }
+            }
+        }
+        
+        
         return true
     }
     
     public func textFieldDidEndEditing(textField: UITextField) {
-        validator.validate(self)
+        
+        if textField == self.addressTxtField {
+
+        }else if textField == self.amountTxtField {
+//            guard let text : String = self.amountTxtField.text else {
+//                return
+//            }
+//            calculateMinersFeeByAmountAndFeeRate(self.selectedFeeRate , amount: Int(text)! )
+        }
+
+        
     }
     //End
     
     //Validtion
     public func validationSuccessful(){
-        //nextBtn.enabled = true
-        addressTxtField.layer.borderColor = UIColor.greenColor().CGColor
-        addressTxtField.layer.borderWidth = 1.0
-        errorLabel!.hidden = true
+            addressTxtField.layer.borderColor = UIColor.greenColor().CGColor
+            addressTxtField.layer.borderWidth = 1.0
+            addressErrorLabel!.hidden = true
     }
     
     public func validationFailed(errors: [(Validatable, SwiftValidator.ValidationError)]){
@@ -145,6 +198,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
                 field.layer.borderColor = UIColor.redColor().CGColor
                 field.layer.borderWidth = 1.0
             }
+            
             error.errorLabel?.text = error.errorMessage // works if you added labels
             error.errorLabel?.hidden = false            
         }

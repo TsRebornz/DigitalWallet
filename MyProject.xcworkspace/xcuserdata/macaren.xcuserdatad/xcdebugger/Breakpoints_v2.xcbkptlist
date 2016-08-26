@@ -1175,11 +1175,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/Views/SendViewController.swift"
-            timestampString = "493839958.760852"
+            timestampString = "493923425.877687"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "loadFeeData()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1191,11 +1191,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/Views/SendViewController.swift"
-            timestampString = "493839958.760852"
+            timestampString = "493923425.877687"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
             landmarkName = "DelegateScanViewController(_:dataFromQrCode:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1276,6 +1276,86 @@
                   startingLineNumber = "101"
                   endingLineNumber = "101"
                   offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/Views/SendViewController.swift"
+            timestampString = "493923425.877687"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "updateMinersFee()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/Views/SendViewController.swift"
+            timestampString = "493923425.877687"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "calculateMinersFeeByAmountAndFeeRate(_:amount:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyProject/Views/SendViewController.swift"
+            timestampString = "493923425.877687"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "textFieldShouldReturn(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyProject.SendViewController.textFieldShouldReturn (__ObjC.UITextField) -&gt; Swift.Bool"
+                  moduleName = "MyProject"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProject/Views/SendViewController.swift"
+                  timestampString = "493923426.158596"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "148"
+                  endingLineNumber = "148"
+                  offsetFromSymbolStart = "241">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyProject.SendViewController.(textFieldShouldReturn (__ObjC.UITextField) -&gt; Swift.Bool).(closure #1)"
+                  moduleName = "MyProject"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/macaren/Programming/BCA_Job/MyProject/MyProject/Views/SendViewController.swift"
+                  timestampString = "493923426.158771"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "149"
+                  endingLineNumber = "149"
+                  offsetFromSymbolStart = "23">
                </Location>
             </Locations>
          </BreakpointContent>
