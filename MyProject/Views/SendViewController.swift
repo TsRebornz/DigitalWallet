@@ -65,6 +65,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         self.updateMinersFee()
         self.loadFeeData()
         self.selectedFeeRate = 0
+        self.amountTxtField.text = "0"
         addressTxtField.layer.cornerRadius = 5
         addressTxtField.delegate = self
         amountTxtField.delegate = self
@@ -127,7 +128,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     }
     
     func calculateMinersFeeByAmountAndFeeRate( feeRate : Int , amount : Int ) {
-        print("\n\nЫЫЫЫЫЫ\n\n")
+        //print("\n\nYEaaaa\n\n")
     }
     
     
@@ -163,6 +164,8 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
                     error!.errorLabel?.hidden = false
                 }
             }
+        }else {
+            validator.validate(self)
         }
         
         
@@ -170,16 +173,6 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     }
     
     public func textFieldDidEndEditing(textField: UITextField) {
-        
-        if textField == self.addressTxtField {
-
-        }else if textField == self.amountTxtField {
-//            guard let text : String = self.amountTxtField.text else {
-//                return
-//            }
-//            calculateMinersFeeByAmountAndFeeRate(self.selectedFeeRate , amount: Int(text)! )
-        }
-
         
     }
     //End
@@ -194,13 +187,13 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     public func validationFailed(errors: [(Validatable, SwiftValidator.ValidationError)]){
         // turn the fields to red
         for (field, error) in errors {
-            if let field = field as? UITextField {
-                field.layer.borderColor = UIColor.redColor().CGColor
-                field.layer.borderWidth = 1.0
+            let field = field as? UITextField
+            if (field != self.amountTxtField){
+                field!.layer.borderColor = UIColor.redColor().CGColor
+                field!.layer.borderWidth = 1.0
+                error.errorLabel?.text = error.errorMessage // works if you added labels
+                error.errorLabel?.hidden = false
             }
-            
-            error.errorLabel?.text = error.errorMessage // works if you added labels
-            error.errorLabel?.hidden = false            
         }
     }
     //End
