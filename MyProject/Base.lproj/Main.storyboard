@@ -465,13 +465,13 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L7w-ie-3Ef" userLabel="AddressLblsStackView">
                                         <rect key="frame" x="0.0" y="0.0" width="520" height="17"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Address to send" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="L5Q-hA-Tsg">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address to send" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="L5Q-hA-Tsg">
                                                 <rect key="frame" x="0.0" y="0.0" width="520" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="ValError" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="2ZT-0t-e9H">
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="ValError" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="2ZT-0t-e9H">
                                                 <rect key="frame" x="520" y="0.0" width="0.0" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -493,14 +493,14 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUr-28-Ih2">
+                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUr-28-Ih2">
                                         <rect key="frame" x="240" y="47" width="40" height="34"/>
                                         <state key="normal" title="Insert"/>
                                         <connections>
                                             <action selector="inserBtnTapped:" destination="Duz-W7-df1" eventType="touchUpInside" id="cR8-qO-H5N"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dif-W4-aS7">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dif-W4-aS7">
                                         <rect key="frame" x="206" y="81" width="108" height="30"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <bool key="isElement" value="NO"/>
@@ -525,8 +525,12 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="rS9-8d-bKq">
+                                    <slider opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="13.5" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="rS9-8d-bKq">
                                         <rect key="frame" x="78" y="0.0" width="384" height="31"/>
+                                        <color key="minimumTrackTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="sliderChanged:" destination="Duz-W7-df1" eventType="valueChanged" id="MuS-C3-nrq"/>
+                                        </connections>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="300000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jet-yC-0ed">
                                         <rect key="frame" x="465" y="0.0" width="75" height="30"/>
@@ -809,6 +813,7 @@
                         <outlet property="addressErrorLabel" destination="2ZT-0t-e9H" id="9cQ-1s-VkD"/>
                         <outlet property="addressTxtField" destination="3LO-hj-f8P" id="Kls-DB-T7P"/>
                         <outlet property="amountErrorLabel" destination="xTK-cX-WTO" id="Dbs-VB-ZzJ"/>
+                        <outlet property="amountSlider" destination="rS9-8d-bKq" id="CVM-bT-uSk"/>
                         <outlet property="amountTxtField" destination="6pG-vN-AYt" id="f4K-zs-V5N"/>
                         <outlet property="feeValLbl" destination="Tm4-xi-nIU" id="ojA-Jt-DXO"/>
                         <outlet property="ffLbl" destination="53O-Gg-Hih" id="6uT-OZ-ddV"/>
@@ -817,6 +822,7 @@
                         <outlet property="hSwitch" destination="pgf-kf-Agf" id="OLg-2N-sPD"/>
                         <outlet property="hhLbl" destination="15N-uy-CNd" id="hBK-Ie-SSd"/>
                         <outlet property="hhSwitch" destination="O8S-dX-dGh" id="kM7-vP-NRq"/>
+                        <outlet property="sliderMaxValLabl" destination="jet-yC-0ed" id="86I-Ci-Er4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mYX-cx-wKv" userLabel="First Responder" sceneMemberID="firstResponder"/>

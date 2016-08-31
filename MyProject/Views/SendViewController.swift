@@ -17,13 +17,18 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     @IBOutlet weak var hSwitch : UISwitch?
     
     
+    @IBOutlet weak var amountSlider : UISlider!
+    @IBOutlet weak var sliderMaxValLabl : UILabel!
+    
     @IBOutlet weak var amountErrorLabel: UILabel!
     @IBOutlet weak var amountTxtField: UITextField!    
     
     @IBOutlet weak var feeValLbl : UILabel?
     
+    
     let validator = Validator()
     
+    //It this value will be nil all view fuck up
     var address : Address?
     var feeData : Fee?
     
@@ -61,6 +66,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     }
     
     func prepareAndLoadViewData(){
+        self.loadSliderData()
         self.updateFeeData()
         self.updateMinersFee()
         self.loadFeeData()
@@ -68,7 +74,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         self.amountTxtField.text = "0"
         addressTxtField.layer.cornerRadius = 5
         addressTxtField.delegate = self
-        amountTxtField.delegate = self
+        amountTxtField.delegate = self        
     }
     
     override public func viewWillAppear(animated: Bool) {
@@ -90,6 +96,14 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
                 self.updateFeeData()
             })
         }
+    }
+    
+    func loadSliderData(){
+        guard let balance : Int = Int((self.address?.balance)!) else {
+            NSException(name: "SendViewControllerAddressNil", reason: "Address or balance is nil", userInfo: nil).raise()
+        }
+        self.amountSlider.maximumValue = Float(balance)
+        self.sliderMaxValLabl.text = String(balance)
     }
     
     func updateFeeData(){
@@ -150,9 +164,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
                 if error == nil {
                     //Field validation was successful
                     let amount : Int = Int(textField.text!)!
-                    self.amountTxtField.layer.borderColor = UIColor.greenColor().CGColor
-                    self.amountTxtField.layer.borderWidth = 1.0
-                    self.amountErrorLabel.hidden = true
+                    self.changeValidatableFieldToDefault(self.amountTxtField, errorLbl: self.amountErrorLabel)
                     self.calculateMinersFeeByAmountAndFeeRate(self.selectedFeeRate, amount: amount )
                     
                 } else {
@@ -168,20 +180,24 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
             validator.validate(self)
         }
         
-        
         return true
     }
     
     public func textFieldDidEndEditing(textField: UITextField) {
         
     }
+    
     //End
+    
+    func changeValidatableFieldToDefault(validateField: UITextField, errorLbl : UILabel){
+        validateField.layer.borderColor = UIColor.greenColor().CGColor
+        validateField.layer.borderWidth = 1.0
+        errorLbl.hidden = true
+    }
     
     //Validtion
     public func validationSuccessful(){
-            addressTxtField.layer.borderColor = UIColor.greenColor().CGColor
-            addressTxtField.layer.borderWidth = 1.0
-            addressErrorLabel!.hidden = true
+        self.changeValidatableFieldToDefault(self.addressTxtField, errorLbl: self.addressErrorLabel!)
     }
     
     public func validationFailed(errors: [(Validatable, SwiftValidator.ValidationError)]){
@@ -227,6 +243,13 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     
     @IBAction func hSwitched(sender: UISwitch) {
         setFeeForSelectedSwitchAndTurnOffSwitchesExcept(sender)
+    }
+    
+    
+    @IBAction func sliderChanged(sender: UISlider) {
+        let intValue = Int(sender.value)
+        self.amountTxtField.text = String(intValue)
+        self.changeValidatableFieldToDefault(self.amountTxtField, errorLbl: self.amountErrorLabel!)
     }
     
     
