@@ -53,12 +53,32 @@ public class TxData {
         self.output = nil
     }
     
-    func calculateVariables() {
+    func changeInputs(newInputs : [TxRef]){
+        var hashes = [String]()
+        var indexes = [Int]()
+        var scripts = [String]()
+        var values = [Int]()
+        
+        for utxo in newInputs {
+            hashes.append(utxo.tx_hash!)
+            indexes.append( Int(utxo.tx_output_n!) )
+            scripts.append(utxo.script!)
+            values.append( Int(utxo.value!) )
+        }
+        self.input = InputModel(hashes: hashes, indexes: indexes, scripts: scripts, values: values)
+    }
+    
+    func calculteFee(){
+        
+    }
+    
+    func calculateMiners_fee() -> Int {
         let inputsCount = self.input.scripts.count
         let outputsCount = self.sendAddresses.count
 
         let miners_fee = TXService.calculateMinersFee(inputsCount, outputsCount: outputsCount, fee: self.fee)
-        createOuputModelByInputAndAmount(miners_fee)
+        return miners_fee
+        //createOuputModelByInputAndAmount(miners_fee)
     }
     
     func createOuputModelByInputAndAmount(minersFee : Int) {

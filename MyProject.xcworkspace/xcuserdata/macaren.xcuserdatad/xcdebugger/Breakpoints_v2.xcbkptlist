@@ -951,38 +951,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MyProject/TxLogic/Transaction.swift"
-            timestampString = "493824635.983843"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "optimizeInputsByAmount(_:ui_amount:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MyProject/TxLogic/Transaction.swift"
-            timestampString = "493824635.983843"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
-            landmarkName = "createArrayFromArrayAndIndex(_:index:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "MyProjectTesting/UsingTransactionsTests.swift"
             timestampString = "493661516.66265"
             startingColumnNumber = "9223372036854775807"
@@ -1142,12 +1110,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/TxLogic/TxData.swift"
-            timestampString = "493824635.983843"
+            timestampString = "494352446.833376"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "calculateVariables()"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "calculateMiners_fee()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1158,11 +1126,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProjectTesting/UsingTransactionsTests.swift"
-            timestampString = "493824635.983843"
+            timestampString = "494354676.314272"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "testCreateTransaction()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1174,11 +1142,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProjectTesting/UsingTransactionsTests.swift"
-            timestampString = "493824635.983843"
+            timestampString = "494354676.314272"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
             landmarkName = "testCreateTransaction()"
             landmarkType = "5">
          </BreakpointContent>

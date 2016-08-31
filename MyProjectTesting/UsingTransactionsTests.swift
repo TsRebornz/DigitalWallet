@@ -55,7 +55,7 @@ class UsingTransactionsTests: TestBase {
         address.txsrefs?.append(txref_b)
         address.txsrefs?.append(txref_c)
         address.txsrefs?.append(txref_d)
-        let optimizedInputs : [TxRef] = transaction.optimizeInputsByAmount( address.txsrefs! , ui_amount: ui_amount)
+        let optimizedInputs : [TxRef] = TXService.optimizeInputsByAmount( address.txsrefs! , ui_amount: ui_amount)
         XCTAssert(optimizedInputs.count == 3 , "Bad tx opimiztion")
     }
     
@@ -90,7 +90,8 @@ class UsingTransactionsTests: TestBase {
     
     func testCalculateAdditionalMetaData(){
         let txData : TxData = self.createTestTxData()
-        txData.calculateVariables()
+        let miners_fee = txData.calculateMiners_fee()
+        txData.createOuputModelByInputAndAmount(miners_fee)
         XCTAssert((txData.output?.addresses)! != (txData.output?.amounts)! , "Addresses count not equal amounts count" )
     }        
             
