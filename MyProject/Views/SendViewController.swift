@@ -3,8 +3,7 @@ import UIKit
 import SwiftValidator
 
 public class SendViewController : UIViewController, ValidationDelegate, UITextFieldDelegate, ScanViewControllerDelegate {
-        
-    // errorLabel
+    
     @IBOutlet weak var addressTxtField: UITextField!
     @IBOutlet weak var addressErrorLabel : UILabel?
     
@@ -28,14 +27,23 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     
     let validator = Validator()
     
-    //It this value will be nil all view fuck up
+    //It this values will be nil all view fuck up
     var address : Address?
+    var key : BRKey?
+    let testNet = true
+    
     var feeData : Fee?
+    
+    //testAddressUsing if no address in addressTextField
+    let testAddress = "moVeRgCBbJj1w7nhzzoSCffVJTpwH8N8SH"
     
     var scanViewController : ScanViewController!
     
     var selectedFeeRate : Int!
     
+    var transactionProtocol : TransactionProtocol?
+    
+    //UISwitch variables
     var switchArr : [UISwitch?] = []
     
     var switchDictionary: [UISwitch : UILabel] = [:]
@@ -53,12 +61,16 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         switchArr += [ffSwitch,hhSwitch,hSwitch]
         switchDictionary = [ self.ffSwitch! : self.ffLbl! , self.hhSwitch! : self.hhLbl! , self.hSwitch! : self.hLbl! ]
         
-        self.updateselectedFeeRate(self.hhSwitch!)
-        
         self.prepareAndLoadViewData()
         
+        self.updateselectedFeeRate(self.hhSwitch!)
+        
+        self.createTxDataWithDefaultParameters()
+        self.calculateAndUpdateMinersFee()
+        
         //Notifications
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(calculateMinersFeeByAmountAndFeeRate), name: "sendviewcontroller.validation.succes", object: nil)
+        //Need to know when feeData is loaded
+        //NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(calculateMinersFeeByAmountAndFeeRate), name: "sendviewcontroller.validation.succes", object: nil)
         
         //Valiadtion in privateKeyTextField
         validator.registerField(addressTxtField, errorLabel: addressErrorLabel, rules: [RequiredRule(), AddressRule() ])
@@ -71,10 +83,23 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         self.updateMinersFee()
         self.loadFeeData()
         self.selectedFeeRate = 0
-        self.amountTxtField.text = "0"
+        self.amountTxtField.text = self.amountTxtField.text! == "" || self.amountTxtField.text == nil  ? "0" : self.amountTxtField.text!
         addressTxtField.layer.cornerRadius = 5
         addressTxtField.delegate = self
         amountTxtField.delegate = self        
+    }
+    
+    func createTxDataWithDefaultParameters(){
+        let testFeeRate = 60
+        let sendAddress = self.testAddress
+        let validKey = self.key!
+        let amountString = self.amountTxtField.text!
+        let amount = Int(amountString)!
+        let testnet = validKey.isTestnetValue()
+        //self.transactionProtocol! = Transaction(address: self.address!, brkey: validKey, sendAddress: sendAddress, fee: testFeeRate, amount: amount, testnet: testnet)
+        let transaction : Transaction = Transaction(address: self.address!, brkey: validKey, sendAddress: sendAddress, fee: testFeeRate, amount: amount, testnet: testnet)
+        self.transactionProtocol = transaction
+        self.transactionProtocol!.prepareMetaDataForTx()
     }
     
     override public func viewWillAppear(animated: Bool) {
@@ -94,6 +119,8 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
                 }
                 self.feeData = t_feeData
                 self.updateFeeData()
+                // Need to post notification when data is loaded
+                //NSNotificationCenter.defaultCenter().postNotificationName(<#T##aName: String##String#>, object: <#T##AnyObject?#>, userInfo: <#T##[NSObject : AnyObject]?#>)
             })
         }
     }
@@ -104,6 +131,9 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         }
         self.amountSlider.maximumValue = Float(balance)
         self.sliderMaxValLabl.text = String(balance)
+        let defaultVal = Float(balance/10)
+        self.amountSlider.setValue( defaultVal , animated: true)
+        self.amountTxtField.text = "\(Int(defaultVal))"
     }
     
     func updateFeeData(){
@@ -141,10 +171,11 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         self.selectedFeeRate = Int( switchText )
     }
     
-    func calculateMinersFeeByAmountAndFeeRate( feeRate : Int , amount : Int ) {
-        //print("\n\nYEaaaa\n\n")
+    func calculateAndUpdateMinersFee() {
+        let miners_fee : Int = (self.transactionProtocol?.calculateMinersFee())!
+        self.feeValLbl?.text = String(miners_fee)
+        //guard self
     }
-    
     
     //ScanViewControllerDelegate
     
@@ -165,7 +196,10 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
                     //Field validation was successful
                     let amount : Int = Int(textField.text!)!
                     self.changeValidatableFieldToDefault(self.amountTxtField, errorLbl: self.amountErrorLabel)
-                    self.calculateMinersFeeByAmountAndFeeRate(self.selectedFeeRate, amount: amount )
+                    // Reoptimize Inputs by new Amount
+                    // Updatate optimizes inputs in TxData
+                    
+                    //self.calculateMinersFeeByAmountAndFeeRate(self.selectedFeeRate, amount: amount )
                     
                 } else {
                     // Validation error occurred

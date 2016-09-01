@@ -124,9 +124,9 @@ class UsingTransactionsTests: TestBase {
         transaction.calculateVariablesForMetaData()
         transaction.createTransaction()
         
-        XCTAssert(nil != transaction.transaction, "Transaction not created")
-        transaction.signTransaction()
-        let rawTxData = transaction.transaction?.getRawTxDataStr()
+        XCTAssert(nil != transaction.transaction , "Transaction not created")
+        //transaction.signTransaction()
+        //let rawTxData = transaction.transaction?.getRawTxDataStr()
     }
     
     func testSendTransaction(){

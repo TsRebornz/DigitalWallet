@@ -76,6 +76,7 @@ typedef enum : NSUInteger {
 
 - (nullable NSData *)sign:(UInt256)md;
 - (BOOL)verify:(UInt256)md signature:(nonnull NSData *)sig;
+-(BOOL)isTestnetValue;
 
 // Pieter Wuille's compact signature encoding used for bitcoin message signing
 // to verify a compact signature, recover a public key from the signature and verify that it matches the signer's pubkey

@@ -375,6 +375,10 @@ size_t secp256k1_point_mul(void *r, const void *p, UInt256 i, int compressed)
     return sig;
 }
 
+-(BOOL)isTestnetValue  {
+    return self.isTestnet;
+}
+
 //Hindu code
 +(WifFormat)checkWIFformatPKkey:(nonnull NSString*)wifPk
 {

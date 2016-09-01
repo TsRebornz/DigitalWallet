@@ -132,6 +132,7 @@ public class InspectViewController : UIViewController {
                 return
             }
             sendViewController.address = t_address
+            sendViewController.key = self.brkey?.brkey
         }
     }
     
@@ -165,9 +166,7 @@ public class InspectViewController : UIViewController {
                 self.dataLoadingUpdate()
             }                        
             
-            self.getAddressModelByAdress((self.brkey?.brkey?.address)!, testnet: (self.brkey?.bool)!)
-            
-            //self .getFullAddress((self.brkey?.brkey?.address)!, testnet: (self.brkey?.bool)!)
+            self.getAddressModelByAdress((self.brkey?.brkey?.address)!, testnet: (self.brkey?.brkey?.isTestnetValue())!)
         }
     }
     //End

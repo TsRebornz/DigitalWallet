@@ -78,7 +78,6 @@ public class TxData {
 
         let miners_fee = TXService.calculateMinersFee(inputsCount, outputsCount: outputsCount, fee: self.fee)
         return miners_fee
-        //createOuputModelByInputAndAmount(miners_fee)
     }
     
     func createOuputModelByInputAndAmount(minersFee : Int) {
