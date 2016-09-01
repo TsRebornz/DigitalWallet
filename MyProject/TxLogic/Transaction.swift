@@ -2,14 +2,20 @@ import Foundation
 
 public protocol TransactionProtocol : class {
     func prepareMetaDataForTx()
-    func calculateMinersFee() -> Int
+
     func calculateVariablesForMetaData()
     func createSignAndSendTransaction()
     //Getter example
     //var simpleVar : String { get }
 }
 
-public class Transaction : NSObject, TransactionProtocol {
+public protocol MinersFeeProtocol : class {
+    func calculateMinersFee() -> Int
+    func calculateMinersFeeWithNewFeeRate(newFeeRate : Int) -> Int
+    func calculateMinersFeeWithNewAmount(newAmount : Int) -> Int
+}
+
+public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
     
     //TODO: This variable must be calculated dynamicallyy
     private let default_max_fee : Int = 100000
@@ -84,6 +90,16 @@ public class Transaction : NSObject, TransactionProtocol {
         }
         return valid_txData.calculateMiners_fee()
     }
+    
+    public func calculateMinersFeeWithNewFeeRate(newFeeRate : Int) -> Int {
+        return Int(arc4random_uniform(UInt32(10000000)))
+    }
+    
+    public func calculateMinersFeeWithNewAmount(newAmount : Int) -> Int {
+        return Int(arc4random_uniform(UInt32(10000000)))
+    }
+    
+    
     
     public func calculateVariablesForMetaData() {
         guard let t_txdata = self.txData else {
