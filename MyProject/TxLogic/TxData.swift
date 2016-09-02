@@ -20,7 +20,7 @@ public class TxData {
     let sendAddresses : [String]
     var input : InputModel
     let amounts : [Int]
-    let fee : Int
+    var fee : Int
     
     //Calculatable variables
     var output : OutputModel?
@@ -70,6 +70,10 @@ public class TxData {
     
     func calculteFee(){
         
+    }
+    
+    func updateFee(newFee : Int) {
+        self.fee = newFee
     }
     
     func calculateMiners_fee() -> Int {

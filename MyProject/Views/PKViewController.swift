@@ -102,19 +102,11 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
     }
     
     @IBAction func insertDataFromPasteBoard() {
-        let pasteBoard = UIPasteboard.generalPasteboard().strings
-        if  ((privateKeyTextField.text?.isEmpty) != nil){
-            privateKeyTextField?.text = ""
-        }
+        let pasteBoard = UIPasteboard.generalPasteboard().strings        
         privateKeyTextField?.text = pasteBoard?.last
         validator.validate(self)
     }
     
-    func filldata(){
-        if ((privateKeyTextField?.text?.isEmpty) != nil){
-            privateKeyTextField?.text? = privateKey
-        }
-    }
     //End
                 
     override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

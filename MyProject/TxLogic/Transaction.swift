@@ -2,17 +2,14 @@ import Foundation
 
 public protocol TransactionProtocol : class {
     func prepareMetaDataForTx()
-
     func calculateVariablesForMetaData()
     func createSignAndSendTransaction()
-    //Getter example
-    //var simpleVar : String { get }
 }
 
 public protocol MinersFeeProtocol : class {
     func calculateMinersFee() -> Int
-    func calculateMinersFeeWithNewFeeRate(newFeeRate : Int) -> Int
-    func calculateMinersFeeWithNewAmount(newAmount : Int) -> Int
+    func calculateMinersFeeWithFee(newFeeRate : Int) -> Int
+    func calculateMinersFeeWithAmount(newAmount : Int) -> Int
 }
 
 public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
@@ -43,7 +40,8 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
         let qualityOfServiceClass = QOS_CLASS_BACKGROUND
         return dispatch_get_global_queue(qualityOfServiceClass, 0)
     }
-    
+
+    // MARK: - initializers
     public init(address : Address , brkey: BRKey, sendAddress : String , fee : Int , amount : Int , testnet : Bool ) {
         self.sendAddress = sendAddress
         self.fee = fee
@@ -73,12 +71,12 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
         self.transaction = nil
         self.txData = nil
     }
-    
+    // MARK: -
     public func addressUpdated(){
         NSException(name: "Transaction.getAddres", reason: "AddressUpdated", userInfo: nil).raise()
     }
     
-    public func prepareMetaDataForTx(){
+    public func prepareMetaDataForTx() {
         //Initialization
         let otimizedTsRefs : [TxRef] = TXService.optimizeInputsByAmount((self.address as! Address).txsrefs! , ui_amount: self.amount )
         self.createMetaData(otimizedTsRefs, brkey: self.brkey, sendAddresses: [self.sendAddress], amounts: [self.amount], feeValue: self.fee)
@@ -91,16 +89,20 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
         return valid_txData.calculateMiners_fee()
     }
     
-    public func calculateMinersFeeWithNewFeeRate(newFeeRate : Int) -> Int {
-        return Int(arc4random_uniform(UInt32(10000000)))
+    public func calculateMinersFeeWithFee(newFeeRate : Int) -> Int {
+        guard let v_txData = self.txData else {
+            NSException(name: "Transaction.calculateMinersFee", reason: "MinersFee", userInfo: nil).raise()
+            return 0
+        }
+        v_txData.updateFee(newFeeRate)
+        let miners_fee = v_txData.calculateMiners_fee()
+        return miners_fee
     }
     
-    public func calculateMinersFeeWithNewAmount(newAmount : Int) -> Int {
+    public func calculateMinersFeeWithAmount(newAmount : Int) -> Int {
         return Int(arc4random_uniform(UInt32(10000000)))
     }
-    
-    
-    
+            
     public func calculateVariablesForMetaData() {
         guard let t_txdata = self.txData else {
             NSException(name: "TransactionCreateExceiption", reason: "TxData is nil", userInfo: nil).raise()
@@ -149,34 +151,4 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
     func sendTransaction(){
         
     }
-    
-    //Deprecated
-    public func getAddress() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(addressUpdated), name: "blockcypher.api.addressupdated", object: nil)
-        if (nil == (self.address as! Address).address ){
-            self.getAddressFromApi()
-            
-        }
-    }
-    
-    //Depracted
-    public func getAddressFromApi() {
-        let parameters = [
-            "includeScript" : true,
-            "unspentOnly" : true
-        ]
-        
-        let selfAddress = self.brkey.address!
-        dispatch_async(GlobalUserInitiatedQueue) {
-            BlockCypherApi.getAddress(selfAddress, testnet: self.testnet, parameters: parameters, doAfterRequest: {json in
-                guard let t_address = Address(json: json) else {
-                    print("\(self.description) Bad answer from BlockCypherApi.getAddress")
-                    return
-                }
-                self.address = t_address
-                NSNotificationCenter.defaultCenter().postNotificationName("blockcypher.api.addressupdated", object: self.address)
-            })
-        }
-    }
-    
 }

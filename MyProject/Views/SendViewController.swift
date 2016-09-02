@@ -63,11 +63,6 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         
         self.prepareAndLoadViewData()
         
-        self.updateselectedFeeRate(self.hhSwitch!)
-        
-        self.createTxDataWithDefaultParameters()
-        self.calculateAndUpdateMinersFee()
-        
         //Notifications
         //Need to know when feeData is loaded
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(feeDataChanged), name: selectorFeeChanged, object: nil)
@@ -86,6 +81,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         self.updateMinersFee()
         self.loadFeeData()
         self.selectedFeeRate = 0
+        self.feeValLbl?.text = "0"
         self.amountTxtField.text = self.amountTxtField.text! == "" || self.amountTxtField.text == nil  ? "0" : self.amountTxtField.text!
         addressTxtField.layer.cornerRadius = 5
         addressTxtField.delegate = self
@@ -93,14 +89,14 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     }
     
     func createTxDataWithDefaultParameters(){
-        let testFeeRate = 60
+        //Needs only for initialization
+        let defaultFee = 0
         let sendAddress = self.testAddress
         let validKey = self.key!
         let amountString = self.amountTxtField.text!
         let amount = Int(amountString)!
         let testnet = validKey.isTestnetValue()
-        //self.transactionProtocol! = Transaction(address: self.address!, brkey: validKey, sendAddress: sendAddress, fee: testFeeRate, amount: amount, testnet: testnet)
-        let transaction : Transaction = Transaction(address: self.address!, brkey: validKey, sendAddress: sendAddress, fee: testFeeRate, amount: amount, testnet: testnet)
+        let transaction : Transaction = Transaction(address: self.address!, brkey: validKey, sendAddress: sendAddress, fee: defaultFee , amount: amount, testnet: testnet)
         self.transactionProtocol = transaction
         self.minersFeeProtocol = transaction
         self.transactionProtocol!.prepareMetaDataForTx()
@@ -123,8 +119,10 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
                 }
                 self.feeData = t_feeData
                 self.updateFeeData()
-                // Need to post notification when data is loaded
-                //NSNotificationCenter.defaultCenter().postNotificationName(<#T##aName: String##String#>, object: <#T##AnyObject?#>, userInfo: <#T##[NSObject : AnyObject]?#>)
+                
+                self.createTxDataWithDefaultParameters()
+                
+                self.updateSelectedFeeRate(self.hhSwitch!)                
             })
         }
     }
@@ -157,30 +155,28 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     }
     
     func setFeeForSelectedSwitchAndTurnOffSwitchesExcept(switched: UISwitch){
-            self.updateselectedFeeRate(switched)
+            self.updateSelectedFeeRate(switched)
             for uiSwitch in self.switchArr{
                 if (uiSwitch! != switched && uiSwitch!.on){
                     uiSwitch?.enabled = true
                     uiSwitch?.setOn(false, animated: true)
+                    break
                 }
             }
     }
     
-    func updateselectedFeeRate(switcherSelected: UISwitch){
+    func updateSelectedFeeRate(switcherSelected: UISwitch){
         switcherSelected.enabled = false
         let switchLbl = switchDictionary[switcherSelected]
         guard let switchText : String = switchLbl?.text! else {
             return
         }
-        self.selectedFeeRate = Int( switchText )
-        //NotificationHere
-        NSNotificationCenter.defaultCenter().postNotificationName(selectorFeeChanged, object: self, userInfo: nil)
-    }
-    
-    func calculateAndUpdateMinersFee() {
-        let miners_fee : Int = (self.minersFeeProtocol!.calculateMinersFee())
-        self.feeValLbl?.text = String(miners_fee)
-        //guard self
+        let oldValue = self.selectedFeeRate
+        let newVal = Int( switchText )
+        if (newVal != oldValue && nil != newVal) {
+            self.selectedFeeRate = newVal
+            NSNotificationCenter.defaultCenter().postNotificationName(selectorFeeChanged, object: self, userInfo: nil)
+        }
     }
     
     //ScanViewControllerDelegate
@@ -259,7 +255,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     //Notifications
     
     func feeDataChanged() {
-        let miners_fee : Int = (self.minersFeeProtocol?.calculateMinersFeeWithNewFeeRate(self.selectedFeeRate))!
+        let miners_fee : Int = (self.minersFeeProtocol?.calculateMinersFeeWithFee(self.selectedFeeRate))!
         self.feeValLbl?.text = "\(miners_fee)"
     }
     
@@ -267,7 +263,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     
     func amountDataChanged() {
         let strAmount : String = self.amountTxtField.text!
-        let miners_fee : Int = (self.minersFeeProtocol?.calculateMinersFeeWithNewAmount(Int(strAmount)!))!
+        let miners_fee : Int = (self.minersFeeProtocol?.calculateMinersFeeWithAmount(Int(strAmount)!))!
         self.feeValLbl?.text = "\(miners_fee)"
     }
     
