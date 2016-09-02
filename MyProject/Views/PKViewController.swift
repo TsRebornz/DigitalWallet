@@ -4,25 +4,20 @@ import SwiftValidator
 
 public class PKViewController : UIViewController, ValidationDelegate, UITextFieldDelegate, ScanViewControllerDelegate  {
     
-    let validator = Validator()
-    
     @IBOutlet weak var privateKeyTextField: UITextField!
     @IBOutlet weak var prkErrorLbl : UILabel!
     @IBOutlet weak var nextBtn : UIButton!
     @IBOutlet weak var testNetSwitch : UISwitch!
     
-    var submited: Bool = false
+    let validator = Validator()
     var testnet: Bool = false
     var scanViewController : ScanViewController!
     var key : BRKey?
-
-    //var privateKey: String = "cSF9RngdtVNaKpbsH6eBgWGm8xFNc3ViRXgZpfQddQxaGe2G4uXJ"
-    var privateKey: String = ""
     
     override public func viewDidLoad() {
         super.viewDidLoad()
         testnet = testNetSwitch.on
-        nextBtn.enabled = submited
+        nextBtn.enabled = false
         privateKeyTextField.layer.cornerRadius = 5
         privateKeyTextField.delegate = self
                 
@@ -34,7 +29,11 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
         self.scanViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ScanViewController") as! ScanViewController
     }
     
-    // ValidationDelegate methods
+    override public func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    //MARK: - ValidationDelegate methods
     public func validationSuccessful() {
         nextBtn.enabled = true
         privateKeyTextField.layer.borderColor = UIColor.greenColor().CGColor
@@ -64,9 +63,9 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
             nextBtn.enabled = false
         }
     }
-    // End
+    //MARK: -
     
-    // UITextFieldDelegate begin
+    //MARK: - UITextFieldDelegate
     public func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -75,23 +74,18 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
     public func textFieldDidEndEditing(textField: UITextField) {
         validator.validate(self)
     }
-    //end
-
-    override public func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()        
-    }
+    //MARK: -
     
-    // ScanViewControllerDelegate
-    
+    //MARK: - ScanViewControllerDelegate
     func DelegateScanViewController(controller: ScanViewController, dataFromQrCode : String?){
         guard let t_dataQrCode = dataFromQrCode else {return}
         self.privateKeyTextField.text = t_dataQrCode
         validator.validate(self)
     }
         
-    // End
+    //MARK: -
     
-    //Actions
+    //MARK: - Actions
     @IBAction func qrCodeBrnTapped(sender: AnyObject) {
         self.scanViewController.delegate = self
         self.navigationController?.presentViewController(self.scanViewController , animated: true, completion: nil)
@@ -106,18 +100,15 @@ public class PKViewController : UIViewController, ValidationDelegate, UITextFiel
         privateKeyTextField?.text = pasteBoard?.last
         validator.validate(self)
     }
-    
-    //End
+    //MARK: -
                 
     override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let navigationController = segue.destinationViewController as! UINavigationController
             if (segue.identifier == "PKSegue"){
                 let inspectViewController = navigationController.topViewController as! InspectViewController
                 
-                let brkey = BRSwiftKey.init(privateKey: privateKeyTextField!.text!, testnet: self.testnet)
-                
-                inspectViewController.brkey = brkey
+                let key = BRKey(privateKey: privateKeyTextField.text!, testnet: self.testnet)
+                inspectViewController.key = key
             }
     }
-    
 }

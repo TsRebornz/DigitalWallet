@@ -1,6 +1,6 @@
 import Foundation
 import Gloss
-
+ 
 public class PushTxResponse : Decodable {
     public let tx : Tx?
     

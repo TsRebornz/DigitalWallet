@@ -1,6 +1,7 @@
 import Foundation
 import Gloss
 
+//Deprecated
 public class FullAddress : Decodable {
     public let address : String?
     public let final_n_tx : UInt64? //Колличество подтврежденных транзакций

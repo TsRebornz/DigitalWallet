@@ -19,7 +19,7 @@ public class InspectViewController : UIViewController {
     
     var isDataLoading: Bool = false
     
-    var brkey:BRSwiftKey?
+    var key:BRKey!
     
     var qrcodeImage: CIImage!
     
@@ -111,8 +111,8 @@ public class InspectViewController : UIViewController {
     }
     
     func fillData(){
-        if let brk = self.brkey{
-            adressLbl?.text = brk.brkey?.address
+        if let v_key = self.key {
+            adressLbl?.text = v_key.address
         }
         self.updateBalance()
         self.generateQrCodeImage()
@@ -132,7 +132,7 @@ public class InspectViewController : UIViewController {
                 return
             }
             sendViewController.address = t_address
-            sendViewController.key = self.brkey?.brkey
+            sendViewController.key = self.key
         }
     }
     
@@ -166,7 +166,7 @@ public class InspectViewController : UIViewController {
                 self.dataLoadingUpdate()
             }                        
             
-            self.getAddressModelByAdress((self.brkey?.brkey?.address)!, testnet: (self.brkey?.brkey?.isTestnetValue())!)
+            self.getAddressModelByAdress((self.key.address)!, testnet: (self.key.isTestnetValue()))
         }
     }
     //End

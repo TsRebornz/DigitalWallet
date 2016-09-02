@@ -23,6 +23,7 @@ public class Tx : Decodable {
         self.outputs = "outputs" <~~ json
     }
     
+    //For tests shit
     public func description() {
         print( "addresses \(addresses)" )
         print( "block_hash \(block_hash)" )

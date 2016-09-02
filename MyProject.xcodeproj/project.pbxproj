@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		19F9585DA1A006D85366F12D /* Pods_MyProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6264D3B4FC656FA083AD9169 /* Pods_MyProject.framework */; };
 		5E1136F61D414B9E0045D716 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1136F01D414B9E0045D716 /* Balance.swift */; };
-		5E1136F71D414B9E0045D716 /* BRSwiftKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1136F11D414B9E0045D716 /* BRSwiftKey.swift */; };
 		5E1136F81D414B9E0045D716 /* InspectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1136F31D414B9E0045D716 /* InspectViewController.swift */; };
 		5E1136F91D414B9E0045D716 /* PKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1136F41D414B9E0045D716 /* PKViewController.swift */; };
 		5E1136FA1D414B9E0045D716 /* SendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1136F51D414B9E0045D716 /* SendViewController.swift */; };
@@ -81,7 +80,6 @@
 		117F810125FC2E0110DDFF79 /* Pods_MyProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		27AECDCD68D0D5E764D4C425 /* Pods-MyProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyProjectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyProjectTests/Pods-MyProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5E1136F01D414B9E0045D716 /* Balance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
-		5E1136F11D414B9E0045D716 /* BRSwiftKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BRSwiftKey.swift; sourceTree = "<group>"; };
 		5E1136F31D414B9E0045D716 /* InspectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectViewController.swift; sourceTree = "<group>"; };
 		5E1136F41D414B9E0045D716 /* PKViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKViewController.swift; sourceTree = "<group>"; };
 		5E1136F51D414B9E0045D716 /* SendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendViewController.swift; sourceTree = "<group>"; };
@@ -198,7 +196,6 @@
 			isa = PBXGroup;
 			children = (
 				5E1136F01D414B9E0045D716 /* Balance.swift */,
-				5E1136F11D414B9E0045D716 /* BRSwiftKey.swift */,
 				5E242CA11D45EB210065482C /* Tx.swift */,
 				5E242CA31D45EB590065482C /* TxInput.swift */,
 				5E242CA51D45EB700065482C /* TxOutput.swift */,
@@ -570,7 +567,6 @@
 				5EBAC1741D59F5CC00AE422B /* Transaction.swift in Sources */,
 				5EBFB4791D3E228700D8B938 /* AppDelegate.swift in Sources */,
 				5E2A3EA81D476BEB008171B3 /* FullAddress.swift in Sources */,
-				5E1136F71D414B9E0045D716 /* BRSwiftKey.swift in Sources */,
 				5EBFB5081D3E531000D8B938 /* BRKey.m in Sources */,
 				5EBAC1331D54EE6300AE422B /* TxTableViewController.swift in Sources */,
 				5EBAC1311D54A59700AE422B /* PushTxResponse.swift in Sources */,

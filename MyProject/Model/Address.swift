@@ -2,10 +2,10 @@ import Foundation
 import Gloss
 
 public class Address : NSObject, Decodable {
-    public dynamic let address : String?
+    public let address : String?
     public let total_received : UInt64?
     public let total_sent : UInt64?
-    public dynamic let balance : NSNumber?
+    public let balance : NSNumber?
     public let unconfimed_balance : UInt64? //Баланс с неподтвержденных транзакций
     public let final_balance : UInt64?
     public let n_tx : UInt64? // n_tx n -- number tx -- transaction
@@ -23,11 +23,11 @@ public class Address : NSObject, Decodable {
         self.n_tx = "n_tx" <~~ json
         self.unconfirmed_n_tx = "unconfirmed_n_tx" <~~ json
         self.final_n_tx = "final_n_tx" <~~ json
-        //guard let t_txrefs : [TxRef] = "txrefs" <~~ json
-            //else { return nil }
         self.txsrefs = "txrefs" <~~ json
     }
     
+    
+    // MARK: - For testing
     public init(address: String, total_received : UInt64, total_sent : UInt64, balance : NSNumber, unconfirmed_balance : UInt64, final_balance : UInt64, n_tx : UInt64, unconfirmed_n_tx : UInt64, final_n_tx : UInt64 , txrefs : [TxRef]) {
         self.address = address
         self.total_received = total_received
@@ -53,6 +53,7 @@ public class Address : NSObject, Decodable {
         self.final_n_tx = nil
         self.txsrefs = nil
     }
+    // MARK: -
 }
 
 
