@@ -46,6 +46,9 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     let selectorFeeChanged = "sendviewcontroller.feeData.changed"
     let selectorAmountChanged = "sendviewcontroller.amount.changed"
     
+    //FlagForSendOperation
+    var allValid : Bool = false
+    
     //FIXME:Extract to singleton
     var GlobalUserInitiatedQueue: dispatch_queue_t {
         let qualityOfServiceClass = QOS_CLASS_USER_INITIATED
@@ -191,10 +194,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
                     //let amount : Int = Int(textField.text!)!
                     self.changeValidatableFieldToDefault(self.amountTxtField, errorLbl: self.amountErrorLabel)
                     NSNotificationCenter.defaultCenter().postNotificationName(self.selectorFeeChanged, object: self, userInfo: nil)
-                    // Reoptimize Inputs by new Amount
-                    // Updatate optimizes inputs in TxData
-                    
-                    //self.calculateMinersFeeByAmountAndFeeRate(self.selectedFeeRate, amount: amount )
+                    self.allValid = true
                     
                 } else {
                     // Validation error occurred
@@ -219,8 +219,9 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         errorLbl.hidden = true
     }
     
-    //MARK:Validtion
+    //MARK:Validation
     public func validationSuccessful(){
+        self.allValid = true
         self.changeValidatableFieldToDefault(self.addressTxtField, errorLbl: self.addressErrorLabel!)
     }
     
@@ -288,15 +289,37 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         self.changeValidatableFieldToDefault(self.amountTxtField, errorLbl: self.amountErrorLabel!)
         NSNotificationCenter.defaultCenter().postNotificationName(self.selectorAmountChanged, object: self, userInfo: nil)
     }
-    
+        
     @IBAction func acceptTxBtnTapped(sender: AnyObject) {
-        //Check what all fields are valid
+        validator.validate(self)
+        textFieldShouldReturn(self.amountTxtField)
+        //For HamsterPic
+        //var alertController = UIAlertController(nibName: <#T##String?#>, bundle: <#T##NSBundle?#>)
+        var title = "Send Transaction Error"
+        var message = "Error not all properties are valid"
+        var uiAlertActions : [UIAlertAction] = [UIAlertAction]()
         
-        //Create Alert
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler:{ UIAlertAction in
+                //b|
+            })
+        uiAlertActions.append(cancelAction)
         
-        //CreateSign and post tx
-        
-        
+        if (allValid){
+            title = "Send Transaction"
+            message = "You want to send \(self.amountTxtField.text) satoshi. To address \(self.addressTxtField.text!). With miners fee \(self.feeValLbl.text!)"
+            let okAction = UIAlertAction(title: "Send", style: UIAlertActionStyle.Default, handler: { UIAlertAction in
+                self.transactionProtocol?.createTransaction()
+                self.transactionProtocol?.signTransaction()
+                self.transactionProtocol?.sendTransaction()
+            })
+            uiAlertActions.append(okAction)
+        }
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        for action in uiAlertActions {
+            alertController.addAction(action)
+        }
+        self.presentViewController(alertController, animated: true, completion: nil)
+    
     }
     //MARK:
     

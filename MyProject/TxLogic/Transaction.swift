@@ -114,7 +114,8 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
     }
     
     public func sendTransaction(){
-        
+        let rawDataStr = self.transaction?.getRawTxDataStr()
+        let rawData = self.transaction?.getRawTxData()
     }
     //MARK:
     
