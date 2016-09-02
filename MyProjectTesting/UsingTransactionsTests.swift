@@ -22,18 +22,11 @@ class UsingTransactionsTests: TestBase {
     
    func testOptimizeImports(){
         let ui_amount = 1650000
-        let transaction : Transaction = self.createTransactionTestObjectWithEmptyAddress(ui_amount)
-        let txref_a : TxRef = self.createTestObjectTxRef(1500000)
-        let txref_b : TxRef = self.createTestObjectTxRef(1200000)
-        let txref_c : TxRef = self.createTestObjectTxRef(200000)
-        let txref_d : TxRef = self.createTestObjectTxRef(250000)
-        let address : Address = transaction.address as! Address
-        address.txsrefs = [TxRef]()
-        address.txsrefs?.append(txref_a)
-        address.txsrefs?.append(txref_b)
-        address.txsrefs?.append(txref_c)
-        address.txsrefs?.append(txref_d)
-        let optimizedInputs : [TxRef] = TXService.optimizeInputsByAmount( address.txsrefs! , ui_amount: ui_amount)
+        let txRefValues = [1500000,1200000,200000,250000]
+        let balance = txRefValues.reduce(0, combine: +)
+        let transaction : Transaction = self.createTransactionTestObject(balance, arrayOfTxValues: txRefValues, amount: ui_amount, feeRate: self.feeRate)
+    
+        let optimizedInputs : [TxRef] = TXService.optimizeInputsByAmount( (transaction.address as! Address).txsrefs! , ui_amount: ui_amount)
         XCTAssert(optimizedInputs.count == 3 , "Bad tx opimiztion")
     }
     
@@ -66,7 +59,7 @@ class UsingTransactionsTests: TestBase {
     
     func testCalculateAdditionalMetaData(){
         let txData : TxData = self.createTestTxData()
-        let miners_fee = txData.calculateMiners_fee()
+        let miners_fee = txData.calculateMinersFee()
         txData.createOuputModelByInputAndAmount(miners_fee)
         XCTAssert((txData.output?.addresses)! != (txData.output?.amounts)! , "Addresses count not equal amounts count" )
     }        

@@ -1,15 +1,15 @@
 import Foundation
 
 public protocol TransactionProtocol : class {
-    func prepareMetaDataForTx()
-    func calculateVariablesForMetaData()
-    func createSignAndSendTransaction()
+    func createTransaction()
+    func signTransaction()
+    func sendTransaction()
 }
 
 public protocol MinersFeeProtocol : class {
     func calculateMinersFee() -> Int
-    func calculateMinersFeeWithFee(newFeeRate : Int) -> Int
-    func calculateMinersFeeWithAmount(newAmount : Int) -> Int
+    func updateMinersFeeWithFee(newFeeRate : Int) -> Int
+    func updateMinersFeeWithAmount(newAmount : Int) -> Int
 }
 
 public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
@@ -50,44 +50,27 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
         self.brkey = brkey
         self.address = address
     }
-    
-    public init(brkey: BRKey, sendAddress : String , fee : Int , amount : Int , testnet : Bool ) {
-        self.sendAddress = sendAddress
-        self.fee = fee
-        self.amount = amount
-        self.testnet = testnet
-        self.brkey = brkey
-        self.address = Address()
-    }
     // MARK:
-    public func addressUpdated(){
-        NSException(name: "Transaction.getAddres", reason: "AddressUpdated", userInfo: nil).raise()
-    }
     
-    public func prepareMetaDataForTx() {
-        //Initialization
-        let otimizedTsRefs : [TxRef] = TXService.optimizeInputsByAmount((self.address as! Address).txsrefs! , ui_amount: self.amount )
-        self.createMetaData(otimizedTsRefs, brkey: self.brkey, sendAddresses: [self.sendAddress], amounts: [self.amount], feeValue: self.fee)
-    }
-    
+    //MARK: - MinersFeeProtocol
     public func calculateMinersFee() -> Int {
-        guard let valid_txData = self.txData else {
-            return 0
+        if( nil == self.txData ){
+            self.prepareMetaDataForTx()
         }
-        return valid_txData.calculateMiners_fee()
+        return self.txData!.calculateMinersFee()
     }
     
-    public func calculateMinersFeeWithFee(newFeeRate : Int) -> Int {
+    public func updateMinersFeeWithFee(newFeeRate : Int) -> Int {
         guard let v_txData = self.txData else {
             NSException(name: "Transaction.calculateMinersFee", reason: "MinersFee", userInfo: nil).raise()
             return 0
         }
         v_txData.updateFee(newFeeRate)
-        let miners_fee = v_txData.calculateMiners_fee()
+        let miners_fee = v_txData.calculateMinersFee()
         return miners_fee
     }
     
-    public func calculateMinersFeeWithAmount(newAmount : Int) -> Int {
+    public func updateMinersFeeWithAmount(newAmount : Int) -> Int {
         guard let v_address : Address = self.address as? Address,
               let v_txData : TxData = self.txData
         else {
@@ -96,33 +79,18 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
         
         let optimizedInputs = TXService.optimizeInputsByAmount(v_address.txsrefs!, ui_amount: newAmount )
         v_txData.changeInputs(optimizedInputs)
-        let miners_fee = v_txData.calculateMiners_fee()
+        let miners_fee = v_txData.calculateMinersFee()
         return miners_fee
     }
-            
-    public func calculateVariablesForMetaData() {
+    //MARK:
+    
+    //MARK: - TransactionProtocol
+    public func createTransaction(){
         guard let t_txdata = self.txData else {
             NSException(name: "TransactionCreateExceiption", reason: "TxData is nil", userInfo: nil).raise()
             return
         }
-        let miners_fee = t_txdata.calculateMiners_fee()
-        t_txdata.createOuputModelByInputAndAmount(miners_fee)
-    }
-    
-    //Easy to test
-    func createMetaData(optimizedRefs: [TxRef], brkey : BRKey, sendAddresses : [String], amounts : [Int], feeValue : Int  ){
-        self.txData = TxData(txrefs: optimizedRefs, brkey: brkey, sendAddresses: sendAddresses, amounts: amounts , selectedFee: feeValue)
-    }
-    
-    public func createSignAndSendTransaction(){
-        
-    }
-    
-    func createTransaction(){
-        guard let t_txdata = self.txData else {
-            NSException(name: "TransactionCreateExceiption", reason: "TxData is nil", userInfo: nil).raise()
-            return
-        }
+        self.calculateVariablesForMetaData()
         guard let t_output = t_txdata.output else {
             NSException(name: "TransactionCreateExceiption", reason: "OutPut in TxData is nil", userInfo: nil).raise()
             return
@@ -137,7 +105,7 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
         self.transaction = transaction
     }
     
-    func signTransaction(){
+    public func signTransaction(){
         guard let t_tx = self.transaction else {
             NSException(name: "TransactionSignExceiption", reason: "Transaction is nil, maybe forgotten to create it?", userInfo: nil).raise()
             return
@@ -145,7 +113,32 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
         t_tx.signWithPrivateKeys([brkey.privateKey!])
     }
     
-    func sendTransaction(){
+    public func sendTransaction(){
         
     }
+    //MARK:
+    
+    public func prepareMetaDataForTx() {
+        //Initialization
+        let otimizedTsRefs : [TxRef] = TXService.optimizeInputsByAmount((self.address as! Address).txsrefs! , ui_amount: self.amount )
+        self.createMetaData(otimizedTsRefs, brkey: self.brkey, sendAddresses: [self.sendAddress], amounts: [self.amount], feeValue: self.fee)
+    }
+    
+    //Easy to test
+    func createMetaData(optimizedRefs: [TxRef], brkey : BRKey, sendAddresses : [String], amounts : [Int], feeValue : Int  ){
+        self.txData = TxData(txrefs: optimizedRefs, brkey: brkey, sendAddresses: sendAddresses, amounts: amounts , selectedFee: feeValue)
+    }
+    
+    public func calculateVariablesForMetaData() {
+        guard let t_txdata = self.txData else {
+            NSException(name: "TransactionCreateExceiption", reason: "TxData is nil", userInfo: nil).raise()
+            return
+        }
+        let miners_fee = t_txdata.calculateMinersFee()
+        t_txdata.createOuputModelByInputAndAmount(miners_fee)
+    }
+    
+    
+    
+    
 }

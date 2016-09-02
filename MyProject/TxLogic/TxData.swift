@@ -68,15 +68,11 @@ public class TxData {
         self.input = InputModel(hashes: hashes, indexes: indexes, scripts: scripts, values: values)
     }
     
-    func calculteFee(){
-        
-    }
-    
     func updateFee(newFee : Int) {
         self.fee = newFee
     }
     
-    func calculateMiners_fee() -> Int {
+    func calculateMinersFee() -> Int {
         let inputsCount = self.input.scripts.count
         let outputsCount = self.sendAddresses.count
 

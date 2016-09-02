@@ -11,20 +11,7 @@ public class TestBase : XCTestCase {
     let privateKey : String = "92eByNE4NdnfpK31XV2o1iD9Bir6eLASeyDqq46YzkogTBb3HZH"
     let sendAddress : String = "mzSetpsidLwd2nhwSTeBv8uNVuGQDs3wdY"
     let feeRate : Int = 60
-    
-    
-    func createTransactionTestObjectWithEmptyAddress(amount : Int) -> Transaction{
-        //User input variables
-        let testnet = true
-        let privateKey : String = self.privateKey
-        let brkey : BRKey = BRKey(privateKey: privateKey, testnet: testnet)!
-        let sendAddress = self.sendAddress
-        let fee = 60
-        let amount = amount
-        let transaction : Transaction = Transaction(brkey: brkey, sendAddress: sendAddress, fee: fee, amount: amount, testnet: testnet)
-        return transaction
-    }
-    
+
     func createTransactionTestObject(balance : Int, arrayOfTxValues : [Int],  amount : Int, feeRate : Int ) -> Transaction {
         //User input variables
         let testnet = true
@@ -80,22 +67,16 @@ public class TestBase : XCTestCase {
     
     func createTestTxData() -> TxData {
         let txref_a : TxRef = self.createTestObjectTxRef(200000)
-        let txref_b : TxRef = self.createTestObjectTxRef(300000)
-        
+        let txref_b : TxRef = self.createTestObjectTxRef(300000)        
         var optimizedRefs : [TxRef] = [TxRef]()
         optimizedRefs.append(txref_a)
         optimizedRefs.append(txref_b)
-                        
         let testnet = true
         let privateKey : String = self.privateKey
         let brKey = BRKey(privateKey: privateKey, testnet: testnet)
-        
         let sendAddresses = self.sendAddress
-        
         let amount = 500000
-        
         let fee = 60
-        
         let txData = TxData(txrefs: optimizedRefs, brkey: brKey!, sendAddresses: [sendAddresses], amounts: [amount], selectedFee: fee)
         return txData!
     }

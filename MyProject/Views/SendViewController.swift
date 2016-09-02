@@ -98,7 +98,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         let transaction : Transaction = Transaction(address: self.address!, brkey: validKey, sendAddress: sendAddress, fee: defaultFee , amount: amount, testnet: testnet)
         self.transactionProtocol = transaction
         self.minersFeeProtocol = transaction
-        self.transactionProtocol!.prepareMetaDataForTx()
+        self.minersFeeProtocol?.calculateMinersFee()
     }
     
     override public func didReceiveMemoryWarning() {
@@ -240,13 +240,13 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     
     //MARK:Notifications
     func feeDataChanged() {
-        let miners_fee : Int = (self.minersFeeProtocol?.calculateMinersFeeWithFee(self.selectedFeeRate))!
+        let miners_fee : Int = (self.minersFeeProtocol!.updateMinersFeeWithFee(self.selectedFeeRate))
         self.feeValLbl?.text = "\(miners_fee)"
     }
     
     func amountDataChanged() {
         let strAmount : String = self.amountTxtField.text!
-        let miners_fee : Int = (self.minersFeeProtocol?.calculateMinersFeeWithAmount(Int(strAmount)!))!
+        let miners_fee : Int = (self.minersFeeProtocol!.updateMinersFeeWithAmount(Int(strAmount)!))
         self.feeValLbl?.text = "\(miners_fee)"
     }
     //MARK:
@@ -290,6 +290,12 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     }
     
     @IBAction func acceptTxBtnTapped(sender: AnyObject) {
+        //Check what all fields are valid
+        
+        //Create Alert
+        
+        //CreateSign and post tx
+        
         
     }
     //MARK:
