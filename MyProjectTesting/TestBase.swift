@@ -10,9 +10,10 @@ public class TestBase : XCTestCase {
     
     let privateKey : String = "92eByNE4NdnfpK31XV2o1iD9Bir6eLASeyDqq46YzkogTBb3HZH"
     let sendAddress : String = "mzSetpsidLwd2nhwSTeBv8uNVuGQDs3wdY"
+    let feeRate : Int = 60
     
     
-    func createTransactionTestObjectWithEmptyAddres(amount : Int) -> Transaction{
+    func createTransactionTestObjectWithEmptyAddress(amount : Int) -> Transaction{
         //User input variables
         let testnet = true
         let privateKey : String = self.privateKey
@@ -22,6 +23,45 @@ public class TestBase : XCTestCase {
         let amount = amount
         let transaction : Transaction = Transaction(brkey: brkey, sendAddress: sendAddress, fee: fee, amount: amount, testnet: testnet)
         return transaction
+    }
+    
+    func createTransactionTestObject(balance : Int, arrayOfTxValues : [Int],  amount : Int, feeRate : Int ) -> Transaction {
+        //User input variables
+        let testnet = true
+        let privateKey : String = self.privateKey
+        let brkey : BRKey = BRKey(privateKey: privateKey, testnet: testnet)!
+        let sendAddress = self.sendAddress
+        let testAddress = self.createTestAddress(balance, arrayOfTxValues: arrayOfTxValues)
+        let transaction : Transaction = Transaction(address: testAddress!, brkey: brkey, sendAddress: sendAddress, fee: feeRate, amount: amount, testnet: testnet)
+        return transaction
+    }
+        
+    func createTestAddress(balance: Int, arrayOfTxValues : [Int]) -> Address? {
+        guard balance == arrayOfTxValues.reduce(0, combine: +) else {
+            NSException(name: "testbase.createtestaddress", reason: "Prosto idi na Xyu , bratan. Ne umeesh polzovatsya ne beris", userInfo: nil).raise()
+            return nil
+        }
+        let testnet = true
+        let key : BRKey = BRKey(privateKey: self.privateKey, testnet: testnet)!
+        let selfAddress = key.address!
+        
+        var txrefs = [TxRef]()
+        for txValue in arrayOfTxValues {
+            let txRef = self.createTestObjectTxRef(txValue)
+            txrefs.append(txRef)
+        }
+    
+        let address = Address(address: selfAddress,
+                              total_received: UInt64(balance),
+                              total_sent: UInt64(0),
+                              balance: balance,
+                              unconfirmed_balance: UInt64(0),
+                              final_balance: UInt64(balance),
+                              n_tx: UInt64(0),
+                              unconfirmed_n_tx: UInt64(0),
+                              final_n_tx: UInt64(0),
+                              txrefs: txrefs)
+        return address
     }
     
     func createTestObjectTxRef(valueOfInput : Int) -> TxRef {

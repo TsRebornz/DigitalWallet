@@ -25,7 +25,7 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
     
     private let brkey : BRKey
     
-    public var address : AnyObject?
+    public let address : AnyObject?
     
     public var transaction : BRTransaction?
     
@@ -41,7 +41,7 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
         return dispatch_get_global_queue(qualityOfServiceClass, 0)
     }
 
-    // MARK: - initializers
+    // MARK: - Initializers
     public init(address : Address , brkey: BRKey, sendAddress : String , fee : Int , amount : Int , testnet : Bool ) {
         self.sendAddress = sendAddress
         self.fee = fee
@@ -49,12 +49,6 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
         self.testnet = testnet
         self.brkey = brkey
         self.address = address
-        
-        //Need fill data bellow after initialization
-        //self.address = Address()
-        
-        self.transaction = nil
-        self.txData = nil
     }
     
     public init(brkey: BRKey, sendAddress : String , fee : Int , amount : Int , testnet : Bool ) {
@@ -64,14 +58,8 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
         self.testnet = testnet
         self.brkey = brkey
         self.address = Address()
-        
-        //Need fill data bellow after initialization
-        //self.address = Address()
-        
-        self.transaction = nil
-        self.txData = nil
     }
-    // MARK: -
+    // MARK:
     public func addressUpdated(){
         NSException(name: "Transaction.getAddres", reason: "AddressUpdated", userInfo: nil).raise()
     }
@@ -100,7 +88,16 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
     }
     
     public func calculateMinersFeeWithAmount(newAmount : Int) -> Int {
-        return Int(arc4random_uniform(UInt32(10000000)))
+        guard let v_address : Address = self.address as? Address,
+              let v_txData : TxData = self.txData
+        else {
+            return 0
+        }
+        
+        let optimizedInputs = TXService.optimizeInputsByAmount(v_address.txsrefs!, ui_amount: newAmount )
+        v_txData.changeInputs(optimizedInputs)
+        let miners_fee = v_txData.calculateMiners_fee()
+        return miners_fee
     }
             
     public func calculateVariablesForMetaData() {
