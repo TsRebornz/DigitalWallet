@@ -6,7 +6,6 @@ import CoreImage
 
 public class InspectViewController : UIViewController {
     
-    let defaultLoadingTime: Int = 60
     @IBOutlet weak var sendBtn: UIButton?
     
     @IBOutlet weak var adressLbl : UILabel?
@@ -15,7 +14,9 @@ public class InspectViewController : UIViewController {
     
     @IBOutlet weak var qrCodeImageView : UIImageView?
     
-    var address : Address? = nil
+    let defaultLoadingTime: Int = 60
+    
+    var address : Address?
     
     var isDataLoading: Bool = false
     
@@ -23,7 +24,7 @@ public class InspectViewController : UIViewController {
     
     var qrcodeImage: CIImage!
     
-    //MultiThreading shit
+    //FIXME: MultiThreading shit. Extract it in singleton class 
     var GlobalUserInitiatedQueue: dispatch_queue_t {
         let qualityOfServiceClass = QOS_CLASS_USER_INITIATED
         return dispatch_get_global_queue(qualityOfServiceClass, 0)        
@@ -51,12 +52,15 @@ public class InspectViewController : UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
     func dataLoadingUpdate() {
         let text = "Loading"
         self.balanceLbl?.text = text
         let lbl : UILabel = self.balanceLbl!
         
         var i = 0
+        
+        //FIXME: Block check button when loading
         while(i<self.defaultLoadingTime) {
                 ////TO:DO Rewrite without if(self.isDataLoading)
                 if (self.isDataLoading) {
@@ -75,6 +79,7 @@ public class InspectViewController : UIViewController {
         }
     }
     
+    //MARK:QrCode
     func generateQrCodeImage(){
         let dataForQrCode = self.adressLbl?.text
         guard (nil == self.qrcodeImage && "" != dataForQrCode) else {
@@ -101,6 +106,27 @@ public class InspectViewController : UIViewController {
         
         self.qrCodeImageView!.image = UIImage(CIImage: transformedImage)
     }
+    //MARK:
+    
+    
+    //MARK:Network
+    func getAddressModelByAddress(address:String, testnet: Bool ){
+        let parameters = [
+            "includeScript" : true,
+            "unspentOnly" : true
+        ]
+        
+        BlockCypherApi.getAddress(address, testnet: testnet, parameters: parameters, doAfterRequest: { json in
+            self.isDataLoading = false
+            self.sendBtn?.enabled = true
+            guard let t_address = Address(json: json) else {
+                return
+            }
+            self.address = t_address
+            self.updateBalance()
+        })
+    }
+    //MARK:
     
     func updateBalance(){
         if ( nil != self.address ){
@@ -118,9 +144,23 @@ public class InspectViewController : UIViewController {
         self.generateQrCodeImage()
     }
     
-    func errorLoadingData(){
-        //balanceLbl?.text =
+    //MARK:IBActions
+    @IBAction func cancel(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    @IBAction func check(sender: AnyObject){
+        dispatch_async(GlobalUserInitiatedQueue) {
+            self.isDataLoading = true
+            
+            dispatch_async(self.GlobalUserInteractiveQueue){
+                self.dataLoadingUpdate()
+            }                        
+            
+            self.getAddressModelByAddress((self.key.address)!, testnet: (self.key.isTestnetValue()))
+        }
+    }
+    //MARK:
     
     override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let navigationController = segue.destinationViewController as! UINavigationController
@@ -135,41 +175,6 @@ public class InspectViewController : UIViewController {
             sendViewController.key = self.key
         }
     }
-    
-    func getAddressModelByAdress(address:String, testnet: Bool ){
-        let parameters = [
-            "includeScript" : true,
-            "unspentOnly" : true
-        ]
-        
-        BlockCypherApi.getAddress(address, testnet: testnet, parameters: parameters, doAfterRequest: { json in
-            self.isDataLoading = false
-            self.sendBtn?.enabled = true
-            guard let t_address = Address(json: json) else {
-                return
-            }
-            self.address = t_address
-            self.updateBalance()
-        })
-    }
-    
-    //IBActions
-    @IBAction func cancel(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    @IBAction func check(sender: AnyObject){
-        dispatch_async(GlobalUserInitiatedQueue) {
-            self.isDataLoading = true
-            
-            dispatch_async(self.GlobalUserInteractiveQueue){
-                self.dataLoadingUpdate()
-            }                        
-            
-            self.getAddressModelByAdress((self.key.address)!, testnet: (self.key.isTestnetValue()))
-        }
-    }
-    //End
     
 }
 
