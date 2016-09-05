@@ -17,7 +17,7 @@ struct InputModel {
 public class TxData {
     //User Input Varaibles
     let brkey : BRKey
-    let sendAddresses : [String]
+    var sendAddresses : [String]
     var input : InputModel
     let amounts : [Int]
     var fee : Int

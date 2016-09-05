@@ -31,7 +31,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     let testNet = true    
     
     //TestAddress, using for initialization
-    let testAddress = "moVeRgCBbJj1w7nhzzoSCffVJTpwH8N8SH"
+    let testAddress = "0000000000000000000000000000"
     
     var scanViewController : ScanViewController!
     var selectedFeeRate : Int!
@@ -235,6 +235,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     public func validationSuccessful(){
         self.allValid = true
         self.changeValidatableFieldToDefault(self.addressTxtField, errorLbl: self.addressErrorLabel!)
+        self.transactionProtocol?.changeSendAddress(self.addressTxtField.text!)
     }
     
     public func validationFailed(errors: [(Validatable, SwiftValidator.ValidationError)]){
@@ -324,11 +325,11 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         
         if (allValid){
             title = "Send Transaction"
-            message = "You want to send \(self.amountTxtField.text) satoshi. To address \(self.addressTxtField.text!). With miners fee \(self.feeValLbl.text!)"
+            message = "You want to send \(self.amountTxtField!.text!) satoshi. To address \(self.addressTxtField!.text!). With miners fee \(self.feeValLbl!.text!)"
             let okAction = UIAlertAction(title: "Send", style: UIAlertActionStyle.Default, handler: { UIAlertAction in
                 self.transactionProtocol?.createTransaction()
                 self.transactionProtocol?.signTransaction()
-                //self.transactionProtocol?.sendTransaction()
+                self.transactionProtocol?.sendTransaction()
             })
             uiAlertActions.append(okAction)
         }

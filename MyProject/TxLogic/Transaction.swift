@@ -2,9 +2,11 @@ import Foundation
 import Alamofire
 
 public protocol TransactionProtocol : class {
+    
     func createTransaction()
     func signTransaction()
     func sendTransaction()
+    func changeSendAddress(newAddress : String)
 }
 
 public protocol MinersFeeProtocol : class {
@@ -20,7 +22,7 @@ public protocol AfterTransactionSendedDelegate : class {
 public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
     //TODO: This variable must be calculated dynamically
     private let default_max_fee : Int = 100000
-    private let sendAddress : String
+    private var sendAddress : String
     private let fee : Int
     private let amount : Int
     private let testnet : Bool
@@ -191,6 +193,8 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
     }
     
     
-    
-    
+    public func changeSendAddress(newAddress : String) {
+        self.sendAddress = newAddress
+        self.txData?.sendAddresses = [newAddress]
+    }
 }
