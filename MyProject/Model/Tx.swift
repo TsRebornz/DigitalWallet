@@ -1,7 +1,7 @@
 import Foundation
 import Gloss
 
-public class Tx : Decodable {
+public class Tx : NSObject , Decodable {
     public let addresses : [String]?
     public let block_hash : String?
     public let block_height : UInt64?
@@ -23,15 +23,15 @@ public class Tx : Decodable {
         self.outputs = "outputs" <~~ json
     }
     
-    //For tests shit
-    public func description() {
-        print( "addresses \(addresses)" )
-        print( "block_hash \(block_hash)" )
-        print( "block_height \(block_height)" )
-        print( "block_index \(block_index)" )
-        print( "confirmations \(confirmations)" )
-        print( "lock_time \(lock_time)" )
-        print( "inputs \(inputs)" )
-        print( "outputs \(outputs)" )
+    public override init(){
+        self.addresses = ["addresses"]
+        self.block_hash = "block_hash"
+        self.block_height = UInt64(0)
+        self.block_index = UInt64(0)
+        self.confirmations = UInt64(0)
+        self.lock_time = UInt64(0)
+        self.inputs = nil
+        self.outputs = nil
     }
+
 }

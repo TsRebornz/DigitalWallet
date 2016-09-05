@@ -1,4 +1,5 @@
 import Foundation
+import Alamofire
 
 public protocol TransactionProtocol : class {
     func createTransaction()
@@ -12,24 +13,22 @@ public protocol MinersFeeProtocol : class {
     func updateMinersFeeWithAmount(newAmount : Int) -> Int
 }
 
+public protocol AfterTransactionSendedDelegate : class {
+    func getTransactionResponse()
+}
+
 public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
-    
-    //TODO: This variable must be calculated dynamicallyy
+    //TODO: This variable must be calculated dynamically
     private let default_max_fee : Int = 100000
-    
     private let sendAddress : String
     private let fee : Int
     private let amount : Int
-    
     private let testnet : Bool
-    
     private let brkey : BRKey
-    
     public let address : AnyObject?
-    
-    public var transaction : BRTransaction?
-    
     public var txData : TxData?
+    public var transaction : BRTransaction?
+    dynamic var txResponse : PushTxResponse
     
     var GlobalUserInitiatedQueue: dispatch_queue_t {
         let qualityOfServiceClass = QOS_CLASS_USER_INITIATED
@@ -43,12 +42,18 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
 
     // MARK: - Initializers
     public init(address : Address , brkey: BRKey, sendAddress : String , fee : Int , amount : Int , testnet : Bool ) {
+        
         self.sendAddress = sendAddress
         self.fee = fee
         self.amount = amount
         self.testnet = testnet
         self.brkey = brkey
         self.address = address
+        self.txResponse = PushTxResponse()
+        
+        //txResponse.addObserver(self, forKeyPath: "txResponse", options: .New, context: &myContext)
+        //txResponse.addObserver(self, forKeyPath: "tx", options: .New, context: &myContext)
+        
     }
     // MARK:
     
@@ -113,9 +118,55 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
         t_tx.signWithPrivateKeys([brkey.privateKey!])
     }
     
+    func transactionSended(){
+    
+    }
+    
+    
+    //        //This test doesnt return full error message
+    //        let expectation = expectationWithDescription("Alamofire push raw tx to block cypher")
+    //        let requestStr = "https://api.blockcypher.com/v1/btc/test3/txs/push"
+    //        let txRawData = ( nil != self.rawDataTransaction ) ? self.rawDataTransaction! : ""
+    //        let parameters = ["tx" : txRawData ]
+    //        let request = Alamofire.request(.POST, requestStr, parameters: parameters , encoding: .JSON)
+    //        request.validate()
+    //        request.responseJSON(completionHandler: {response in
+    //            //XCTAssert(response.result.isFailure, "Failed to push raw Transaction \(response.result.error?.localizedDescription)")
+    //
+    //            guard let jsonResp = response.result.value as? [String : AnyObject] else
+    //            {
+    //                XCTFail("Wrong json data \(response.result.error?.localizedDescription)")
+    //                return
+    //            }
+    //
+    //            let tx: PushTxResponse = PushTxResponse(json: jsonResp)!
+    //            expectation.fulfill()
+    //        })
+    //
+    //        waitForExpectationsWithTimeout(defaultTimeOut, handler: { error in
+    //            if let error = error{
+    //                XCTFail("waitForExpectationsWithTimeout errored: \(error)")
+    //            }
+    //        })
     public func sendTransaction(){
-        let rawDataStr = self.transaction?.getRawTxDataStr()
-        let rawData = self.transaction?.getRawTxData()
+        guard let txRawDataString : String = self.transaction?.getRawTxDataStr() else {
+            NSException(name: "TransactionCreateException", reason: "Can not get raw tx data", userInfo: nil ).raise()
+            return
+        }
+        let parameters = ["tx" : txRawDataString ]
+        let requestStr = brkey.isTestnetValue() ? BlockCypherApi.RequestType.TestNetPushTx.rawValue : BlockCypherApi.RequestType.MainNetPushTx.rawValue
+        let request = Alamofire.request( .POST, requestStr , parameters: parameters, encoding: .JSON )
+        request.validate()
+        var txResponse: PushTxResponse? = nil
+            request.responseJSON(completionHandler: { response in
+                guard let jsonResp = response.result.value as? [String : AnyObject] else {
+                    print("BadResponse from Post transaction request")
+                    return
+                }
+                txResponse = PushTxResponse(json: jsonResp)!
+                self.txResponse = txResponse!
+                NSNotificationCenter.defaultCenter().postNotificationName("transaction.send.response", object: self, userInfo: nil)
+            })
     }
     //MARK:
     
@@ -132,7 +183,7 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
     
     public func calculateVariablesForMetaData() {
         guard let t_txdata = self.txData else {
-            NSException(name: "TransactionCreateExceiption", reason: "TxData is nil", userInfo: nil).raise()
+            NSException(name: "TransactionCreateException", reason: "TxData is nil", userInfo: nil).raise()
             return
         }
         let miners_fee = t_txdata.calculateMinersFee()

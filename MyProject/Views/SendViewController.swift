@@ -42,6 +42,8 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     var switchArr : [UISwitch] = []
     var switchDictionary: [UISwitch : UILabel] = [:]
     
+    //"transaction.send.response"
+    
     //Notifications
     let selectorFeeChanged = "sendviewcontroller.feeData.changed"
     let selectorAmountChanged = "sendviewcontroller.amount.changed"
@@ -54,6 +56,15 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         let qualityOfServiceClass = QOS_CLASS_USER_INITIATED
         return dispatch_get_global_queue(qualityOfServiceClass, 0)
     }
+    
+//    init() {
+//        super.init(nibName: nil, bundle: nil)
+//    }
+    
+//    required public init?(coder aDecoder: NSCoder) {
+//        super.init(nibName: nil, bundle: nil)
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -120,7 +131,8 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
                 
                 self.createTxDataWithDefaultParameters()
                 
-                self.updateSelectedFeeRate(self.hhSwitch!)                
+                self.updateSelectedFeeRate(self.hhSwitch!)
+//                NSNotificationCenter.defaultCenter().addObserver(self.transactionProtocol., selector: #selector(transactionSended), name: "transaction.send.response", object: nil)
             })
         }
     }
@@ -289,6 +301,12 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         self.changeValidatableFieldToDefault(self.amountTxtField, errorLbl: self.amountErrorLabel!)
         NSNotificationCenter.defaultCenter().postNotificationName(self.selectorAmountChanged, object: self, userInfo: nil)
     }
+    
+    func transactionSended(){
+        
+        
+        
+    }
         
     @IBAction func acceptTxBtnTapped(sender: AnyObject) {
         validator.validate(self)
@@ -310,7 +328,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
             let okAction = UIAlertAction(title: "Send", style: UIAlertActionStyle.Default, handler: { UIAlertAction in
                 self.transactionProtocol?.createTransaction()
                 self.transactionProtocol?.signTransaction()
-                self.transactionProtocol?.sendTransaction()
+                //self.transactionProtocol?.sendTransaction()
             })
             uiAlertActions.append(okAction)
         }

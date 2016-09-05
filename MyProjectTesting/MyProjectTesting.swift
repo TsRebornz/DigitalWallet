@@ -170,8 +170,7 @@ class MyProjectTests: TestBase {
                 return
             }
             let tx = Tx(json: jsonResponse)
-            XCTAssert(nil != tx?.outputs, "Tx outputs equals nil")
-            tx?.description()
+            XCTAssert(nil != tx?.outputs, "Tx outputs equals nil")            
             //Exercise the asynchronous code
             expectation.fulfill()
         })
