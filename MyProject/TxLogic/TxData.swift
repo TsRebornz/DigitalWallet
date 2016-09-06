@@ -19,7 +19,7 @@ public class TxData {
     let brkey : BRKey
     var sendAddresses : [String]
     var input : InputModel
-    let amounts : [Int]
+    var amounts : [Int]
     var fee : Int
     
     //Calculatable variables
@@ -70,6 +70,10 @@ public class TxData {
     
     func updateFee(newFee : Int) {
         self.fee = newFee
+    }
+    
+    func updateAmounts(amounts: [Int]){
+        self.amounts = amounts
     }
     
     func calculateMinersFee() -> Int {

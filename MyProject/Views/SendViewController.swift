@@ -23,8 +23,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     @IBOutlet weak var feeValLbl : UILabel!
     
     let validator = Validator()
-    
-    //It this values will be nil all view will fuck up
+        
     var address : Address!
     var key : BRKey!
     var feeData : Fee!
@@ -56,15 +55,6 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         let qualityOfServiceClass = QOS_CLASS_USER_INITIATED
         return dispatch_get_global_queue(qualityOfServiceClass, 0)
     }
-    
-//    init() {
-//        super.init(nibName: nil, bundle: nil)
-//    }
-    
-//    required public init?(coder aDecoder: NSCoder) {
-//        super.init(nibName: nil, bundle: nil)
-//        fatalError("init(coder:) has not been implemented")
-//    }
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -132,7 +122,6 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
                 self.createTxDataWithDefaultParameters()
                 
                 self.updateSelectedFeeRate(self.hhSwitch!)
-//                NSNotificationCenter.defaultCenter().addObserver(self.transactionProtocol., selector: #selector(transactionSended), name: "transaction.send.response", object: nil)
             })
         }
     }
@@ -205,7 +194,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
                     //Field validation was successful
                     //let amount : Int = Int(textField.text!)!
                     self.changeValidatableFieldToDefault(self.amountTxtField, errorLbl: self.amountErrorLabel)
-                    NSNotificationCenter.defaultCenter().postNotificationName(self.selectorFeeChanged, object: self, userInfo: nil)
+                    NSNotificationCenter.defaultCenter().postNotificationName(self.selectorAmountChanged, object: self, userInfo: nil)
                     self.allValid = true
                     
                 } else {
@@ -260,6 +249,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     
     func amountDataChanged() {
         let strAmount : String = self.amountTxtField.text!
+        //changeAmount
         let miners_fee : Int = (self.minersFeeProtocol!.updateMinersFeeWithAmount(Int(strAmount)!))
         self.feeValLbl?.text = "\(miners_fee)"
     }
@@ -303,12 +293,6 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         NSNotificationCenter.defaultCenter().postNotificationName(self.selectorAmountChanged, object: self, userInfo: nil)
     }
     
-    func transactionSended(){
-        
-        
-        
-    }
-        
     @IBAction func acceptTxBtnTapped(sender: AnyObject) {
         validator.validate(self)
         textFieldShouldReturn(self.amountTxtField)

@@ -15,10 +15,6 @@ public protocol MinersFeeProtocol : class {
     func updateMinersFeeWithAmount(newAmount : Int) -> Int
 }
 
-public protocol AfterTransactionSendedDelegate : class {
-    func getTransactionResponse()
-}
-
 public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
     //TODO: This variable must be calculated dynamically
     private let default_max_fee : Int = 100000
@@ -43,17 +39,12 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
 
     // MARK: - Initializers
     public init(address : Address , brkey: BRKey, sendAddress : String , fee : Int , amount : Int , testnet : Bool ) {
-        
         self.sendAddress = sendAddress
         self.fee = fee
         self.amount = amount
         self.testnet = testnet
         self.brkey = brkey
         self.address = address
-        
-        //txResponse.addObserver(self, forKeyPath: "txResponse", options: .New, context: &myContext)
-        //txResponse.addObserver(self, forKeyPath: "tx", options: .New, context: &myContext)
-        
     }
     // MARK:
     
@@ -84,6 +75,7 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
         
         let optimizedInputs = TXService.optimizeInputsByAmount(v_address.txsrefs!, ui_amount: newAmount )
         v_txData.changeInputs(optimizedInputs)
+        v_txData.updateAmounts([newAmount])
         let miners_fee = v_txData.calculateMinersFee()
         return miners_fee
     }
@@ -118,36 +110,6 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
         t_tx.signWithPrivateKeys([brkey.privateKey!])
     }
     
-    func transactionSended(){
-    
-    }
-    
-    
-    //        //This test doesnt return full error message
-    //        let expectation = expectationWithDescription("Alamofire push raw tx to block cypher")
-    //        let requestStr = "https://api.blockcypher.com/v1/btc/test3/txs/push"
-    //        let txRawData = ( nil != self.rawDataTransaction ) ? self.rawDataTransaction! : ""
-    //        let parameters = ["tx" : txRawData ]
-    //        let request = Alamofire.request(.POST, requestStr, parameters: parameters , encoding: .JSON)
-    //        request.validate()
-    //        request.responseJSON(completionHandler: {response in
-    //            //XCTAssert(response.result.isFailure, "Failed to push raw Transaction \(response.result.error?.localizedDescription)")
-    //
-    //            guard let jsonResp = response.result.value as? [String : AnyObject] else
-    //            {
-    //                XCTFail("Wrong json data \(response.result.error?.localizedDescription)")
-    //                return
-    //            }
-    //
-    //            let tx: PushTxResponse = PushTxResponse(json: jsonResp)!
-    //            expectation.fulfill()
-    //        })
-    //
-    //        waitForExpectationsWithTimeout(defaultTimeOut, handler: { error in
-    //            if let error = error{
-    //                XCTFail("waitForExpectationsWithTimeout errored: \(error)")
-    //            }
-    //        })
     public func sendTransaction( succes : ( response : AnyObject ) -> Void ) {
         guard let txRawDataString : String = self.transaction?.getRawTxDataStr() else {
             NSException(name: "TransactionCreateException", reason: "Can not get raw tx data", userInfo: nil ).raise()
@@ -158,14 +120,14 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
         let request = Alamofire.request( .POST, requestStr , parameters: parameters, encoding: .JSON )
         request.validate()
         var txResponse: PushTxResponse? = nil
-            request.responseJSON(completionHandler: { response in
-                guard let jsonResp = response.result.value as? [String : AnyObject] else {
-                    print("BadResponse from Post transaction request")
-                    return
-                }
-                txResponse = PushTxResponse(json: jsonResp)!
-                succes( response: txResponse as! AnyObject )
-            })
+        request.responseJSON(completionHandler: { response in
+            guard let jsonResp = response.result.value as? [String : AnyObject] else {
+                print("BadResponse from Post transaction request")
+                return
+            }
+            txResponse = PushTxResponse(json: jsonResp)!
+            succes( response: txResponse as! AnyObject )
+        })
     }
     //MARK:
     
