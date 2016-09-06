@@ -21,7 +21,6 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
     private var sendAddress : String
     private let fee : Int
     private let amount : Int
-    private let testnet : Bool
     private let brkey : BRKey
     public let address : AnyObject?
     public var txData : TxData?
@@ -38,11 +37,10 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
     }
 
     // MARK: - Initializers
-    public init(address : Address , brkey: BRKey, sendAddress : String , fee : Int , amount : Int , testnet : Bool ) {
+    public init(address : Address , brkey: BRKey, sendAddress : String , fee : Int , amount : Int  ) {
         self.sendAddress = sendAddress
         self.fee = fee
         self.amount = amount
-        self.testnet = testnet
         self.brkey = brkey
         self.address = address
     }
@@ -97,7 +95,7 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
                                             inputScripts: t_txdata.input.scripts,
                                             outputAddresses: t_output.addresses,
                                             outputAmounts: t_output.amounts,
-                                            isTesnet: self.testnet)
+                                            isTesnet: self.brkey.isTestnetValue())
         
         self.transaction = transaction
     }

@@ -19,7 +19,7 @@ public class TestBase : XCTestCase {
         let brkey : BRKey = BRKey(privateKey: privateKey, testnet: testnet)!
         let sendAddress = self.sendAddress
         let testAddress = self.createTestAddress(balance, arrayOfTxValues: arrayOfTxValues)
-        let transaction : Transaction = Transaction(address: testAddress!, brkey: brkey, sendAddress: sendAddress, fee: feeRate, amount: amount, testnet: testnet)
+        let transaction : Transaction = Transaction(address: testAddress!, brkey: brkey, sendAddress: sendAddress, fee: feeRate, amount: amount)
         return transaction
     }
         

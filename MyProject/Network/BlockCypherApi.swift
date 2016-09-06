@@ -7,7 +7,7 @@ public class BlockCypherApi {
         case TestNet = "https://api.blockcypher.com/v1/btc/test3"
         case MainNet = "https://api.blockcypher.com/v1/btc/main"
         case TestNetPushTx = "https://api.blockcypher.com/v1/btc/test3/txs/push?"
-        case MainNetPushTx = "https://api.blockcypher.com/v1/bcy/main/txs/push?"
+        case MainNetPushTx = "https://api.blockcypher.com/v1/btc/main/txs/push?"
         case Fee = "https://bitcoinfees.21.co/api/v1/fees/recommended"
     }
     

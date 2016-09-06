@@ -99,7 +99,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         let amountString = self.amountTxtField.text!
         let amount = Int(amountString)!
         let testnet = validKey.isTestnetValue()
-        let transaction : Transaction = Transaction(address: self.address!, brkey: validKey, sendAddress: sendAddress, fee: defaultFee , amount: amount, testnet: testnet)
+        let transaction : Transaction = Transaction(address: self.address!, brkey: validKey, sendAddress: sendAddress, fee: defaultFee , amount: amount)
         self.transactionProtocol = transaction
         self.minersFeeProtocol = transaction
         self.minersFeeProtocol?.calculateMinersFee()
@@ -190,7 +190,10 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         textField.resignFirstResponder()
         if(textField == self.amountTxtField) {
             validator.validateField(textField){ error in
-                if error == nil {
+                //Kostil 2000 b|
+                let isAmountNoMoreThanBalance = Int(self.amountTxtField.text!) <= Int((self.address.balance)!)
+                let isAmountDigitAndNoMoreThanBalance : Bool = error == nil ? isAmountNoMoreThanBalance : false
+                if ( isAmountDigitAndNoMoreThanBalance )  {
                     //Field validation was successful
                     //let amount : Int = Int(textField.text!)!
                     self.changeValidatableFieldToDefault(self.amountTxtField, errorLbl: self.amountErrorLabel)
@@ -199,11 +202,13 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
                     
                 } else {
                     // Validation error occurred
-                    let field = error?.field as? UITextField
-                    field!.layer.borderColor = UIColor.redColor().CGColor
-                    field!.layer.borderWidth = 1.0
-                    error!.errorLabel?.text = error!.errorMessage // works if you added labels
-                    error!.errorLabel?.hidden = false
+                    let field = self.amountTxtField
+                    field.layer.borderColor = UIColor.redColor().CGColor
+                    field.layer.borderWidth = 1.0
+                    //Kostil 2000 b|
+                    let errorMessage : String = isAmountNoMoreThanBalance ? "Not number value" : "Amount more than Balance"
+                    self.amountErrorLabel.text = errorMessage // works if you added labels
+                    self.amountErrorLabel.hidden = false
                 }
             }
         }else {
