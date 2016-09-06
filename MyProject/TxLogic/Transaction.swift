@@ -5,7 +5,7 @@ public protocol TransactionProtocol : class {
     
     func createTransaction()
     func signTransaction()
-    func sendTransaction()
+    func sendTransaction( succes : ( response : AnyObject ) -> Void )
     func changeSendAddress(newAddress : String)
 }
 
@@ -30,7 +30,6 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
     public let address : AnyObject?
     public var txData : TxData?
     public var transaction : BRTransaction?
-    dynamic var txResponse : PushTxResponse
     
     var GlobalUserInitiatedQueue: dispatch_queue_t {
         let qualityOfServiceClass = QOS_CLASS_USER_INITIATED
@@ -51,7 +50,6 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
         self.testnet = testnet
         self.brkey = brkey
         self.address = address
-        self.txResponse = PushTxResponse()
         
         //txResponse.addObserver(self, forKeyPath: "txResponse", options: .New, context: &myContext)
         //txResponse.addObserver(self, forKeyPath: "tx", options: .New, context: &myContext)
@@ -150,7 +148,7 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
     //                XCTFail("waitForExpectationsWithTimeout errored: \(error)")
     //            }
     //        })
-    public func sendTransaction(){
+    public func sendTransaction( succes : ( response : AnyObject ) -> Void ) {
         guard let txRawDataString : String = self.transaction?.getRawTxDataStr() else {
             NSException(name: "TransactionCreateException", reason: "Can not get raw tx data", userInfo: nil ).raise()
             return
@@ -166,8 +164,7 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
                     return
                 }
                 txResponse = PushTxResponse(json: jsonResp)!
-                self.txResponse = txResponse!
-                NSNotificationCenter.defaultCenter().postNotificationName("transaction.send.response", object: self, userInfo: nil)
+                succes( response: txResponse as! AnyObject )
             })
     }
     //MARK:

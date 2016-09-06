@@ -327,9 +327,16 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
             title = "Send Transaction"
             message = "You want to send \(self.amountTxtField!.text!) satoshi. To address \(self.addressTxtField!.text!). With miners fee \(self.feeValLbl!.text!)"
             let okAction = UIAlertAction(title: "Send", style: UIAlertActionStyle.Default, handler: { UIAlertAction in
+                //Progress bar
                 self.transactionProtocol?.createTransaction()
                 self.transactionProtocol?.signTransaction()
-                self.transactionProtocol?.sendTransaction()
+                self.transactionProtocol?.sendTransaction({ response in
+                   
+                    //Send data about Transaction to viewControllers
+                    //Throw back to previus screen or transtion screen and save sended transaction to coreData
+                    
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                })
             })
             uiAlertActions.append(okAction)
         }
