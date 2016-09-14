@@ -25,6 +25,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     
     let validator = Validator()
         
+    var counterTx : Int = 0
     var address : Address!
     var key : BRKey!
     var feeData : Fee!
@@ -274,9 +275,9 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     
     //MARK: Authentification
     
-    func authenticateUser( succes: ( authSucces : Bool ) -> Void ) {
+    func authenticateUser( reasonString: String,  succes: ( authSucces : Bool ) -> Void ) {
         var laError : NSError?
-        let reasonString = "Place you finger to verify you identity"
+        let reasonString = reasonString
         var auth = false
         //Zaglushka
 //        if(authenticated){
@@ -339,47 +340,53 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     @IBAction func acceptTxBtnTapped(sender: AnyObject) {
         validator.validate(self)
         textFieldShouldReturn(self.amountTxtField)
-        var txsend = false
-        var title = "Send Transaction Error"
-        var message = "Error not all properties are valid"
-        var uiAlertActions : [UIAlertAction] = [UIAlertAction]()
         
+        let alertController = UIAlertController(title: "Send Transaction Error", message: "Error not all properties are valid", preferredStyle: .Alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler:{ UIAlertAction in
-                //b|
-            })
-        uiAlertActions.append(cancelAction)
+            //b|
+        })
+        alertController.addAction(cancelAction)
         
         if (addressValid && amountValid){
-            title = "Send Transaction"
-            message = "You want to send \(self.amountTxtField!.text!) satoshi. To address \(self.addressTxtField!.text!). With miners fee \(self.feeValLbl!.text!)"
-            let okAction = UIAlertAction(title: "Send", style: UIAlertActionStyle.Default, handler: { UIAlertAction in
-                //FIXME: Progress bar
-                self.authenticateUser({ auth in
-                    if auth && !txsend {
-                        dispatch_sync(dispatch_get_main_queue(),{
-                            txsend = true
-                        })                        
-                        self.transactionProtocol?.createTransaction()
-                        self.transactionProtocol?.signTransaction()
-                        self.transactionProtocol?.sendTransaction({ response in
-                            //Send data about Transaction to viewControllers
-                            //Throw back to previus screen or transtion screen and save sended transaction to coreData
-                            self.dismissViewControllerAnimated(true, completion: nil)
-                        })
-                    }else{
-                        self.dismissViewControllerAnimated(true, completion: nil)
-                    }                                        
-                })
+            let reasonString = "Authenticate yourself \nYou want to send \(self.amountTxtField!.text!) satoshi \nTo address \(self.addressTxtField!.text!)\nWith miners fee \(self.feeValLbl!.text!)"
+            self.authenticateUser(reasonString, succes: { auth in
+                if auth {
+                    self.counterTx = self.counterTx + 1
+                    print("Counter equals \(self.counterTx)")
+                    self.transactionProtocol?.createTransaction()
+                    self.transactionProtocol?.signTransaction()
+                    self.transactionProtocol?.sendTransaction({ response in
+                        alertController.message = "Authentication is successfull Transaction Sended"
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                        //self.dismissViewControllerAnimated(true, completion: nil)
+                    })
+                }
             })
-            uiAlertActions.append(okAction)
+        } else {
+            
+            self.presentViewController(alertController, animated: true, completion: nil)
         }
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        for action in uiAlertActions {
-            alertController.addAction(action)
-        }
-        self.presentViewController(alertController, animated: true, completion: nil)
-    
     }
     //MARK:
+    
+    
+    //            let okAction = UIAlertAction(title: "Send", style: UIAlertActionStyle.Default, handler: { UIAlertAction in
+    //                //FIXME: Progress bar
+    //                self.authenticateUser({ auth in
+    //                    if auth && !txsend {
+    //                        dispatch_sync(dispatch_get_main_queue(),{
+    //                            txsend = true
+    //                        })
+    //                        self.transactionProtocol?.createTransaction()
+    //                        self.transactionProtocol?.signTransaction()
+    //                        self.transactionProtocol?.sendTransaction({ response in
+    //                            //self.dismissViewControllerAnimated(true, completion: nil)
+    //                        })
+    //                    }else{
+    //                        //self.dismissViewControllerAnimated(true, completion: nil)
+    //                    }
+    //                })
+    //            })
+    //            uiAlertActions.append(okAction)
     
 }

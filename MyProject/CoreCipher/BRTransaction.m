@@ -384,7 +384,7 @@ sequence:(uint32_t)sequence
         if (subscriptIndex == NSNotFound && self.signatures[i] != [NSNull null]) {
             [d appendVarInt:[self.signatures[i] length]];
             [d appendData:self.signatures[i]];
-        }
+        }        
         else if (subscriptIndex == i && self.inScripts[i] != [NSNull null]) {
             //TODO: to fully match the reference implementation, OP_CODESEPARATOR related checksig logic should go here
             [d appendVarInt:[self.inScripts[i] length]];

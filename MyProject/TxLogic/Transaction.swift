@@ -120,7 +120,7 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
         var txResponse: PushTxResponse? = nil
         request.responseJSON(completionHandler: { response in
             guard let jsonResp = response.result.value as? [String : AnyObject] else {
-                print("BadResponse from Post transaction request")
+                print("BadResponse from Post transaction request \(response.result.error?.description)")
                 return
             }
             txResponse = PushTxResponse(json: jsonResp)!
