@@ -130,10 +130,16 @@ public class InspectViewController : UIViewController {
     
     func updateBalance(){
         if ( nil != self.address ){
-            balanceLbl?.text = String(self.address!.balance!)
+            balanceLbl?.text = "\(self.address!.balance!) (\(Utilities.convertSatoshToFiat(Int(self.address!.balance!), rate: 608.01)) \((self.getFiatCode())))"
         }else{
             balanceLbl?.text = "Balance no loaded"
         }
+    }
+    
+    func getFiatCode() -> String {
+        //getFiatRateModel
+        //Load from api or from coreData
+        return "USD"
     }
     
     func fillData(){

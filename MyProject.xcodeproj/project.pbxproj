@@ -21,6 +21,8 @@
 		5E242CA61D45EB700065482C /* TxOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E242CA51D45EB700065482C /* TxOutput.swift */; };
 		5E242CA81D45EB810065482C /* TxRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E242CA71D45EB810065482C /* TxRef.swift */; };
 		5E2A3EA81D476BEB008171B3 /* FullAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A3EA71D476BEB008171B3 /* FullAddress.swift */; };
+		5E77682E1D89A32E0060F81D /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E77682D1D89A32E0060F81D /* Utilities.swift */; };
+		5E7768301D89A4140060F81D /* UsingUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E77682F1D89A4140060F81D /* UsingUtilities.swift */; };
 		5E79C19D1D705E7E009CA5F7 /* DigitRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E79C19C1D705E7E009CA5F7 /* DigitRule.swift */; };
 		5E8921151D6DF8D700E288DC /* AddressRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8921141D6DF8D700E288DC /* AddressRule.swift */; };
 		5E99946B1D6350B400FC7850 /* DataValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E99946A1D6350B400FC7850 /* DataValidationTests.swift */; };
@@ -94,6 +96,8 @@
 		5E242CA51D45EB700065482C /* TxOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxOutput.swift; sourceTree = "<group>"; };
 		5E242CA71D45EB810065482C /* TxRef.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxRef.swift; sourceTree = "<group>"; };
 		5E2A3EA71D476BEB008171B3 /* FullAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullAddress.swift; sourceTree = "<group>"; };
+		5E77682D1D89A32E0060F81D /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		5E77682F1D89A4140060F81D /* UsingUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsingUtilities.swift; sourceTree = "<group>"; };
 		5E79C19C1D705E7E009CA5F7 /* DigitRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigitRule.swift; sourceTree = "<group>"; };
 		5E8921141D6DF8D700E288DC /* AddressRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressRule.swift; sourceTree = "<group>"; };
 		5E99946A1D6350B400FC7850 /* DataValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataValidationTests.swift; sourceTree = "<group>"; };
@@ -230,6 +234,7 @@
 				5E1302B31D60D26D0089BEAD /* TestBase.swift */,
 				5E179D6B1D469E63003856F4 /* Info.plist */,
 				5E9994741D66281A00FC7850 /* MyProjectTesting-Bridging-Header.h */,
+				5E77682F1D89A4140060F81D /* UsingUtilities.swift */,
 			);
 			path = MyProjectTesting;
 			sourceTree = "<group>";
@@ -240,6 +245,14 @@
 				5E242C9F1D42675C0065482C /* BlockCypherApi.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		5E77682C1D89A2FD0060F81D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				5E77682D1D89A32E0060F81D /* Utilities.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		5EBAC1701D59E4F000AE422B /* TxLogic */ = {
@@ -275,6 +288,7 @@
 		5EBFB4771D3E228700D8B938 /* MyProject */ = {
 			isa = PBXGroup;
 			children = (
+				5E77682C1D89A2FD0060F81D /* Utilities */,
 				5EBAC1701D59E4F000AE422B /* TxLogic */,
 				5E242C9E1D4267390065482C /* Network */,
 				5E1136EF1D414B9E0045D716 /* Model */,
@@ -533,6 +547,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E99946B1D6350B400FC7850 /* DataValidationTests.swift in Sources */,
+				5E7768301D89A4140060F81D /* UsingUtilities.swift in Sources */,
 				5E1302B41D60D26D0089BEAD /* TestBase.swift in Sources */,
 				5E179D6A1D469E63003856F4 /* MyProjectTesting.swift in Sources */,
 				5E1302B81D60DEDD0089BEAD /* UsingTransactionsTests.swift in Sources */,
@@ -548,6 +563,7 @@
 				5E1136F81D414B9E0045D716 /* InspectViewController.swift in Sources */,
 				5E8921151D6DF8D700E288DC /* AddressRule.swift in Sources */,
 				5E242CA81D45EB810065482C /* TxRef.swift in Sources */,
+				5E77682E1D89A32E0060F81D /* Utilities.swift in Sources */,
 				5E9994761D67143B00FC7850 /* ScanViewController.swift in Sources */,
 				5EBAC12F1D53AA9600AE422B /* Fee.swift in Sources */,
 				5E79C19D1D705E7E009CA5F7 /* DigitRule.swift in Sources */,
