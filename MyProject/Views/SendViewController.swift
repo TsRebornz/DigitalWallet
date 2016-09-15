@@ -369,24 +369,4 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     }
     //MARK:
     
-    
-    //            let okAction = UIAlertAction(title: "Send", style: UIAlertActionStyle.Default, handler: { UIAlertAction in
-    //                //FIXME: Progress bar
-    //                self.authenticateUser({ auth in
-    //                    if auth && !txsend {
-    //                        dispatch_sync(dispatch_get_main_queue(),{
-    //                            txsend = true
-    //                        })
-    //                        self.transactionProtocol?.createTransaction()
-    //                        self.transactionProtocol?.signTransaction()
-    //                        self.transactionProtocol?.sendTransaction({ response in
-    //                            //self.dismissViewControllerAnimated(true, completion: nil)
-    //                        })
-    //                    }else{
-    //                        //self.dismissViewControllerAnimated(true, completion: nil)
-    //                    }
-    //                })
-    //            })
-    //            uiAlertActions.append(okAction)
-    
 }

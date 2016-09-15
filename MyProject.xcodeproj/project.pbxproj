@@ -24,6 +24,13 @@
 		5E77682E1D89A32E0060F81D /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E77682D1D89A32E0060F81D /* Utilities.swift */; };
 		5E7768301D89A4140060F81D /* UsingUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E77682F1D89A4140060F81D /* UsingUtilities.swift */; };
 		5E7768321D89C8460060F81D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7768311D89C8460060F81D /* SettingsViewController.swift */; };
+		5E77683F1D8AF65E0060F81D /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5E77683D1D8AF65E0060F81D /* DataModel.xcdatamodeld */; };
+		5E7768451D8AF75C0060F81D /* MPCurrencyRate+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7768411D8AF75C0060F81D /* MPCurrencyRate+CoreDataProperties.swift */; };
+		5E7768461D8AF75C0060F81D /* MPCurrencyRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7768421D8AF75C0060F81D /* MPCurrencyRate.swift */; };
+		5E7768471D8AF75C0060F81D /* MPSettings+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7768431D8AF75C0060F81D /* MPSettings+CoreDataProperties.swift */; };
+		5E7768481D8AF75C0060F81D /* MPSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7768441D8AF75C0060F81D /* MPSettings.swift */; };
+		5E77684A1D8AF8280060F81D /* CurrencyPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7768491D8AF8280060F81D /* CurrencyPrice.swift */; };
+		5E77684C1D8AF8800060F81D /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E77684B1D8AF8800060F81D /* CurrencyData.swift */; };
 		5E79C19D1D705E7E009CA5F7 /* DigitRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E79C19C1D705E7E009CA5F7 /* DigitRule.swift */; };
 		5E8921151D6DF8D700E288DC /* AddressRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8921141D6DF8D700E288DC /* AddressRule.swift */; };
 		5E99946B1D6350B400FC7850 /* DataValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E99946A1D6350B400FC7850 /* DataValidationTests.swift */; };
@@ -100,6 +107,13 @@
 		5E77682D1D89A32E0060F81D /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		5E77682F1D89A4140060F81D /* UsingUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsingUtilities.swift; sourceTree = "<group>"; };
 		5E7768311D89C8460060F81D /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		5E77683E1D8AF65E0060F81D /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		5E7768411D8AF75C0060F81D /* MPCurrencyRate+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MPCurrencyRate+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		5E7768421D8AF75C0060F81D /* MPCurrencyRate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCurrencyRate.swift; sourceTree = "<group>"; };
+		5E7768431D8AF75C0060F81D /* MPSettings+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MPSettings+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		5E7768441D8AF75C0060F81D /* MPSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSettings.swift; sourceTree = "<group>"; };
+		5E7768491D8AF8280060F81D /* CurrencyPrice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyPrice.swift; sourceTree = "<group>"; };
+		5E77684B1D8AF8800060F81D /* CurrencyData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
 		5E79C19C1D705E7E009CA5F7 /* DigitRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigitRule.swift; sourceTree = "<group>"; };
 		5E8921141D6DF8D700E288DC /* AddressRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressRule.swift; sourceTree = "<group>"; };
 		5E99946A1D6350B400FC7850 /* DataValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataValidationTests.swift; sourceTree = "<group>"; };
@@ -201,6 +215,7 @@
 		5E1136EF1D414B9E0045D716 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5E7768401D8AF7250060F81D /* Entities */,
 				5E1136F01D414B9E0045D716 /* Balance.swift */,
 				5E242CA11D45EB210065482C /* Tx.swift */,
 				5E242CA31D45EB590065482C /* TxInput.swift */,
@@ -210,6 +225,8 @@
 				5EACAF9A1D47BFF200D9B062 /* Address.swift */,
 				5EBAC12E1D53AA9600AE422B /* Fee.swift */,
 				5EBAC1301D54A59700AE422B /* PushTxResponse.swift */,
+				5E7768491D8AF8280060F81D /* CurrencyPrice.swift */,
+				5E77684B1D8AF8800060F81D /* CurrencyData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -258,6 +275,17 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		5E7768401D8AF7250060F81D /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				5E7768411D8AF75C0060F81D /* MPCurrencyRate+CoreDataProperties.swift */,
+				5E7768421D8AF75C0060F81D /* MPCurrencyRate.swift */,
+				5E7768431D8AF75C0060F81D /* MPSettings+CoreDataProperties.swift */,
+				5E7768441D8AF75C0060F81D /* MPSettings.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
 		5EBAC1701D59E4F000AE422B /* TxLogic */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,6 +332,7 @@
 				5EBFB4811D3E228700D8B938 /* LaunchScreen.storyboard */,
 				5EBFB4841D3E228700D8B938 /* Info.plist */,
 				5EBFB4A31D3E527800D8B938 /* MyProject-Bridging-Header.h */,
+				5E77683D1D8AF65E0060F81D /* DataModel.xcdatamodeld */,
 			);
 			path = MyProject;
 			sourceTree = "<group>";
@@ -562,6 +591,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E77683F1D8AF65E0060F81D /* DataModel.xcdatamodeld in Sources */,
 				5E242CA21D45EB210065482C /* Tx.swift in Sources */,
 				5E1136F81D414B9E0045D716 /* InspectViewController.swift in Sources */,
 				5E8921151D6DF8D700E288DC /* AddressRule.swift in Sources */,
@@ -571,6 +601,7 @@
 				5EBAC12F1D53AA9600AE422B /* Fee.swift in Sources */,
 				5E7768321D89C8460060F81D /* SettingsViewController.swift in Sources */,
 				5E79C19D1D705E7E009CA5F7 /* DigitRule.swift in Sources */,
+				5E77684A1D8AF8280060F81D /* CurrencyPrice.swift in Sources */,
 				5E99946D1D64B8B200FC7850 /* PKBase58Rule.swift in Sources */,
 				5EBFB5091D3E531000D8B938 /* BRSocketHelpers.c in Sources */,
 				5E1136F91D414B9E0045D716 /* PKViewController.swift in Sources */,
@@ -580,12 +611,17 @@
 				5EBFB50B1D3E531000D8B938 /* BRTransaction.m in Sources */,
 				5EBFB50F1D3E531000D8B938 /* NSString+Bitcoin.m in Sources */,
 				5EBFB50E1D3E531000D8B938 /* NSMutableData+Bitcoin.m in Sources */,
+				5E7768451D8AF75C0060F81D /* MPCurrencyRate+CoreDataProperties.swift in Sources */,
 				5E1136FA1D414B9E0045D716 /* SendViewController.swift in Sources */,
 				5E242CA41D45EB590065482C /* TxInput.swift in Sources */,
 				5EBFB5101D3E531000D8B938 /* Reachability.m in Sources */,
 				5E1136F61D414B9E0045D716 /* Balance.swift in Sources */,
+				5E7768461D8AF75C0060F81D /* MPCurrencyRate.swift in Sources */,
+				5E7768481D8AF75C0060F81D /* MPSettings.swift in Sources */,
 				5EBAC1741D59F5CC00AE422B /* Transaction.swift in Sources */,
 				5EBFB4791D3E228700D8B938 /* AppDelegate.swift in Sources */,
+				5E7768471D8AF75C0060F81D /* MPSettings+CoreDataProperties.swift in Sources */,
+				5E77684C1D8AF8800060F81D /* CurrencyData.swift in Sources */,
 				5E2A3EA81D476BEB008171B3 /* FullAddress.swift in Sources */,
 				5EBFB5081D3E531000D8B938 /* BRKey.m in Sources */,
 				5EBAC1331D54EE6300AE422B /* TxTableViewController.swift in Sources */,
@@ -825,6 +861,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5E77683D1D8AF65E0060F81D /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5E77683E1D8AF65E0060F81D /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 5E77683E1D8AF65E0060F81D /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5EBFB46D1D3E228700D8B938 /* Project object */;
 }
