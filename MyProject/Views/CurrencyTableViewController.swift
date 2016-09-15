@@ -17,7 +17,7 @@ public protocol DelegateTableViewController : class {
 
 public class CurrencyTableViewController : UITableViewController  {
     
-    var selectedRate : CurrencyPrice?
+    var selectedCell : UITableViewCell?
     var rates : [CurrencyPrice]?
     public override func viewDidLoad() {
             BlockCypherApi.getCurrencyData({ json in
@@ -36,19 +36,29 @@ public class CurrencyTableViewController : UITableViewController  {
     }
     
     public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cellId = "Cell"
+        let cellId = "CellCurrencyRate"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellId)
         let code = rates![indexPath.row].code!
         let rate = rates![indexPath.row].rate!
         let name = rates![indexPath.row].name!
-        cell?.textLabel?.text = " \(code) \(rate) "
-        cell?.detailTextLabel?.text = "\(name)"
+        (cell?.viewWithTag(1000) as! UILabel).text = "\(code) \(rate) "
+        (cell?.viewWithTag(1001) as! UILabel).text = "\(name)"
+        (cell?.viewWithTag(1002) as! UILabel).text = ""        
         return cell!
     }
 
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //Mark with galo4ka
         
+    }
+    
+    public func prepareCell(lbl : UILabel , check : Bool) -> UILabel{
+        if (check) {
+            lbl.text = "√"
+        } else {
+            lbl.text = ""
+        }
+        return lbl
     }
     
     //MARK: -

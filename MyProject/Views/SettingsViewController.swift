@@ -11,13 +11,35 @@ import UIKit
 
 
 
-public class SettingsViewController : UITableViewController {    
+public class SettingsViewController : UITableViewController, DelegateTableViewController {
+    
+    @IBOutlet weak var localCurrencyCell: UITableViewCell!
+    
     public override func viewDidLoad() {
         
     }
     
+    //MARK : DelegateTableViewController
+    public func currencyTableViewControllerDelegate(controller: CurrencyTableViewController ){
+        
+    }
+    //MARK : -
+    
+    
+    //MARK : Segue
+    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == ""){
+            
+        }
+    }
+    
+    //MARK
+    
+    //MARK : IBActions
     @IBAction func cancel(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    //MARK : -
+    
     
 }

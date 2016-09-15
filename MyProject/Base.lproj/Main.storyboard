@@ -429,24 +429,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="TDO-cu-Mzb" detailTextLabel="415-GZ-vvD" style="IBUITableViewCellStyleSubtitle" id="hhf-fy-4if">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellCurrencyRate" id="hhf-fy-4if">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hhf-fy-4if" id="wtb-KZ-iHR">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TDO-cu-Mzb">
-                                            <rect key="frame" x="15" y="5" width="32" height="20"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="√" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="en0-pF-fN9">
+                                            <rect key="frame" x="8" y="11" width="12" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="415-GZ-vvD">
-                                            <rect key="frame" x="15" y="25" width="31" height="14"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pGS-LI-egZ">
+                                            <rect key="frame" x="28" y="22" width="401" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CodeAndRateText" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="plL-Xb-o9Z">
+                                            <rect key="frame" x="28" y="0.0" width="137" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -459,7 +463,13 @@
                             <outlet property="delegate" destination="4F7-sB-Ghl" id="wkf-z4-4SW"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="CurrencyRate" id="fyG-EJ-AVb"/>
+                    <navigationItem key="navigationItem" title="CurrencyRate" id="fyG-EJ-AVb">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ppY-jS-LMu">
+                            <connections>
+                                <action selector="cancel:" destination="4F7-sB-Ghl" id="Wtb-V2-3Yp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="phg-Lu-2F4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -538,6 +548,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="localCurrencyCell" destination="7kR-yU-Ozl" id="oSF-zp-dQc"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UAe-wW-Eor" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
