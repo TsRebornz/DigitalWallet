@@ -9,13 +9,15 @@
 import Foundation
 import UIKit
 
-public class SettingsViewController : UITableViewController {
+
+
+public class SettingsViewController : UITableViewController {    
     public override func viewDidLoad() {
         
     }
     
-    
     @IBAction func cancel(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
 }

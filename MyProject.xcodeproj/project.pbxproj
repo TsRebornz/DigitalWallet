@@ -32,6 +32,7 @@
 		5E77684A1D8AF8280060F81D /* CurrencyPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7768491D8AF8280060F81D /* CurrencyPrice.swift */; };
 		5E77684C1D8AF8800060F81D /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E77684B1D8AF8800060F81D /* CurrencyData.swift */; };
 		5E77684E1D8AFBB70060F81D /* UsingCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E77684D1D8AFBB70060F81D /* UsingCurrency.swift */; };
+		5E7768501D8AFD940060F81D /* CurrencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E77684F1D8AFD940060F81D /* CurrencyTableViewController.swift */; };
 		5E79C19D1D705E7E009CA5F7 /* DigitRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E79C19C1D705E7E009CA5F7 /* DigitRule.swift */; };
 		5E8921151D6DF8D700E288DC /* AddressRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8921141D6DF8D700E288DC /* AddressRule.swift */; };
 		5E99946B1D6350B400FC7850 /* DataValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E99946A1D6350B400FC7850 /* DataValidationTests.swift */; };
@@ -116,6 +117,7 @@
 		5E7768491D8AF8280060F81D /* CurrencyPrice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyPrice.swift; sourceTree = "<group>"; };
 		5E77684B1D8AF8800060F81D /* CurrencyData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
 		5E77684D1D8AFBB70060F81D /* UsingCurrency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsingCurrency.swift; sourceTree = "<group>"; };
+		5E77684F1D8AFD940060F81D /* CurrencyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewController.swift; sourceTree = "<group>"; };
 		5E79C19C1D705E7E009CA5F7 /* DigitRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigitRule.swift; sourceTree = "<group>"; };
 		5E8921141D6DF8D700E288DC /* AddressRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressRule.swift; sourceTree = "<group>"; };
 		5E99946A1D6350B400FC7850 /* DataValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataValidationTests.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				5EBAC1321D54EE6300AE422B /* TxTableViewController.swift */,
 				5E9994751D67143B00FC7850 /* ScanViewController.swift */,
 				5E7768311D89C8460060F81D /* SettingsViewController.swift */,
+				5E77684F1D8AFD940060F81D /* CurrencyTableViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -629,6 +632,7 @@
 				5E2A3EA81D476BEB008171B3 /* FullAddress.swift in Sources */,
 				5EBFB5081D3E531000D8B938 /* BRKey.m in Sources */,
 				5EBAC1331D54EE6300AE422B /* TxTableViewController.swift in Sources */,
+				5E7768501D8AFD940060F81D /* CurrencyTableViewController.swift in Sources */,
 				5EBAC1311D54A59700AE422B /* PushTxResponse.swift in Sources */,
 				5EBFB50D1D3E531000D8B938 /* NSManagedObject+Sugar.m in Sources */,
 				5EBAC1761D5A12C000AE422B /* TxData.swift in Sources */,
