@@ -3,12 +3,17 @@ import Alamofire
 
 public class BlockCypherApi {
     
+    static let ratesRequest = "https://bitpay.com/rates"
+    static let ratesRequestReserve = "https://api.breadwallet.com/rates"
+    
     public enum RequestType: String {
         case TestNet = "https://api.blockcypher.com/v1/btc/test3"
         case MainNet = "https://api.blockcypher.com/v1/btc/main"
         case TestNetPushTx = "https://api.blockcypher.com/v1/btc/test3/txs/push?"
         case MainNetPushTx = "https://api.blockcypher.com/v1/btc/main/txs/push?"
         case Fee = "https://bitcoinfees.21.co/api/v1/fees/recommended"
+        case RatesRequest = "https://bitpay.com/rates"
+        case RatesRequestReserve = "https://api.breadwallet.com/rates"
     }
     
     static private let bitcoinApi = "https://api.blockcypher.com/v1/btc/"
@@ -95,6 +100,27 @@ public class BlockCypherApi {
             success(data: data)
         })
     }
+    
+    public class func getCurrencyData( doWithJson: ( json : [String : AnyObject] ) -> Void )  {
+        let url = RequestType.RatesRequest.rawValue
+        let request = Alamofire.request(.GET, url)
+        request.validate()
+        request.responseJSON(completionHandler: { response in
+            guard response.result.isSuccess else {
+                print("Error reqursting full adress \(response.result.error)")
+                return
+            }
+            
+            guard let jsonResp = response.result.value as? [String : AnyObject] else {
+                print("Failes to get CurrencyData")
+                return
+            }
+            doWithJson(json: jsonResp)
+        })
+    }
+    
+    
+    
         
     //TODO: Use it in methods above, make your code DRY(Dont repeat yourself)!
     func responseDataGetAndCheck(response:Response<AnyObject, NSError> ) {//-> [String: AnyObject] {
