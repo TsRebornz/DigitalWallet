@@ -4,29 +4,27 @@
 //
 //  Created by username on 14/09/16.
 //  Copyright © 2016 BCA. All rights reserved.
-//
 
 import Foundation
 import UIKit
 
-
-
-public class SettingsViewController : UITableViewController, DelegateTableViewController {
+public class SettingsViewController : UITableViewController, DelegateTableViewController  {
     
     @IBOutlet weak var localCurrencyCell: UITableViewCell!
     
+    
+    
     public override func viewDidLoad() {
         //Load localCurrency FromSettingsManager
-        /*
-            Enter your code here
-        */
+        MPManager.sharedInstance.settingsVC = self
+        self.loadLocalCurrencyData()
     }
     
     //MARK: DelegateTableViewController
     public func currencyTableViewControllerDelegate(controller: CurrencyTableViewController ){
         let localCurrency : CurrencyPrice = controller.selectedCurrency!
-        self.localCurrencyCell.textLabel!.text = "\(localCurrency.code!) \(localCurrency.rate!) "
-        self.localCurrencyCell.detailTextLabel!.text = "\(localCurrency.name!)"
+        updateCellbyModel( localCurrency )
+        MPManager.sharedInstance.valueChanged(MPManager.localCurrency, value: localCurrency as AnyObject)
         //Save this shit to core data
     }
     //MARK: -
@@ -47,6 +45,22 @@ public class SettingsViewController : UITableViewController, DelegateTableViewCo
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     //MARK: -
+    
+    func loadLocalCurrencyData(){
+        let t_localCurrency : CurrencyPrice?  = MPManager.sharedInstance.sendData(MPManager.localCurrency) as! CurrencyPrice?
+        updateCellbyModel(t_localCurrency)
+    }
+    
+    func updateCellbyModel(model : CurrencyPrice?) {
+        if model != nil {
+            self.localCurrencyCell.textLabel!.text = "\(model!.code!) \(model!.rate!) "
+            self.localCurrencyCell.detailTextLabel!.text = "\(model!.name!)"
+        } else {
+            self.localCurrencyCell.textLabel!.text = "No currency loaded"
+            self.localCurrencyCell.detailTextLabel!.text = ""
+            
+        }
+    }
     
     
 }
