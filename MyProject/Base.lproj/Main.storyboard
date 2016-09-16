@@ -206,7 +206,13 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Insert your private key" id="dDu-02-RPR"/>
+                    <navigationItem key="navigationItem" title="Insert your private key" id="dDu-02-RPR">
+                        <barButtonItem key="rightBarButtonItem" image="settings" style="plain" id="75m-PT-fEz">
+                            <connections>
+                                <segue destination="KUq-ck-Qrv" kind="presentation" id="EQh-VW-MIG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="nextBtn" destination="fqM-Bq-5wQ" id="NUE-cM-8xN"/>
                         <outlet property="privateKeyTextField" destination="Ja3-OT-xtT" id="RJR-ec-JJU"/>
@@ -526,7 +532,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="xzK-xe-cIV" kind="showDetail" id="oXp-JK-CA6"/>
+                                            <segue destination="xzK-xe-cIV" kind="showDetail" identifier="CurrencySeque" id="oXp-JK-CA6"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -1023,4 +1029,7 @@
         <image name="qrcode_crosschair_simple" width="115" height="115"/>
         <image name="settings" width="75" height="96"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="EQh-VW-MIG"/>
+    </inferredMetricsTieBreakers>
 </document>

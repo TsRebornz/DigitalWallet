@@ -17,7 +17,8 @@ public protocol DelegateTableViewController : class {
 
 public class CurrencyTableViewController : UITableViewController  {
     
-    var selectedCell : UITableViewCell?
+    weak var delegate : DelegateTableViewController?
+    var selectedCurrency : CurrencyPrice?
     var rates : [CurrencyPrice]?
     public override func viewDidLoad() {
             BlockCypherApi.getCurrencyData({ json in
@@ -49,7 +50,9 @@ public class CurrencyTableViewController : UITableViewController  {
 
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //Mark with galo4ka
-        
+        selectedCurrency = rates![indexPath.row]
+        delegate?.currencyTableViewControllerDelegate(self)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     public func prepareCell(lbl : UILabel , check : Bool) -> UILabel{
