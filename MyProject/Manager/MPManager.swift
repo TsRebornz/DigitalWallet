@@ -35,11 +35,15 @@ public class MPManager : MediatorProtocol {
         
     }
     
-    public func sendData(byString : String) -> AnyObject? {
+    public func sendData(byString : String) -> AnyObject? {        
         if settingsDictionary.indexForKey(byString) != nil {
+            //FIXME: Change to switch - case statement
+            
+            
             return settingsDictionary[byString]!
         }
         return nil
     }
-    //MARK: - 
+    //MARK: -
+    
 }

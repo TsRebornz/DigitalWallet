@@ -130,16 +130,19 @@ public class InspectViewController : UIViewController {
     
     func updateBalance(){
         if ( nil != self.address ){
-            balanceLbl?.text = "\(self.address!.balance!) (\(Utilities.convertSatoshToFiat(Int(self.address!.balance!), rate: 608.01)) \((self.getFiatCode())))"
+            balanceLbl?.text = "\(self.address!.balance!) \(getFiatString())"
         }else{
             balanceLbl?.text = "Balance no loaded"
         }
     }
     
-    func getFiatCode() -> String {
+    
+    
+    func getFiatString() -> String {
         //getFiatRateModel
-        //Load from api or from coreData
-        return "USD"
+        let localCurrency : CurrencyPrice? = MPManager.sharedInstance.sendData(MPManager.localCurrency) as! CurrencyPrice?
+        let fiatString = Utilities.getFiatBalanceString(localCurrency, satoshi: Int(self.address!.balance!) )
+        return fiatString
     }
     
     func fillData(){
