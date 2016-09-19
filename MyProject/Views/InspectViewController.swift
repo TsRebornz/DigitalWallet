@@ -47,6 +47,11 @@ public class InspectViewController : UIViewController {
         fillData()
     }
     
+    override public func viewWillAppear(animated: Bool) {
+        //blah blah blah
+        self.updateBalance()
+    }
+    
     override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
