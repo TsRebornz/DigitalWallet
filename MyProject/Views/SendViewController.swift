@@ -16,12 +16,15 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     @IBOutlet weak var hSwitch : UISwitch!
     
     @IBOutlet weak var amountSlider : UISlider!
-    @IBOutlet weak var sliderMaxValLabl : UILabel!
+    @IBOutlet weak var sliderMaxValSatoshiLabl : UILabel!
+    @IBOutlet weak var sliderMaxValFiatLabl : UILabel!
     
     @IBOutlet weak var amountErrorLabel: UILabel!
-    @IBOutlet weak var amountTxtField: UITextField!    
+    @IBOutlet weak var amountSatTxtField: UITextField!
+    @IBOutlet weak var amountFiatTxtField: UITextField!
     
-    @IBOutlet weak var feeValLbl : UILabel!
+    @IBOutlet weak var feeValSatLbl : UILabel!
+    @IBOutlet weak var feeValFiatLbl : UILabel!
     
     let validator = Validator()
         
@@ -83,7 +86,8 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         
         //Valiadtion in privateKeyTextField
         validator.registerField(addressTxtField, errorLabel: addressErrorLabel, rules: [RequiredRule(), AddressRule() ])
-        validator.registerField(amountTxtField, errorLabel: amountErrorLabel, rules: [RequiredRule(), DigitRule() ])
+        validator.registerField(amountSatTxtField, errorLabel: amountErrorLabel, rules: [RequiredRule(), DigitRule() ])
+        validator.registerField(amountFiatTxtField, errorLabel: amountErrorLabel, rules: [RequiredRule(), DigitRule() ])
     }
     
     func prepareAndLoadViewData(){
@@ -91,11 +95,12 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         self.updateFeeData()
         self.loadFeeData()
         self.selectedFeeRate = 0
-        self.feeValLbl.text = "0"
+        self.feeValSatLbl.text = "0"
         
         addressTxtField.layer.cornerRadius = 5
         addressTxtField.delegate = self
-        amountTxtField.delegate = self        
+        amountSatTxtField.delegate = self
+        amountFiatTxtField.delegate = self
     }
     
     override public func viewWillAppear(animated: Bool) {
@@ -107,8 +112,8 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         let defaultFee = 0
         let sendAddress = self.testAddress
         let validKey = self.key!
-        let amountString = self.amountTxtField.text!
-        let amount = Int(amountString)!
+        let amountSatTxtField = self.amountSatTxtField.text!
+        let amount = Int(amountSatTxtField)!
         let testnet = validKey.isTestnetValue()
         let transaction : Transaction = Transaction(address: self.address!, brkey: validKey, sendAddress: sendAddress, fee: defaultFee , amount: amount)
         self.transactionProtocol = transaction
@@ -181,10 +186,12 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
             NSException(name: "SendViewControllerAddressNil", reason: "Address or balance is nil", userInfo: nil).raise()
         }
         self.amountSlider.maximumValue = Float(balance)
-        self.sliderMaxValLabl.text = String(balance)
+        self.sliderMaxValSatoshiLabl.text = String(balance)
+        self.sliderMaxValFiatLabl.text = getFiatString(balance)
         let defaultVal = Float(balance/10)
         self.amountSlider.setValue( defaultVal , animated: true)
-        self.amountTxtField.text = "\(Int(defaultVal))"
+        self.amountSatTxtField.text = "\(Int(defaultVal))"
+        self.amountFiatTxtField.text = getFiatString(Int(defaultVal))
     }
     //MARK:
     
@@ -199,21 +206,22 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     //MARK:TextDelegate
     public func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        if(textField == self.amountTxtField) {
+        if(textField == self.amountSatTxtField || textField == self.amountFiatTxtField ) {
+            self.synchronizeTxtFields(textField)
             validator.validateField(textField){ error in
                 //Kostil 2000 b|
-                let isAmountNoMoreThanBalance = Int(self.amountTxtField.text!) <= Int((self.address.balance)!)
+                let isAmountNoMoreThanBalance = Int(self.amountSatTxtField.text!) <= Int((self.address.balance)!)
                 let isAmountDigitAndNoMoreThanBalance : Bool = error == nil ? isAmountNoMoreThanBalance : false
                 if ( isAmountDigitAndNoMoreThanBalance )  {
                     //Field validation was successful
                     //let amount : Int = Int(textField.text!)!
-                    self.changeValidatableFieldToDefault(self.amountTxtField, errorLbl: self.amountErrorLabel)
+                    self.changeValidatableFieldToDefault(self.amountSatTxtField, errorLbl: self.amountErrorLabel)
                     NSNotificationCenter.defaultCenter().postNotificationName(self.selectorAmountChanged, object: self, userInfo: nil)
                     self.amountValid = true
                     
                 } else {
                     // Validation error occurred
-                    let field = self.amountTxtField
+                    let field = self.amountSatTxtField
                     field.layer.borderColor = UIColor.redColor().CGColor
                     field.layer.borderWidth = 1.0
                     //Kostil 2000 b|
@@ -230,6 +238,17 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         return true
     }
     //MARK:
+    
+    func synchronizeTxtFields(textField : UITextField) {
+        //Code syncroniz
+    }
+    
+    func getFiatString(bySatoshi : Int) -> String {
+        let localCurrency : CurrencyPrice? = MPManager.sharedInstance.sendData(MPManager.localCurrency) as! CurrencyPrice?
+        let fiatBalanceString = Utilities.getFiatBalanceString(localCurrency, satoshi: bySatoshi )
+        let fiatString = fiatBalanceString  != "" ? "\(fiatBalanceString)" : ""
+        return fiatString
+    }
     
     func changeValidatableFieldToDefault(validateField: UITextField, errorLbl : UILabel){
         validateField.layer.borderColor = UIColor.greenColor().CGColor
@@ -248,7 +267,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         // turn the fields to red
         for (field, error) in errors {
             let field = field as? UITextField
-            if (field != self.amountTxtField){
+            if (field != self.amountSatTxtField){
                 field!.layer.borderColor = UIColor.redColor().CGColor
                 field!.layer.borderWidth = 1.0
                 error.errorLabel?.text = error.errorMessage // works if you added labels
@@ -262,14 +281,16 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     //MARK:Notifications
     func feeDataChanged() {
         let miners_fee : Int = (self.minersFeeProtocol!.updateMinersFeeWithFee(self.selectedFeeRate))
-        self.feeValLbl?.text = "\(miners_fee)"
+        self.feeValSatLbl?.text = "\(miners_fee)"
+        self.feeValFiatLbl!.text! = self.getFiatString(miners_fee)
     }
     
     func amountDataChanged() {
-        let strAmount : String = self.amountTxtField.text!
+        let strAmount : String = self.amountSatTxtField.text!
         //changeAmount
         let miners_fee : Int = (self.minersFeeProtocol!.updateMinersFeeWithAmount(Int(strAmount)!))
-        self.feeValLbl?.text = "\(miners_fee)"
+        self.feeValSatLbl?.text = "\(miners_fee)"
+        self.feeValFiatLbl!.text! = self.getFiatString(miners_fee)
     }
     //MARK:
     
@@ -279,12 +300,6 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         var laError : NSError?
         let reasonString = reasonString
         var auth = false
-        //Zaglushka
-//        if(authenticated){
-//            //self.laContext.
-//            self.laContext = LAContext()
-//            authenticated = false
-//        }
         if (laContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthentication, error: &laError)){
             laContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthentication, localizedReason: reasonString, reply: { (success: Bool, error: NSError?) -> Void in
                 if (success) {
@@ -332,14 +347,16 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         
     @IBAction func sliderChanged(sender: UISlider) {
         let intValue = Int(sender.value)
-        self.amountTxtField.text = String(intValue)
-        self.changeValidatableFieldToDefault(self.amountTxtField, errorLbl: self.amountErrorLabel!)
+        self.amountSatTxtField.text = String(intValue)
+        self.amountFiatTxtField.text = self.getFiatString(intValue)
+        self.changeValidatableFieldToDefault(self.amountSatTxtField, errorLbl: self.amountErrorLabel!)
+        self.changeValidatableFieldToDefault(self.amountFiatTxtField, errorLbl: self.amountErrorLabel!)
         NSNotificationCenter.defaultCenter().postNotificationName(self.selectorAmountChanged, object: self, userInfo: nil)
     }
     
     @IBAction func acceptTxBtnTapped(sender: AnyObject) {
         validator.validate(self)
-        textFieldShouldReturn(self.amountTxtField)
+        textFieldShouldReturn(self.amountSatTxtField)
         
         let alertController = UIAlertController(title: "Send Transaction Error", message: "Error not all properties are valid", preferredStyle: .Alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler:{ UIAlertAction in
@@ -348,7 +365,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         alertController.addAction(cancelAction)
         
         if (addressValid && amountValid){
-            let reasonString = "Authenticate yourself \nYou want to send \(self.amountTxtField!.text!) satoshi \nTo address \(self.addressTxtField!.text!)\nWith miners fee \(self.feeValLbl!.text!)"
+            let reasonString = "Authenticate yourself \nYou want to send \(self.amountSatTxtField!.text!)(\(self.amountFiatTxtField!.text!)) \nTo address \(self.addressTxtField!.text!)\nWith miners fee \(self.feeValSatLbl!.text!)(\(self.feeValFiatLbl!.text!))"
             self.authenticateUser(reasonString, succes: { auth in
                 if auth {
                     self.counterTx = self.counterTx + 1

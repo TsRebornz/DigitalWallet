@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/Views/SendViewController.swift"
-            timestampString = "495545831.532498"
+            timestampString = "495993422.376823"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
             landmarkName = "validationSuccessful()"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/Views/SendViewController.swift"
-            timestampString = "495545831.532498"
+            timestampString = "495993947.930808"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "269"
-            endingLineNumber = "269"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
             landmarkName = "amountDataChanged()"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/Views/SendViewController.swift"
-            timestampString = "495545831.532498"
+            timestampString = "495993422.376823"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
             landmarkName = "textFieldShouldReturn(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/Views/SendViewController.swift"
-            timestampString = "495545831.532498"
+            timestampString = "495993947.930808"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "288"
-            endingLineNumber = "288"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
             landmarkName = "authenticateUser(_:succes:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/Views/SendViewController.swift"
-            timestampString = "495553632.429168"
+            timestampString = "495993947.930808"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "341"
-            endingLineNumber = "341"
+            startingLineNumber = "358"
+            endingLineNumber = "358"
             landmarkName = "acceptTxBtnTapped(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/Views/SendViewController.swift"
-            timestampString = "495545780.499834"
+            timestampString = "495993947.930808"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "290"
-            endingLineNumber = "290"
+            startingLineNumber = "305"
+            endingLineNumber = "305"
             landmarkName = "authenticateUser(_:succes:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyProject/Views/SendViewController.swift"
-            timestampString = "495557133.818844"
+            timestampString = "495993947.930808"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "353"
-            endingLineNumber = "353"
+            startingLineNumber = "370"
+            endingLineNumber = "370"
             landmarkName = "acceptTxBtnTapped(_:)"
             landmarkType = "5">
          </BreakpointContent>

@@ -11,13 +11,14 @@ import Foundation
 public class Utilities {
     class func convertSatoshToFiat(satoshi : Int , rate : Double) -> Float{
         let bitcoins : Double = Double(satoshi) / 100000000
-        return Float(bitcoins * rate) 
+        let localRate = Float(bitcoins * rate)
+        return round(localRate * 1000) / 1000
     }
     
     class func getFiatBalanceString(model : CurrencyPrice?, satoshi : Int) -> String{
         if model != nil {
             let rate = convertSatoshToFiat(satoshi, rate: Double(model!.rate!))
-            return "( \(rate) - \(model!.code!) )"
+            return "\(rate) - \(model!.code!)"
         } else {
             return ""
         }                

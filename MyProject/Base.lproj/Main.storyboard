@@ -442,25 +442,37 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="√" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="en0-pF-fN9">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="√" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="en0-pF-fN9">
                                             <rect key="frame" x="8" y="11" width="12" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pGS-LI-egZ">
-                                            <rect key="frame" x="28" y="22" width="401" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pGS-LI-egZ">
+                                            <rect key="frame" x="28" y="22" width="33" height="15"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CodeAndRateText" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="plL-Xb-o9Z">
-                                            <rect key="frame" x="28" y="0.0" width="137" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CodeAndRateText" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="plL-Xb-o9Z">
+                                            <rect key="frame" x="28" y="0.0" width="325" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="Tc4-3y-duG"/>
+                                                <constraint firstAttribute="width" constant="325" id="flT-ay-wbh"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="plL-Xb-o9Z" firstAttribute="leading" secondItem="wtb-KZ-iHR" secondAttribute="leading" constant="28" id="2xl-As-dPu"/>
+                                        <constraint firstItem="pGS-LI-egZ" firstAttribute="top" secondItem="plL-Xb-o9Z" secondAttribute="bottom" constant="1" id="brJ-eP-RVh"/>
+                                        <constraint firstItem="plL-Xb-o9Z" firstAttribute="leading" secondItem="pGS-LI-egZ" secondAttribute="leading" id="hZT-jz-L7F"/>
+                                        <constraint firstItem="plL-Xb-o9Z" firstAttribute="top" secondItem="wtb-KZ-iHR" secondAttribute="top" id="l6k-bh-Jdc"/>
+                                        <constraint firstItem="plL-Xb-o9Z" firstAttribute="leading" secondItem="en0-pF-fN9" secondAttribute="trailing" constant="8" symbolic="YES" id="pNF-cR-GCd"/>
+                                        <constraint firstItem="en0-pF-fN9" firstAttribute="centerY" secondItem="wtb-KZ-iHR" secondAttribute="centerY" id="rt1-cu-HJ6"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -836,8 +848,8 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="nDE-iK-gxQ" userLabel="AmountInutStackView">
                                 <rect key="frame" x="40" y="405" width="520" height="47"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="luH-bl-rJl" userLabel="AmountLblAndErrorLblStackView">
-                                        <rect key="frame" x="0.0" y="0.0" width="51" height="17"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="6" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="luH-bl-rJl" userLabel="AmountLblAndErrorLblStackView">
+                                        <rect key="frame" x="0.0" y="0.0" width="520" height="17"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="N6e-7R-kgI">
                                                 <rect key="frame" x="0.0" y="0.0" width="51" height="17"/>
@@ -853,8 +865,8 @@
                                                     </mask>
                                                 </variation>
                                             </label>
-                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AmountErrorLabel" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="xTK-cX-WTO" userLabel="Amount Error Label">
-                                                <rect key="frame" x="51" y="0.0" width="0.0" height="17"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AmountErrorLabel" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="xTK-cX-WTO" userLabel="Amount Error Label">
+                                                <rect key="frame" x="57" y="0.0" width="463" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -872,7 +884,6 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="255" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="500" id="0SR-Am-4sG"/>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="125" id="11c-bc-2nG"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -880,7 +891,6 @@
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T4p-2Q-381" userLabel="Amount_Fiat">
                                                 <rect key="frame" x="265" y="0.0" width="255" height="30"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="rcb-Rn-Ytw"/>
                                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="500" id="zlo-Fk-Zzm"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -893,6 +903,8 @@
                                     </stackView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="luH-bl-rJl" firstAttribute="width" secondItem="nDE-iK-gxQ" secondAttribute="width" id="5Z3-VY-Lud"/>
+                                    <constraint firstItem="xTK-cX-WTO" firstAttribute="width" relation="lessThanOrEqual" secondItem="nDE-iK-gxQ" secondAttribute="width" id="EHa-eF-2vv"/>
                                     <constraint firstAttribute="height" constant="47" id="yIp-Tg-Vp0"/>
                                 </constraints>
                             </stackView>
@@ -928,7 +940,7 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="minerFee_lbl" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tm4-xi-nIU">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="minerFee_lbl" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Tm4-xi-nIU">
                                                 <rect key="frame" x="0.0" y="22" width="102" height="22"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -944,13 +956,13 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="WHn-gi-oQW" userLabel="Fiat Fee Stack View">
                                         <rect key="frame" x="102" y="0.0" width="98" height="44"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fiat Fee" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGi-8N-I8L">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fiat Fee" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="JGi-8N-I8L">
                                                 <rect key="frame" x="17" y="0.0" width="64" height="22"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="minerFee_lbl" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="H0w-Dr-3Sr">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="minerFee_lbl" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="H0w-Dr-3Sr">
                                                 <rect key="frame" x="0.0" y="22" width="98" height="22"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1038,16 +1050,19 @@
                         <outlet property="addressErrorLabel" destination="2ZT-0t-e9H" id="9cQ-1s-VkD"/>
                         <outlet property="addressTxtField" destination="3LO-hj-f8P" id="Kls-DB-T7P"/>
                         <outlet property="amountErrorLabel" destination="xTK-cX-WTO" id="Dbs-VB-ZzJ"/>
+                        <outlet property="amountFiatTxtField" destination="T4p-2Q-381" id="GwW-YS-KXW"/>
+                        <outlet property="amountSatTxtField" destination="6pG-vN-AYt" id="r1R-ZS-ibI"/>
                         <outlet property="amountSlider" destination="rS9-8d-bKq" id="CVM-bT-uSk"/>
-                        <outlet property="amountTxtField" destination="6pG-vN-AYt" id="f4K-zs-V5N"/>
-                        <outlet property="feeValLbl" destination="Tm4-xi-nIU" id="ojA-Jt-DXO"/>
+                        <outlet property="feeValFiatLbl" destination="H0w-Dr-3Sr" id="3LI-5U-Hx0"/>
+                        <outlet property="feeValSatLbl" destination="Tm4-xi-nIU" id="YBz-Oo-KAR"/>
                         <outlet property="ffLbl" destination="53O-Gg-Hih" id="6uT-OZ-ddV"/>
                         <outlet property="ffSwitch" destination="Y3i-2e-3RP" id="gYg-Jl-qm7"/>
                         <outlet property="hLbl" destination="B54-Ls-Yjf" id="5ic-SS-NRj"/>
                         <outlet property="hSwitch" destination="pgf-kf-Agf" id="OLg-2N-sPD"/>
                         <outlet property="hhLbl" destination="15N-uy-CNd" id="hBK-Ie-SSd"/>
                         <outlet property="hhSwitch" destination="O8S-dX-dGh" id="kM7-vP-NRq"/>
-                        <outlet property="sliderMaxValLabl" destination="jet-yC-0ed" id="86I-Ci-Er4"/>
+                        <outlet property="sliderMaxValFiatLabl" destination="jet-yC-0ed" id="Mqp-lB-stI"/>
+                        <outlet property="sliderMaxValSatoshiLabl" destination="Jfr-nh-mtW" id="h36-A0-LIZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mYX-cx-wKv" userLabel="First Responder" sceneMemberID="firstResponder"/>

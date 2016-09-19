@@ -57,7 +57,6 @@ public class InspectViewController : UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
     func dataLoadingUpdate() {
         let text = "Loading"
         self.balanceLbl?.text = text
@@ -135,18 +134,16 @@ public class InspectViewController : UIViewController {
     
     func updateBalance(){
         if ( nil != self.address ){
-            balanceLbl?.text = "\(self.address!.balance!) \(getFiatString())"
+            balanceLbl?.text = "\(self.address!.balance!) \(getFiatString() )"
         }else{
             balanceLbl?.text = "Balance no loaded"
         }
     }
     
-    
-    
-    func getFiatString() -> String {
-        //getFiatRateModel
+    func getFiatString() -> String {        
         let localCurrency : CurrencyPrice? = MPManager.sharedInstance.sendData(MPManager.localCurrency) as! CurrencyPrice?
-        let fiatString = Utilities.getFiatBalanceString(localCurrency, satoshi: Int(self.address!.balance!) )
+        let fiatBalanceString = Utilities.getFiatBalanceString(localCurrency, satoshi: Int(self.address!.balance!) )
+        let fiatString = Utilities.getFiatBalanceString(localCurrency, satoshi: Int(self.address!.balance!) ) != "" ? "(\(fiatBalanceString) )" : ""
         return fiatString
     }
     

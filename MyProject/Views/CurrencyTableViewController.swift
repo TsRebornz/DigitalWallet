@@ -42,7 +42,9 @@ public class CurrencyTableViewController : UITableViewController  {
         let code = rates![indexPath.row].code!
         let rate = rates![indexPath.row].rate!
         let name = rates![indexPath.row].name!
-        (cell?.viewWithTag(1000) as! UILabel).text = "\(code) \(rate) "
+        
+        //rate
+        (cell?.viewWithTag(1000) as! UILabel).text = "\(code) \(round(rate * 1000) / 1000) "
         (cell?.viewWithTag(1001) as! UILabel).text = "\(name)"
         (cell?.viewWithTag(1002) as! UILabel).text = ""        
         return cell!
