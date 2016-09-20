@@ -22,6 +22,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     @IBOutlet weak var amountErrorLabel: UILabel!
     @IBOutlet weak var amountSatTxtField: UITextField!
     @IBOutlet weak var amountFiatTxtField: UITextField!
+    @IBOutlet weak var amountFiatCodeLabel: UILabel!
     
     @IBOutlet weak var feeValSatLbl : UILabel!
     @IBOutlet weak var feeValFiatLbl : UILabel!
@@ -96,6 +97,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         self.loadFeeData()
         self.selectedFeeRate = 0
         self.feeValSatLbl.text = "0"
+        self.updateFiatData()
         
         addressTxtField.layer.cornerRadius = 5
         addressTxtField.delegate = self
@@ -154,6 +156,11 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         }
     }
     
+    func updateFiatData(){
+        let cp : CurrencyPrice? = MPManager.sharedInstance.sendData(MPManager.localCurrency) as! CurrencyPrice?
+        self.amountFiatCodeLabel.text! = cp != nil ? (cp?.code!)! : "No Data"
+    }
+    
     func setFeeForSelectedSwitchAndTurnOffSwitchesExcept(switched: UISwitch){
         switched.enabled = false
         self.updateSelectedFeeRate(switched)
@@ -187,11 +194,11 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         }
         self.amountSlider.maximumValue = Float(balance)
         self.sliderMaxValSatoshiLabl.text = String(balance)
-        self.sliderMaxValFiatLabl.text = getFiatString(balance)
+        self.sliderMaxValFiatLabl.text = getFiatString(balance, withCode: true)
         let defaultVal = Float(balance/10)
         self.amountSlider.setValue( defaultVal , animated: true)
         self.amountSatTxtField.text = "\(Int(defaultVal))"
-        self.amountFiatTxtField.text = getFiatString(Int(defaultVal))
+        self.amountFiatTxtField.text = getFiatString(Int(defaultVal), withCode: false)
     }
     //MARK:
     
@@ -243,9 +250,9 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         //Code syncroniz
     }
     
-    func getFiatString(bySatoshi : Int) -> String {
+    func getFiatString(bySatoshi : Int , withCode : Bool) -> String {
         let localCurrency : CurrencyPrice? = MPManager.sharedInstance.sendData(MPManager.localCurrency) as! CurrencyPrice?
-        let fiatBalanceString = Utilities.getFiatBalanceString(localCurrency, satoshi: bySatoshi )
+        let fiatBalanceString = Utilities.getFiatBalanceString(localCurrency, satoshi: bySatoshi, withCode: withCode)
         let fiatString = fiatBalanceString  != "" ? "\(fiatBalanceString)" : ""
         return fiatString
     }
@@ -282,7 +289,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     func feeDataChanged() {
         let miners_fee : Int = (self.minersFeeProtocol!.updateMinersFeeWithFee(self.selectedFeeRate))
         self.feeValSatLbl?.text = "\(miners_fee)"
-        self.feeValFiatLbl!.text! = self.getFiatString(miners_fee)
+        self.feeValFiatLbl!.text! = self.getFiatString(miners_fee, withCode: true)
     }
     
     func amountDataChanged() {
@@ -290,7 +297,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         //changeAmount
         let miners_fee : Int = (self.minersFeeProtocol!.updateMinersFeeWithAmount(Int(strAmount)!))
         self.feeValSatLbl?.text = "\(miners_fee)"
-        self.feeValFiatLbl!.text! = self.getFiatString(miners_fee)
+        self.feeValFiatLbl!.text! = self.getFiatString(miners_fee, withCode: true)
     }
     //MARK:
     
@@ -348,7 +355,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     @IBAction func sliderChanged(sender: UISlider) {
         let intValue = Int(sender.value)
         self.amountSatTxtField.text = String(intValue)
-        self.amountFiatTxtField.text = self.getFiatString(intValue)
+        self.amountFiatTxtField.text = self.getFiatString(intValue, withCode: false)
         self.changeValidatableFieldToDefault(self.amountSatTxtField, errorLbl: self.amountErrorLabel!)
         self.changeValidatableFieldToDefault(self.amountFiatTxtField, errorLbl: self.amountErrorLabel!)
         NSNotificationCenter.defaultCenter().postNotificationName(self.selectorAmountChanged, object: self, userInfo: nil)

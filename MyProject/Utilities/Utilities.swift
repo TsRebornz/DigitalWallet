@@ -15,10 +15,16 @@ public class Utilities {
         return round(localRate * 1000) / 1000
     }
     
-    class func getFiatBalanceString(model : CurrencyPrice?, satoshi : Int) -> String{
+    class func convertFiatToSatoshi(fiat : Float , rate : Double) -> Int {
+        let bitcoins : Double = Double(fiat) / rate
+        return Int(bitcoins * 100000000)
+    }
+    
+    
+    class func getFiatBalanceString(model : CurrencyPrice?, satoshi : Int , withCode : Bool) -> String{
         if model != nil {
             let rate = convertSatoshToFiat(satoshi, rate: Double(model!.rate!))
-            return "\(rate) - \(model!.code!)"
+            return "\(rate)" + (withCode ? " - \(model!.code!)" : "")
         } else {
             return ""
         }                

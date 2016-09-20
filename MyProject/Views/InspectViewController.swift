@@ -142,8 +142,9 @@ public class InspectViewController : UIViewController {
     
     func getFiatString() -> String {        
         let localCurrency : CurrencyPrice? = MPManager.sharedInstance.sendData(MPManager.localCurrency) as! CurrencyPrice?
-        let fiatBalanceString = Utilities.getFiatBalanceString(localCurrency, satoshi: Int(self.address!.balance!) )
-        let fiatString = Utilities.getFiatBalanceString(localCurrency, satoshi: Int(self.address!.balance!) ) != "" ? "(\(fiatBalanceString) )" : ""
+        let fiatBalanceString = Utilities.getFiatBalanceString(localCurrency, satoshi: Int(self.address!.balance!) , withCode: true)
+        //Utilities.getFiatBalanceString(localCurrency, satoshi: Int(self.address!.balance!) )
+        let fiatString = fiatBalanceString != "" ? "(\(fiatBalanceString) )" : ""
         return fiatString
     }
     
