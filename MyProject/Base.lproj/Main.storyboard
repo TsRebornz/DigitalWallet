@@ -862,8 +862,8 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="6" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="luH-bl-rJl" userLabel="AmountLblAndErrorLblStackView">
                                                 <rect key="frame" x="0.0" y="0.0" width="540" height="17"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text=" Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="N6e-7R-kgI">
-                                                        <rect key="frame" x="0.0" y="0.0" width="55" height="17"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" misplaced="YES" text=" Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="N6e-7R-kgI">
+                                                        <rect key="frame" x="0.0" y="0.0" width="540" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17" id="pP6-aa-86X"/>
                                                         </constraints>
@@ -876,8 +876,8 @@
                                                             </mask>
                                                         </variation>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AmountErrorLabel" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="xTK-cX-WTO" userLabel="Amount Error Label">
-                                                        <rect key="frame" x="61" y="0.0" width="479" height="17"/>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="AmountErrorLabel" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="xTK-cX-WTO" userLabel="Amount Error Label">
+                                                        <rect key="frame" x="540" y="0.0" width="0.0" height="17"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>

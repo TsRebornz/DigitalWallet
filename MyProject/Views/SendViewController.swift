@@ -58,9 +58,11 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     var amountValid : Bool = false
     
     //Authentification
-    
     var laContext : LAContext!
     var authenticated = false
+    
+    //TextField And Slider synchronization
+    var uiItemsSynchrArr = [AnyObject]()
     
     //FIXME:Extract to singleton
     var GlobalUserInitiatedQueue: dispatch_queue_t {
@@ -74,6 +76,9 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         //UISwitchLogic
         switchArr += [ffSwitch,hhSwitch,hSwitch]
         switchDictionary = [ self.ffSwitch! : self.ffLbl! , self.hhSwitch! : self.hhLbl! , self.hSwitch! : self.hLbl! ]
+        
+        ////TextField And Slider synchronization
+        self.uiItemsSynchrArr.append([self.amountSlider, self.amountSatTxtField, self.amountFiatTxtField])
         
         self.prepareAndLoadViewData()
         
@@ -214,7 +219,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     public func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         if(textField == self.amountSatTxtField || textField == self.amountFiatTxtField ) {
-            self.synchronizeTxtFields(textField)
+            
             validator.validateField(textField){ error in
                 //Kostil 2000 b|
                 let isAmountNoMoreThanBalance = Int(self.amountSatTxtField.text!) <= Int((self.address.balance)!)
@@ -225,6 +230,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
                     self.changeValidatableFieldToDefault(self.amountSatTxtField, errorLbl: self.amountErrorLabel)
                     NSNotificationCenter.defaultCenter().postNotificationName(self.selectorAmountChanged, object: self, userInfo: nil)
                     self.amountValid = true
+                    self.synchronizeTxtFields(textField)
                     
                 } else {
                     // Validation error occurred
@@ -247,7 +253,15 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
     //MARK:
     
     func synchronizeTxtFields(textField : UITextField) {
-        //Code syncroniz
+        for uiItem in self.uiItemsSynchrArr {
+                //Mark: - Zlo
+                if  uiItem is UISlider {                    
+                    (uiItem as! UISlider).setValue(Float(textField.text!)!, animated: true)
+                } else if uiItem is UITextField {
+                    (uiItem as! UITextField).text = textField.text
+                }
+                //Mark: -
+        }
     }
     
     func getFiatString(bySatoshi : Int , withCode : Bool) -> String {
