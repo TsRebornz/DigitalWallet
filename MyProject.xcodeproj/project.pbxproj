@@ -35,6 +35,7 @@
 		5E7768501D8AFD940060F81D /* CurrencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E77684F1D8AFD940060F81D /* CurrencyTableViewController.swift */; };
 		5E7768531D8C111E0060F81D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E7768511D8C111E0060F81D /* Main.storyboard */; };
 		5E7768561D8C1C440060F81D /* MPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7768551D8C1C440060F81D /* MPManager.swift */; };
+		5E7768641D92C9AA0060F81D /* DecimalRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7768631D92C9A90060F81D /* DecimalRule.swift */; };
 		5E79C19D1D705E7E009CA5F7 /* DigitRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E79C19C1D705E7E009CA5F7 /* DigitRule.swift */; };
 		5E8921151D6DF8D700E288DC /* AddressRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8921141D6DF8D700E288DC /* AddressRule.swift */; };
 		5E99946B1D6350B400FC7850 /* DataValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E99946A1D6350B400FC7850 /* DataValidationTests.swift */; };
@@ -121,6 +122,7 @@
 		5E77684F1D8AFD940060F81D /* CurrencyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewController.swift; sourceTree = "<group>"; };
 		5E7768521D8C111E0060F81D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5E7768551D8C1C440060F81D /* MPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPManager.swift; sourceTree = "<group>"; };
+		5E7768631D92C9A90060F81D /* DecimalRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecimalRule.swift; sourceTree = "<group>"; };
 		5E79C19C1D705E7E009CA5F7 /* DigitRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigitRule.swift; sourceTree = "<group>"; };
 		5E8921141D6DF8D700E288DC /* AddressRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressRule.swift; sourceTree = "<group>"; };
 		5E99946A1D6350B400FC7850 /* DataValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataValidationTests.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				5E99946C1D64B8B200FC7850 /* PKBase58Rule.swift */,
 				5E8921141D6DF8D700E288DC /* AddressRule.swift */,
 				5E79C19C1D705E7E009CA5F7 /* DigitRule.swift */,
+				5E7768631D92C9A90060F81D /* DecimalRule.swift */,
 			);
 			path = ValidationRules;
 			sourceTree = "<group>";
@@ -620,6 +623,7 @@
 				5EBAC12F1D53AA9600AE422B /* Fee.swift in Sources */,
 				5E7768321D89C8460060F81D /* SettingsViewController.swift in Sources */,
 				5E79C19D1D705E7E009CA5F7 /* DigitRule.swift in Sources */,
+				5E7768641D92C9AA0060F81D /* DecimalRule.swift in Sources */,
 				5E77684A1D8AF8280060F81D /* CurrencyPrice.swift in Sources */,
 				5E99946D1D64B8B200FC7850 /* PKBase58Rule.swift in Sources */,
 				5EBFB5091D3E531000D8B938 /* BRSocketHelpers.c in Sources */,

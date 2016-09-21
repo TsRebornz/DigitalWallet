@@ -93,7 +93,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
         //Valiadtion in privateKeyTextField
         validator.registerField(addressTxtField, errorLabel: addressErrorLabel, rules: [RequiredRule(), AddressRule() ])
         validator.registerField(amountSatTxtField, errorLabel: amountErrorLabel, rules: [RequiredRule(), DigitRule() ])
-        validator.registerField(amountFiatTxtField, errorLabel: amountErrorLabel, rules: [RequiredRule(), DigitRule() ])
+        validator.registerField(amountFiatTxtField, errorLabel: amountErrorLabel, rules: [RequiredRule(), DecimalRule() ])
     }
     
     func prepareAndLoadViewData(){
@@ -394,6 +394,7 @@ public class SendViewController : UIViewController, ValidationDelegate, UITextFi
                     self.transactionProtocol?.createTransaction()
                     self.transactionProtocol?.signTransaction()
                     self.transactionProtocol?.sendTransaction({ response in
+                        alertController.title = "Transaction sended"
                         alertController.message = "Authentication is successfull Transaction Sended"
                         self.presentViewController(alertController, animated: true, completion: nil)
                         //self.dismissViewControllerAnimated(true, completion: nil)
