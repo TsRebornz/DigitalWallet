@@ -1,13 +1,11 @@
 import Foundation
 import UIKit
-import SwiftValidator
-
 
 //extension PKViewController : ValidationDelegate {
 //    
 //}
 
-public class PKViewController : UIViewController, UITextFieldDelegate, ScanViewControllerDelegate  {
+public class PKViewController : UIViewController, UITextFieldDelegate, ValidationDelegate, ScanViewControllerDelegate  {
     
     @IBOutlet weak var privateKeyTextField: UITextField!
     @IBOutlet weak var prkErrorLbl : UILabel!
@@ -15,7 +13,7 @@ public class PKViewController : UIViewController, UITextFieldDelegate, ScanViewC
     @IBOutlet weak var testNetSwitch : UISwitch!
     
     //FIXME: Validator HERE!
-    //let validator = Validator()
+    let validator = Validator()
     var testnet: Bool = false
     var scanViewController : ScanViewController!
     var key : BRKey?
@@ -28,7 +26,7 @@ public class PKViewController : UIViewController, UITextFieldDelegate, ScanViewC
         privateKeyTextField.delegate = self
                 
         //Valiadtion in privateKeyTextField
-        //validator.registerField(privateKeyTextField, errorLabel: prkErrorLbl, rules: [RequiredRule(), PKBase58() ])
+        validator.registerField(field: privateKeyTextField, errorLabel: prkErrorLbl, rules: [RequiredRule(), PKBase58() ])
     }
     
     override public func viewWillAppear(_ animated: Bool) {
@@ -41,35 +39,35 @@ public class PKViewController : UIViewController, UITextFieldDelegate, ScanViewC
     
     //MARK: - ValidationDelegate methods
     //FIXME: Validator HERE!
-//    public func validationSuccessful() {
-//        nextBtn.enabled = true
-//        privateKeyTextField.layer.borderColor = UIColor.greenColor().CGColor
-//        privateKeyTextField.layer.borderWidth = 1.0
-//        prkErrorLbl.hidden = true
-//        self.checkWifFormatAndDisableTestnetSwitch(privateKeyTextField.text!)
-//    }
-//    
-//    func checkWifFormatAndDisableTestnetSwitch(pk: String){
-//        let wifFormat : WifFormat = BRKey.checkWIFformatPKkey(pk)
-//        if (wifFormat != WifNot){
-//            testNetSwitch.enabled = false
-//        }else{
-//            testNetSwitch.enabled = true
-//        }
-//    }
+    public func validationSuccessful() {
+        nextBtn.isEnabled = true
+        privateKeyTextField.layer.borderColor = UIColor.green.cgColor
+        privateKeyTextField.layer.borderWidth = 1.0
+        prkErrorLbl.isHidden = true
+        self.checkWifFormatAndDisableTestnetSwitch(pk: privateKeyTextField.text!)
+    }
     
-//    public func validationFailed(errors:[(Validatable ,ValidationError)]) {
-//        // turn the fields to red
-//        for (field, error) in errors {
-//            if let field = field as? UITextField {
-//                field.layer.borderColor = UIColor.redColor().CGColor
-//                field.layer.borderWidth = 1.0
-//            }
-//            error.errorLabel?.text = error.errorMessage // works if you added labels
-//            error.errorLabel?.hidden = false
-//            nextBtn.enabled = false
-//        }
-//    }
+    func checkWifFormatAndDisableTestnetSwitch(pk: String){
+        let wifFormat : WifFormat = BRKey.checkWIFformatPKkey(pk)
+        if (wifFormat != WifNot){
+            testNetSwitch.isEnabled = false
+        }else{
+            testNetSwitch.isEnabled = true
+        }
+    }
+    
+    public func validationFailed(errors:[(Validatable ,ValidationError)]) {
+        // turn the fields to red
+        for (field, error) in errors {
+            if let field = field as? UITextField {
+                field.layer.borderColor = UIColor.red.cgColor
+                field.layer.borderWidth = 1.0
+            }
+            error.errorLabel?.text = error.errorMessage // works if you added labels
+            error.errorLabel?.isHidden = false
+            nextBtn.isEnabled = false
+        }
+    }
     //MARK: -
     
     //MARK: - UITextFieldDelegate
@@ -80,7 +78,7 @@ public class PKViewController : UIViewController, UITextFieldDelegate, ScanViewC
     
     public func textFieldDidEndEditing(_ textField: UITextField) {
         //FIXME: Validator HERE!
-        //validator.validate(self)
+        validator.validate(delegate: self)
     }
     //MARK: -
     
@@ -89,7 +87,7 @@ public class PKViewController : UIViewController, UITextFieldDelegate, ScanViewC
         guard let t_dataQrCode = dataFromQrCode else {return}
         self.privateKeyTextField.text = t_dataQrCode
         //FIXME: Validator HERE!
-        //validator.validate(self)
+        validator.validate(delegate: self)
     }
         
     //MARK: -
