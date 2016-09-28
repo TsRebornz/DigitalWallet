@@ -23,7 +23,7 @@ public class Utilities {
     
     class func getFiatBalanceString(model : CurrencyPrice?, satoshi : Int , withCode : Bool) -> String{
         if model != nil {
-            let rate = convertSatoshToFiat(satoshi, rate: Double(model!.rate!))
+            let rate = convertSatoshToFiat(satoshi: satoshi, rate: Double(model!.rate!))
             return "\(rate)" + (withCode ? " - \(model!.code!)" : "")
         } else {
             return ""

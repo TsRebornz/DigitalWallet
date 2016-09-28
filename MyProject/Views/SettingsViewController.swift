@@ -11,9 +11,7 @@ import UIKit
 public class SettingsViewController : UITableViewController, DelegateTableViewController  {
     
     @IBOutlet weak var localCurrencyCell: UITableViewCell!
-    
-    
-    
+            
     public override func viewDidLoad() {
         //Load localCurrency FromSettingsManager
         MPManager.sharedInstance.settingsVC = self
@@ -23,15 +21,15 @@ public class SettingsViewController : UITableViewController, DelegateTableViewCo
     //MARK: DelegateTableViewController
     public func currencyTableViewControllerDelegate(controller: CurrencyTableViewController ){
         let localCurrency : CurrencyPrice = controller.selectedCurrency!
-        updateCellbyModel( localCurrency )
-        MPManager.sharedInstance.valueChanged(MPManager.localCurrency, value: localCurrency as AnyObject)
+        updateCellbyModel( model: localCurrency )
+        MPManager.sharedInstance.valueChanged(whatValue: MPManager.localCurrency, value: localCurrency as AnyObject)
         //Save this shit to core data
     }
     //MARK: -
     
     //MARK: Segue
-    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let navigationVC = segue.destinationViewController as! UINavigationController
+    public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let navigationVC = segue.destination as! UINavigationController
         if (segue.identifier == "CurrencySeque"){
             let currencyViewController = navigationVC.topViewController as! CurrencyTableViewController
             currencyViewController.delegate = self
@@ -42,13 +40,13 @@ public class SettingsViewController : UITableViewController, DelegateTableViewCo
     
     //MARK: IBActions
     @IBAction func cancel(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     //MARK: -
     
     func loadLocalCurrencyData(){
-        let t_localCurrency : CurrencyPrice?  = MPManager.sharedInstance.sendData(MPManager.localCurrency) as! CurrencyPrice?
-        updateCellbyModel(t_localCurrency)
+        let t_localCurrency : CurrencyPrice?  = MPManager.sharedInstance.sendData(byString: MPManager.localCurrency) as! CurrencyPrice?
+        updateCellbyModel(model: t_localCurrency)
     }
     
     func updateCellbyModel(model : CurrencyPrice?) {

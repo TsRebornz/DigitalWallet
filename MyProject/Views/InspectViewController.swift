@@ -23,31 +23,14 @@ public class InspectViewController : UIViewController {
     var key:BRKey!
     
     var qrcodeImage: CIImage!
-    
-    //FIXME: MultiThreading shit. Extract it in singleton class 
-    var GlobalUserInitiatedQueue: dispatch_queue_t {
-        let qualityOfServiceClass = QOS_CLASS_USER_INITIATED
-        return dispatch_get_global_queue(qualityOfServiceClass, 0)        
-    }
-    
-    var GlobalBackGroundQueue: dispatch_queue_t {
-        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-        return dispatch_get_global_queue(qualityOfServiceClass, 0)
-    }
-    
-    var GlobalUserInteractiveQueue: dispatch_queue_t {
-        let qualityOfServiceClass = QOS_CLASS_USER_INTERACTIVE
-        return dispatch_get_global_queue(qualityOfServiceClass, 0)
-    }
-    //END
-    
+        
     override public func viewDidLoad() {
         super.viewDidLoad()
-        self.sendBtn?.enabled = false
+        self.sendBtn?.isEnabled = false
         fillData()
     }
     
-    override public func viewWillAppear(animated: Bool) {
+    override public func viewWillAppear(_ animated: Bool) {
         //blah blah blah
         self.updateBalance()
     }
@@ -64,16 +47,14 @@ public class InspectViewController : UIViewController {
         
         var i = 0
         
-        //FIXME: Block check button when loading
         while(i<self.defaultLoadingTime) {
-                ////TO:DO Rewrite without if(self.isDataLoading)
                 if (self.isDataLoading) {
-                    if (!(lbl.text!.containsString("..."))) {
-                        dispatch_async(dispatch_get_main_queue()) {
+                    if (!(lbl.text!.contains("..."))) {
+                        DispatchQueue.main.async {
                             lbl.text!.append("." as Character)
                         }
                     }else {
-                        dispatch_async(dispatch_get_main_queue()) {
+                        DispatchQueue.main.async {
                             lbl.text! = text
                         }
                     }
@@ -90,7 +71,7 @@ public class InspectViewController : UIViewController {
             return
         }
         
-        let data: NSData = (dataForQrCode!.dataUsingEncoding(NSISOLatin1StringEncoding, allowLossyConversion: false))!
+        let data: NSData = (dataForQrCode!.data(using: String.Encoding.isoLatin1, allowLossyConversion: false))! as NSData
         
         let filter = CIFilter(name: "CIQRCodeGenerator")
         
@@ -106,9 +87,9 @@ public class InspectViewController : UIViewController {
         let scaleX = self.qrCodeImageView!.frame.size.width / qrcodeImage.extent.size.width
         let scaleY = self.qrCodeImageView!.frame.size.height / qrcodeImage.extent.size.height
         
-        let transformedImage = qrcodeImage.imageByApplyingTransform(CGAffineTransformMakeScale(scaleX, scaleY))
+        let transformedImage = qrcodeImage.applying(CGAffineTransform(scaleX: scaleX, y: scaleY))
         
-        self.qrCodeImageView!.image = UIImage(CIImage: transformedImage)
+        self.qrCodeImageView!.image = UIImage(ciImage: transformedImage)
     }
     //MARK:
     
@@ -120,9 +101,9 @@ public class InspectViewController : UIViewController {
             "unspentOnly" : true
         ]
         
-        BlockCypherApi.getAddress(address, testnet: testnet, parameters: parameters, doAfterRequest: { json in
+        BlockCypherApi.getAddress(address: address, testnet: testnet, parameters: parameters as [String : AnyObject]?, doAfterRequest: { json in
             self.isDataLoading = false
-            self.sendBtn?.enabled = true
+            self.sendBtn?.isEnabled = true
             guard let t_address = Address(json: json) else {
                 return
             }
@@ -141,8 +122,8 @@ public class InspectViewController : UIViewController {
     }
     
     func getFiatString() -> String {        
-        let localCurrency : CurrencyPrice? = MPManager.sharedInstance.sendData(MPManager.localCurrency) as! CurrencyPrice?
-        let fiatBalanceString = Utilities.getFiatBalanceString(localCurrency, satoshi: Int(self.address!.balance!) , withCode: true)
+        let localCurrency : CurrencyPrice? = MPManager.sharedInstance.sendData(byString: MPManager.localCurrency) as! CurrencyPrice?
+        let fiatBalanceString = Utilities.getFiatBalanceString(model: localCurrency, satoshi: Int(self.address!.balance!) , withCode: true)
         //Utilities.getFiatBalanceString(localCurrency, satoshi: Int(self.address!.balance!) )
         let fiatString = fiatBalanceString != "" ? "(\(fiatBalanceString) )" : ""
         return fiatString
@@ -158,29 +139,31 @@ public class InspectViewController : UIViewController {
     
     //MARK:IBActions
     @IBAction func cancel(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func check(sender: AnyObject){
-        dispatch_async(GlobalUserInitiatedQueue) {
+        let userInitiatedQueue = GCDManager.sharedInstance.getQueue(byQoS: DispatchQoS.userInitiated)
+        let userInteractiveQueue = GCDManager.sharedInstance.getQueue(byQoS: DispatchQoS.userInteractive)
+        userInitiatedQueue.async {
             self.isDataLoading = true
             
-            dispatch_async(self.GlobalUserInteractiveQueue){
+            userInteractiveQueue.async {
                 self.dataLoadingUpdate()
-            }                        
+            }
             
-            self.getAddressModelByAddress((self.key.address)!, testnet: (self.key.isTestnetValue()))
+            self.getAddressModelByAddress(address: (self.key.address)!, testnet: (self.key.isTestnetValue()))
         }
     }
     //MARK:
     
-    override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let navigationController = segue.destinationViewController as! UINavigationController
+    public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let navigationController = segue.destination as! UINavigationController
         if (segue.identifier == "SendSegue") {
             let sendViewController = navigationController.topViewController as! SendViewController
             
             guard let t_address = self.address else {
-                NSException(name: "InspectViewController prepareForSegue", reason: "Address is nil", userInfo: nil).raise()
+                NSException(name: NSExceptionName(rawValue: "InspectViewController prepareForSegue"), reason: "Address is nil", userInfo: nil).raise()
                 return
             }
             sendViewController.address = t_address

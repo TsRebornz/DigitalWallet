@@ -9,7 +9,7 @@ class MyProjectTests: TestBase {
     
     var rawDataTransaction: String? = nil
     
-    let defaultTimeOut: NSTimeInterval = 120
+    let defaultTimeOut: TimeInterval = 120
     let fastestFee = 150 // per byte
     
     
@@ -39,8 +39,8 @@ class MyProjectTests: TestBase {
     func testGetBalance() {
         let adress = "mzSetpsidLwd2nhwSTeBv8uNVuGQDs3wdY"
         //Define an expectation
-        let expectation = expectationWithDescription("Alamofire send BC.Balance request and handle respnse using the callback closure")
-        let request = Alamofire.request(.GET, "https://api.blockcypher.com/v1/btc/test3/addrs/\(adress)/balance", parameters: nil)
+        let expectation = self.expectation(description: "Alamofire send BC.Balance request and handle respnse using the callback closure")
+        let request = Alamofire.request("https://api.blockcypher.com/v1/btc/test3/addrs/\(adress)/balance")
         request.validate()
         request.responseJSON { response in
                     XCTAssert(response.result.isSuccess, "Error reqursting balance \(response.result.error)")
@@ -59,9 +59,9 @@ class MyProjectTests: TestBase {
                     expectation.fulfill()
                 }
         
-        let timeout = request.task.originalRequest?.timeoutInterval
+        let timeout = request.task?.originalRequest?.timeoutInterval
         //Wait for the expectation to be fulfilled
-        waitForExpectationsWithTimeout(timeout!, handler: { error in
+        waitForExpectations(timeout: timeout!, handler: { error in
             if let error = error {
                 XCTFail("waitForExpectationsWithTimeout errored: \(error)")
             }
@@ -97,10 +97,10 @@ class MyProjectTests: TestBase {
         let addressAlwayaWorkable = "moVeRgCBbJj1w7nhzzoSCffVJTpwH8N8SH"
         //let addressAlwayaWorkable = "mzSetpsidLwd2nhwSTeBv8uNVuGQDs3wdY"
         
-        let expectation = expectationWithDescription("Alamofire send BC.Balance request and handle response using the callback")
+        let expectation = self.expectation(description: "Alamofire send BC.Balance request and handle response using the callback")
         var address : Address!
         
-        BlockCypherApi.getAddress(addressAlwayaWorkable, testnet: testnet, parameters: parameters,  doAfterRequest: {json in
+        BlockCypherApi.getAddress(address: addressAlwayaWorkable, testnet: testnet, parameters: parameters as [String : AnyObject]?,  doAfterRequest: {json in
             if let t_address = Address(json: json){
                 XCTAssertNotNil(t_address, "Bad response from Api")
                 address = t_address
@@ -108,7 +108,7 @@ class MyProjectTests: TestBase {
             expectation.fulfill()
         })
         
-        waitForExpectationsWithTimeout(self.defaultTimeOut, handler: { error in
+        waitForExpectations(timeout: self.defaultTimeOut, handler: { error in
             if let error = error{
                 XCTFail("waitForExpectationsWithTimeout errored: \(error)")
             }
@@ -142,13 +142,13 @@ class MyProjectTests: TestBase {
         
         //Create your own transaction
         let tx = BRTransaction( inputHashes: f_inputHashes  ,
-                                inputIndexes: f_inputIndexes ,
+                                inputIndexes: f_inputIndexes as [NSNumber]! ,
                                 inputScripts: f_inputScripts ,
                                 outputAddresses: f_outPutAddresses ,
-                                outputAmounts: f_amount ,
+                                outputAmounts: f_amount as [NSNumber]! ,
                                 isTesnet: testnet )
-        tx.signWithPrivateKeys([privateKey])
-        let txRawDataStr : String = tx.getRawTxDataStr()
+        tx?.sign(withPrivateKeys: [privateKey])
+        let txRawDataStr : String = tx!.getRawTxDataStr()
         self.rawDataTransaction = txRawDataStr
         if (nil != self.rawDataTransaction){
 //            self.testPushRawTx()
@@ -159,9 +159,9 @@ class MyProjectTests: TestBase {
         //Rest api variables
         let txRawData = "010000000146626a054c26fe64d26166d8c7c357b120e1b96ed3718813538c07f03de24874010000008b4830450221009d967b020d735cbb09f7a1ba1749d3567c20149adb6220c6ae749038b7d32b2a022032ef09cc0f323d46eb2ddaa1685d9fe482626f985112de21671249d51d9604870141041160ff19a135938a82e177784744af3901914e4a253e8694e154f603d2eab3b0e2f4c7ffb649ae424570c2802762b475a3692f4341dcb3cd9e1d1956ef3828dcffffffff02aa860100000000001976a9145781aca39c743a68b97e5f35cee622be3e60a20188ac363c1e01000000001976a9145781aca39c743a68b97e5f35cee622be3e60a20188ac00000000"
                     
-        let expectation = expectationWithDescription("Alamofire send raw tx check request")
-        let parameters = ["tx" : txRawData ]
-        let request = Alamofire.request(.POST, "https://api.blockcypher.com/v1/btc/test3/txs/decode?", parameters: parameters, encoding: .JSON )
+        let expectation = self.expectation(description: "Alamofire send raw tx check request")
+        let parameters = ["tx" : txRawData as Any ]
+        let request = Alamofire.request("https://api.blockcypher.com/v1/btc/test3/txs/decode?", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil)
         request.validate()
         request.responseJSON(completionHandler: { response in
             //XCTAssert(response.result.isSuccess , "Error with response \(response.result.error)")
@@ -175,7 +175,7 @@ class MyProjectTests: TestBase {
             expectation.fulfill()
         })
         
-        waitForExpectationsWithTimeout(self.defaultTimeOut, handler: { error in
+        waitForExpectations(timeout: self.defaultTimeOut, handler: { error in
             if let error = error{
                 XCTFail("waitForExpectationsWithTimeout errored: \(error)")
             }
@@ -183,8 +183,8 @@ class MyProjectTests: TestBase {
     }
     
     func testGetFeeData(){
-        let expectation = expectationWithDescription("Alamofire gets Fee Data")
-        BlockCypherApi.getFeeData({json in
+        let expectation = self.expectation(description: "Alamofire gets Fee Data")
+        BlockCypherApi.getFeeData(doWithJson: {json in
             guard let fee : Fee = Fee(json: json) else{
                 XCTFail("Wrong FeeData")
                 return
@@ -196,7 +196,7 @@ class MyProjectTests: TestBase {
             expectation.fulfill()
         })
         
-        waitForExpectationsWithTimeout(self.defaultTimeOut, handler: { error in
+        waitForExpectations(timeout: self.defaultTimeOut, handler: { error in
             if let error = error{
                 XCTFail("waitForExpectationsWithTimeout errored: \(error)")
             }

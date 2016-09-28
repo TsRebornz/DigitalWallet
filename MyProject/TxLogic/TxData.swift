@@ -27,7 +27,7 @@ public class TxData {
     
     public init?(txrefs : [TxRef], brkey : BRKey,  sendAddresses : [String], amounts : [Int], selectedFee: Int) {
         guard sendAddresses.count == amounts.count else {
-            NSException(name: "TxDataInitException", reason: "Sendaddresse count must equal amounts count", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "TxDataInitException"), reason: "Sendaddresse count must equal amounts count", userInfo: nil).raise()
             return nil
         }
         
@@ -80,7 +80,7 @@ public class TxData {
         let inputsCount = self.input.scripts.count
         let outputsCount = self.sendAddresses.count
 
-        let miners_fee = TXService.calculateMinersFee(inputsCount, outputsCount: outputsCount, fee: self.fee)
+        let miners_fee = TXService.calculateMinersFee(inputsCount: inputsCount, outputsCount: outputsCount, fee: self.fee)
         return miners_fee
     }
     
@@ -89,8 +89,8 @@ public class TxData {
         adressesArr += self.sendAddresses
         var amountsArr = [Int]()
         amountsArr += self.amounts
-        let allInputsVallue = self.input.values.reduce(0, combine: +)
-        let sumAmmounts = amountsArr.reduce(0, combine: +)
+        let allInputsVallue = self.input.values.reduce(0, +)
+        let sumAmmounts = amountsArr.reduce(0, +)
         let fee_yourself = allInputsVallue - sumAmmounts - minersFee
         let selfAddress = brkey.address
         adressesArr += [selfAddress!]

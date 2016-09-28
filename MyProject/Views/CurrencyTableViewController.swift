@@ -21,7 +21,7 @@ public class CurrencyTableViewController : UITableViewController  {
     var selectedCurrency : CurrencyPrice?
     var rates : [CurrencyPrice]?
     public override func viewDidLoad() {
-            BlockCypherApi.getCurrencyData({ json in
+            BlockCypherApi.getCurrencyData(doWithJson: { json in
                 let currencyData = CurrencyData(json: json)
                 self.rates = currencyData?.data
                 self.tableView.reloadData()
@@ -29,16 +29,16 @@ public class CurrencyTableViewController : UITableViewController  {
     }
     
     //MARK: TableViewMethods
-    public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let t_rates = self.rates else {
             return 0
         }
         return t_rates.count
     }
     
-    public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellId = "CellCurrencyRate"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellId)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId)
         let code = rates![indexPath.row].code!
         let rate = rates![indexPath.row].rate!
         let name = rates![indexPath.row].name!
@@ -49,12 +49,13 @@ public class CurrencyTableViewController : UITableViewController  {
         (cell?.viewWithTag(1002) as! UILabel).text = ""        
         return cell!
     }
+    
 
-    public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //Mark with galo4ka
         selectedCurrency = rates![indexPath.row]
-        delegate?.currencyTableViewControllerDelegate(self)
-        self.dismissViewControllerAnimated(true, completion: nil)
+        delegate?.currencyTableViewControllerDelegate(controller: self)
+        self.dismiss(animated: true, completion: nil)
     }
     
     public func prepareCell(lbl : UILabel , check : Bool) -> UILabel{
@@ -70,7 +71,7 @@ public class CurrencyTableViewController : UITableViewController  {
     
     //MARK: IBActions
     @IBAction func cancel(sender: UIBarButtonItem) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     //MARK: -
     

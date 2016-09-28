@@ -11,7 +11,7 @@ import Foundation
 @testable import MyProject
 
 class UsingCurrency: XCTestCase {
-    let defaultTimeOut: NSTimeInterval = 120
+    let defaultTimeOut: TimeInterval = 120
 
     override func setUp() {
         super.setUp()
@@ -27,15 +27,15 @@ class UsingCurrency: XCTestCase {
     }
     
     func testCurrencyData() {
-        let expectation = expectationWithDescription("Alamofire gets bitcoin rates")
+        let expectation = self.expectation(description: "Alamofire gets bitcoin rates")
         var currencyData : CurrencyData!
-        BlockCypherApi.getCurrencyData({ json in
+        BlockCypherApi.getCurrencyData(doWithJson: { json in
             currencyData = CurrencyData(json: json)
             XCTAssert(currencyData.data?.count != nil , "No data in currency data")
             expectation.fulfill()
         })
         
-        waitForExpectationsWithTimeout(defaultTimeOut, handler: { error in
+        waitForExpectations(timeout: defaultTimeOut, handler: { error in
             if let t_error = error {
                 XCTFail("waitForExpectationsWithTimeout errored: \(error)")
             }

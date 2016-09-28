@@ -27,7 +27,7 @@ public class MPManager : MediatorProtocol {
     
     //MARK: - MediatorProtocol
     func valueChanged(whatValue : String, value : AnyObject) {
-        if settingsDictionary.indexForKey(whatValue) != nil {
+        if settingsDictionary.index(forKey: whatValue) != nil {
             self.settingsDictionary.updateValue(value, forKey: whatValue)
         }else {
             self.settingsDictionary[whatValue] = value
@@ -36,7 +36,7 @@ public class MPManager : MediatorProtocol {
     }
     
     public func sendData(byString : String) -> AnyObject? {        
-        if settingsDictionary.indexForKey(byString) != nil {
+        if settingsDictionary.index(forKey: byString) != nil {
             //FIXME: Change to switch - case statement
             
             

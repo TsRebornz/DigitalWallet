@@ -27,7 +27,7 @@ import Foundation
 
 // MARK: - Types
 
-public typealias JSON = [String : AnyObject]
+public typealias JSON = [String : Any]
 
 // MARK: - Protocols
 
@@ -71,45 +71,35 @@ Date formatter used for ISO8601 dates.
  
  - returns: Date formatter.
  */
-public private(set) var GlossDateFormatterISO8601: NSDateFormatter = {
-    let dateFormatterISO8601 = NSDateFormatter()
+public private(set) var GlossDateFormatterISO8601: DateFormatter = {
+    let dateFormatterISO8601 = DateFormatter()
     
     // WORKAROUND to ignore device configuration regarding AM/PM http://openradar.appspot.com/radar?id=1110403
-    dateFormatterISO8601.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+    dateFormatterISO8601.locale = Locale(identifier: "en_US_POSIX")
     dateFormatterISO8601.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
 
     // translate to Gregorian calendar if other calendar is selected in system settings
-    let gregorian = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+    var gregorian = Calendar(identifier: Calendar.Identifier.gregorian)
     
-    gregorian.timeZone = NSTimeZone(abbreviation: "GMT")!
+    gregorian.timeZone = TimeZone(abbreviation: "GMT")!
     dateFormatterISO8601.calendar = gregorian
 
     return dateFormatterISO8601
 }()
 
 /**
- Default delimiter used for nested key paths.
- 
- - returns: Default key path delimiter.
- */
-public private(set) var GlossKeyPathDelimiter: String = {
-    return "."
-}()
-
-/**
  Transforms an array of JSON optionals to a single optional JSON dictionary.
  
  - parameter array:            Array of JSON to transform.
- - parameter keyPathDelimiter: Delimiter used for nested key paths.
  
  - returns: JSON when successful, nil otherwise.
  */
-public func jsonify(array: [JSON?], keyPathDelimiter: String = GlossKeyPathDelimiter) -> JSON? {
+public func jsonify(_ array: [JSON?]) -> JSON? {
     var json: JSON = [:]
     
     for j in array {
         if(j != nil) {
-            json.add(j!, delimiter: keyPathDelimiter)
+            json.add(other: j!)
         }
     }
     

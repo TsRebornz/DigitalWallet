@@ -8,7 +8,7 @@ class TXService {
     static let averageOuputCost : Int = 33
     
     class func calculateMinersFee(inputsCount : Int, outputsCount : Int, fee : Int) -> Int {
-        let aprTxBytes : Int = TXService.aproximateSizeInBytes(inputsCount, outputsCount: outputsCount, isNeedFee: true)
+        let aprTxBytes : Int = TXService.aproximateSizeInBytes(inputsCount: inputsCount, outputsCount: outputsCount, isNeedFee: true)
         return aprTxBytes * fee
     }
     
@@ -28,22 +28,22 @@ class TXService {
         }
         
         var optimized_txrefs = [TxRef]()
-        var sorted_tx_refs = inputs.sort { $0.value < $1.value }
+        var sorted_tx_refs = inputs.sorted { $0.value! < $1.value! }
         let amountAndFee = ui_amount + default_max_fee
         var utxo_sum_val : Int = 0
         
-        for (index, tx_ref) in sorted_tx_refs.enumerate() {
+        for (index, tx_ref) in sorted_tx_refs.enumerated() {
             utxo_sum_val += tx_ref.value!
             if (index != sorted_tx_refs.count - 1){
                 if ( utxo_sum_val > amountAndFee ) {                    
-                    optimized_txrefs = createArrayFromArrayAndIndex(sorted_tx_refs, index: index)
+                    optimized_txrefs = createArrayFromArrayAndIndex(inputArray: sorted_tx_refs, index: index)
                     break
                 } else if((amountAndFee - utxo_sum_val) <= (sorted_tx_refs[(index+1)].value! - sorted_tx_refs[index].value!) ) {
                     // Swap tx_refs
                     let tempValue = sorted_tx_refs[index]
                     sorted_tx_refs[index] = sorted_tx_refs[index+1]
                     sorted_tx_refs[index+1] = tempValue
-                    optimized_txrefs = createArrayFromArrayAndIndex(sorted_tx_refs, index: index)
+                    optimized_txrefs = createArrayFromArrayAndIndex(inputArray: sorted_tx_refs, index: index)
                     break
                 }
             }else {

@@ -34,7 +34,7 @@ public class ScanViewController : UIViewController, AVCaptureMetadataOutputObjec
     }
     
     public func startReadingVideoOutput() {
-        let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         var input : AVCaptureDeviceInput? = nil
         do{
             input = try AVCaptureDeviceInput(device: captureDevice)
@@ -48,20 +48,17 @@ public class ScanViewController : UIViewController, AVCaptureMetadataOutputObjec
         
         self.captureSession?.addInput(input)
         self.captureSession?.addOutput(captureMetaDataOutput)
+            
+        let userInitiatiedQueeu = GCDManager.sharedInstance.getQueue(byQoS: DispatchQoS.userInitiated)
         
-        var GlobalUserInitiatedQueue: dispatch_queue_t
-        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-        
-        GlobalUserInitiatedQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
-        
-        captureMetaDataOutput.setMetadataObjectsDelegate(self, queue: GlobalUserInitiatedQueue)
+        captureMetaDataOutput.setMetadataObjectsDelegate(self, queue: userInitiatiedQueeu)
         captureMetaDataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
         
         let videoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
-        videoPreviewLayer.videoGravity = kCAGravityResize
-        videoPreviewLayer.frame = self.view.layer.bounds
+        videoPreviewLayer?.videoGravity = kCAGravityResize
+        videoPreviewLayer?.frame = self.view.layer.bounds
         
-        self.cameraView.layer.addSublayer(videoPreviewLayer)
+        self.cameraView.layer.addSublayer(videoPreviewLayer!)
         self.captureSession?.startRunning()
     }
     
@@ -69,11 +66,11 @@ public class ScanViewController : UIViewController, AVCaptureMetadataOutputObjec
         //code
     }
     
-    public override func viewWillAppear(animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         startReadingVideoOutput()
     }
     
-    public override func viewDidDisappear(animated: Bool) {
+    public override func viewDidDisappear(_ animated: Bool) {
         self.stopReading()
         //self.qrCodeCaptured = false
     }
@@ -87,7 +84,7 @@ public class ScanViewController : UIViewController, AVCaptureMetadataOutputObjec
     }
     
     //AVCaptureMetadataOutputObjectsDelegate
-    public func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+    @nonobjc public func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
         if (metadataObjects.count > 0){
             guard let metaDataObject : AVMetadataMachineReadableCodeObject = metadataObjects[0] as? AVMetadataMachineReadableCodeObject else {
                 return
@@ -97,20 +94,24 @@ public class ScanViewController : UIViewController, AVCaptureMetadataOutputObjec
                 return
             }
             
-            dispatch_async(dispatch_get_main_queue(), {
-                dispatch_async(dispatch_get_main_queue(), { self.qrCodeCaptured = true })
+            //let mainQueue = DispatchQueue(label: <#T##String#>)
+            DispatchQueue.main.async {
+                //MARK: Can be problems with qrCodeCaptured flag, delete this message after testing
+                self.qrCodeCaptured = true
+                //MARK: -
                 self.dataFromCamera = metaDataObject.stringValue
                 self.sendDataToDelegateAndReturnToSuperView()
-            })
+            }
+            
         }
     }
     //End
     
     func sendDataToDelegateAndReturnToSuperView(){
-        self.delegate?.DelegateScanViewController(self , dataFromQrCode: self.dataFromCamera)
+        self.delegate?.DelegateScanViewController(controller: self , dataFromQrCode: self.dataFromCamera)
         //self.session. removeOutput:self.session.outputs.firstObject];
         //self.captureSession?.removeOutput(self.captureSession?.outputs[0] as! AVCaptureOutput )
-        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func backBtnTapped(sender: UIBarButtonItem) {        

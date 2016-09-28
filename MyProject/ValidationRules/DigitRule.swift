@@ -6,14 +6,16 @@
 //  Copyright © 2016 BCA. All rights reserved.
 //
 
-import Foundation
-import SwiftValidator
+//FIXME Validation rules
 
-public class DigitRule : RegexRule //DjigitRule :P
-{
-    static let regex = "[0-9]+"
-    
-    convenience init(message : String = "Not number value"){
-        self.init(regex: DigitRule.regex, message: message)
-    }
-}
+//import Foundation
+//import SwiftValidator
+//
+//public class DigitRule : RegexRule //DjigitRule :P
+//{
+//    static let regex = "[0-9]+"
+//    
+//    convenience init(message : String = "Not number value"){
+//        self.init(regex: DigitRule.regex, message: message)
+//    }
+//}

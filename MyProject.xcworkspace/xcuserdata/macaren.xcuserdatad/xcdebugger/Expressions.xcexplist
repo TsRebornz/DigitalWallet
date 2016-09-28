@@ -3,122 +3,18 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "Fee.init(json : [String : AnyObject]) -&gt; Fee?:Fee.swift">
-      </ContextState>
-      <ContextState
-         contextName = "MyProjectTests.testBRTransactionContstructor() -&gt; ():MyProjectTesting.swift">
-      </ContextState>
-      <ContextState
-         contextName = "static BlockCypherApi.(getBalanceByAddress(String, testnet : Bool, parameters : [String : AnyObject]?, succes : (bal : Balance) -&gt; ()) -&gt; ()).(closure #1):BlockCypherApi.swift">
-      </ContextState>
-      <ContextState
-         contextName = "-[BRTransaction initWithInputHashes:inputIndexes:inputScripts:outputAddresses:outputAmounts:isTesnet:]:BRTransaction.m">
-      </ContextState>
-      <ContextState
-         contextName = "static BlockCypherApi.(getFeeData(([String : AnyObject]) -&gt; ()) -&gt; ()).(closure #1):BlockCypherApi.swift">
-      </ContextState>
-      <ContextState
-         contextName = "PKViewController.testNetSwitchChanged(AnyObject) -&gt; ():PKViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "MyProjectTests.testPushRawTx() -&gt; ():MyProjectTesting.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ScanViewController.(captureOutput(AVCaptureOutput!, didOutputMetadataObjects : [AnyObject]!, fromConnection : AVCaptureConnection!) -&gt; ()).(closure #1):ScanViewController.swift">
+         contextName = "UsingTransactionsTests.testCreateOutputs() -&gt; ():UsingTransactionsTests.swift">
          <PersistentStrings>
             <PersistentString
-               value = "metaDataObject.stringValue">
+               value = "txData.output.amounts.count">
+            </PersistentString>
+            <PersistentString
+               value = "txData.output.addresses.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "InspectViewController.fillData() -&gt; ():InspectViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "adressLbl?.text">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "MyProjectTests.(testGetFullAdressFunction() -&gt; ()).(closure #1):MyProjectTesting.swift">
-      </ContextState>
-      <ContextState
-         contextName = "UsingTransactionsTests.testCreateTransaction() -&gt; ():UsingTransactionsTests.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "rawTxData.count">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "main:AppDelegate.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "MyProjectTests.(testRawTx() -&gt; ()).(closure #1):MyProjectTesting.swift">
-      </ContextState>
-      <ContextState
-         contextName = "UsingTransactionsTests.(testCreateOutputs() -&gt; ()).(implicit closure #3):UsingTransactionsTests.swift">
-      </ContextState>
-      <ContextState
-         contextName = "DataValidationTests.testBRkeyConstructorWithHexDataCreatesValidAddress() -&gt; ():DataValidationTests.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "brkey.privateKey!">
-            </PersistentString>
-            <PersistentString
-               value = "brkey.address">
-            </PersistentString>
-            <PersistentString
-               value = "wifPK.characters.count">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "MyProjectTests.(testPushRawTx() -&gt; ()).(closure #1).(implicit closure #1):MyProjectTesting.swift">
-      </ContextState>
-      <ContextState
-         contextName = "MyProjectTests.(testGetFeeData() -&gt; ()).(closure #1):MyProjectTesting.swift">
-      </ContextState>
-      <ContextState
-         contextName = "MyProjectTests.testBrKeyAdressFromPK() -&gt; ():MyProjectTesting.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "key.privateKey.characters.count">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[BRTransaction signWithPrivateKeys:]:BRTransaction.m">
-      </ContextState>
-      <ContextState
-         contextName = "MyProjectTests.(testPushRawTx() -&gt; ()).(closure #1):MyProjectTesting.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "jsonResp[0]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "PKViewController.prepareForSegue(UIStoryboardSegue, sender : AnyObject?) -&gt; ():PKViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "-[BRKey initWithPrivateKey:testnet:]:BRKey.m">
-      </ContextState>
-      <ContextState
-         contextName = "MyProjectTests.(testPushRawTx() -&gt; ()).(closure #1).(implicit closure #2):MyProjectTesting.swift">
-      </ContextState>
-      <ContextState
-         contextName = "SendViewController.DelegateScanViewController(ScanViewController, dataFromQrCode : String?) -&gt; ():SendViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.addressTxtField.text">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "TxData.createOuputModelByInputAndAmount(minersFee : Int) -&gt; ():TxData.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

@@ -29,7 +29,7 @@ class DataValidationTests: XCTestCase {
         let regex = try! NSRegularExpression(pattern: pat, options: [])
         var matchArr : [NSTextCheckingResult] = [NSTextCheckingResult]()
         for usetInput in testUserInputs{
-            let matches = regex.matchesInString(usetInput, options: [], range: NSRange(location: 0, length: usetInput.characters.count))
+            let matches = regex.matches(in: usetInput, options: [], range: NSRange(location: 0, length: usetInput.characters.count))
             matchArr += matches
         }
         

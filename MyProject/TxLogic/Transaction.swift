@@ -5,7 +5,7 @@ public protocol TransactionProtocol : class {
     
     func createTransaction()
     func signTransaction()
-    func sendTransaction( succes : ( response : AnyObject ) -> Void )
+    func sendTransaction( succes : @escaping ( _ response : AnyObject ) -> Void )
     func changeSendAddress(newAddress : String)
 }
 
@@ -26,16 +26,6 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
     public var txData : TxData?
     public var transaction : BRTransaction?
     
-    var GlobalUserInitiatedQueue: dispatch_queue_t {
-        let qualityOfServiceClass = QOS_CLASS_USER_INITIATED
-        return dispatch_get_global_queue(qualityOfServiceClass, 0)
-    }
-    
-    var GlobalBackGroundQueue: dispatch_queue_t {
-        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-        return dispatch_get_global_queue(qualityOfServiceClass, 0)
-    }
-
     // MARK: - Initializers
     public init(address : Address , brkey: BRKey, sendAddress : String , fee : Int , amount : Int  ) {
         self.sendAddress = sendAddress
@@ -56,10 +46,10 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
     
     public func updateMinersFeeWithFee(newFeeRate : Int) -> Int {
         guard let v_txData = self.txData else {
-            NSException(name: "Transaction.calculateMinersFee", reason: "MinersFee", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Transaction.calculateMinersFee"), reason: "MinersFee", userInfo: nil).raise()
             return 0
         }
-        v_txData.updateFee(newFeeRate)
+        v_txData.updateFee(newFee: newFeeRate)
         let miners_fee = v_txData.calculateMinersFee()
         return miners_fee
     }
@@ -71,9 +61,9 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
             return 0
         }
         
-        let optimizedInputs = TXService.optimizeInputsByAmount(v_address.txsrefs!, ui_amount: newAmount )
-        v_txData.changeInputs(optimizedInputs)
-        v_txData.updateAmounts([newAmount])
+        let optimizedInputs = TXService.optimizeInputsByAmount(inputs: v_address.txsrefs!, ui_amount: newAmount )
+        v_txData.changeInputs(newInputs: optimizedInputs)
+        v_txData.updateAmounts(amounts: [newAmount])
         let miners_fee = v_txData.calculateMinersFee()
         return miners_fee
     }
@@ -82,19 +72,19 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
     //MARK: - TransactionProtocol
     public func createTransaction(){
         guard let t_txdata = self.txData else {
-            NSException(name: "TransactionCreateExceiption", reason: "TxData is nil", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "TransactionCreateExceiption"), reason: "TxData is nil", userInfo: nil).raise()
             return
         }
         self.calculateVariablesForMetaData()
         guard let t_output = t_txdata.output else {
-            NSException(name: "TransactionCreateExceiption", reason: "OutPut in TxData is nil", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "TransactionCreateExceiption"), reason: "OutPut in TxData is nil", userInfo: nil).raise()
             return
         }
         let transaction : BRTransaction = BRTransaction(inputHashes: t_txdata.input.hashes,
-                                            inputIndexes: t_txdata.input.indexes,
+                                            inputIndexes: t_txdata.input.indexes as [NSNumber]!,
                                             inputScripts: t_txdata.input.scripts,
                                             outputAddresses: t_output.addresses,
-                                            outputAmounts: t_output.amounts,
+                                            outputAmounts: t_output.amounts as [NSNumber]!,
                                             isTesnet: self.brkey.isTestnetValue())
         
         self.transaction = transaction
@@ -102,37 +92,38 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
     
     public func signTransaction(){
         guard let t_tx = self.transaction else {
-            NSException(name: "TransactionSignExceiption", reason: "Transaction is nil, maybe forgotten to create it?", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "TransactionSignExceiption"), reason: "Transaction is nil, maybe forgotten to create it?", userInfo: nil).raise()
             return
         }
-        t_tx.signWithPrivateKeys([brkey.privateKey!])
+        t_tx.sign(withPrivateKeys: [brkey.privateKey!])
     }
     
-    public func sendTransaction( succes : ( response : AnyObject ) -> Void ) {
+    public func sendTransaction( succes : @escaping ( _ response : AnyObject ) -> Void ) {
         guard let txRawDataString : String = self.transaction?.getRawTxDataStr() else {
-            NSException(name: "TransactionCreateException", reason: "Can not get raw tx data", userInfo: nil ).raise()
+            NSException(name: NSExceptionName(rawValue: "TransactionCreateException"), reason: "Can not get raw tx data", userInfo: nil ).raise()
             return
         }
-        let parameters = ["tx" : txRawDataString ]
+        let parameters = ["tx" : txRawDataString as Any ]
         let requestStr = brkey.isTestnetValue() ? BlockCypherApi.RequestType.TestNetPushTx.rawValue : BlockCypherApi.RequestType.MainNetPushTx.rawValue
-        let request = Alamofire.request( .POST, requestStr , parameters: parameters, encoding: .JSON )
+        let request = Alamofire.request(requestStr, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil)
+        
         request.validate()
         var txResponse: PushTxResponse? = nil
         request.responseJSON(completionHandler: { response in
             guard let jsonResp = response.result.value as? [String : AnyObject] else {
-                print("BadResponse from Post transaction request \(response.result.error?.description)")
+                print("BadResponse from Post transaction request \(response)")
                 return
             }
             txResponse = PushTxResponse(json: jsonResp)!
-            succes( response: txResponse as! AnyObject )
+            succes( txResponse as! AnyObject )
         })
     }
     //MARK:
     
     public func prepareMetaDataForTx() {
         //Initialization
-        let otimizedTsRefs : [TxRef] = TXService.optimizeInputsByAmount((self.address as! Address).txsrefs! , ui_amount: self.amount )
-        self.createMetaData(otimizedTsRefs, brkey: self.brkey, sendAddresses: [self.sendAddress], amounts: [self.amount], feeValue: self.fee)
+        let otimizedTsRefs : [TxRef] = TXService.optimizeInputsByAmount(inputs: (self.address as! Address).txsrefs! , ui_amount: self.amount )
+        self.createMetaData(optimizedRefs: otimizedTsRefs, brkey: self.brkey, sendAddresses: [self.sendAddress], amounts: [self.amount], feeValue: self.fee)
     }
     
     //Easy to test
@@ -142,11 +133,11 @@ public class Transaction : NSObject, TransactionProtocol, MinersFeeProtocol {
     
     public func calculateVariablesForMetaData() {
         guard let t_txdata = self.txData else {
-            NSException(name: "TransactionCreateException", reason: "TxData is nil", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "TransactionCreateException"), reason: "TxData is nil", userInfo: nil).raise()
             return
         }
         let miners_fee = t_txdata.calculateMinersFee()
-        t_txdata.createOuputModelByInputAndAmount(miners_fee)
+        t_txdata.createOuputModelByInputAndAmount(minersFee: miners_fee)
     }
     
     

@@ -6,13 +6,13 @@ import Foundation
 @testable import MyProject
 
 
-public class TestBase : XCTestCase {
+open class TestBase : XCTestCase {
     
     let privateKey : String = "92eByNE4NdnfpK31XV2o1iD9Bir6eLASeyDqq46YzkogTBb3HZH"
     let sendAddress : String = "mzSetpsidLwd2nhwSTeBv8uNVuGQDs3wdY"
     let feeRate : Int = 60
 
-    func createTransactionTestObject(balance : Int, arrayOfTxValues : [Int],  amount : Int, feeRate : Int ) -> Transaction {
+    func createTransactionTestObject(_ balance : Int, arrayOfTxValues : [Int],  amount : Int, feeRate : Int ) -> Transaction {
         //User input variables
         let testnet = true
         let privateKey : String = self.privateKey
@@ -23,9 +23,9 @@ public class TestBase : XCTestCase {
         return transaction
     }
         
-    func createTestAddress(balance: Int, arrayOfTxValues : [Int]) -> Address? {
-        guard balance == arrayOfTxValues.reduce(0, combine: +) else {
-            NSException(name: "testbase.createtestaddress", reason: "Prosto idi na Xyu , bratan. Ne umeesh polzovatsya ne beris", userInfo: nil).raise()
+    func createTestAddress(_ balance: Int, arrayOfTxValues : [Int]) -> Address? {
+        guard balance == arrayOfTxValues.reduce(0, +) else {
+            NSException(name: NSExceptionName(rawValue: "testbase.createtestaddress"), reason: "Prosto idi na Xyu , bratan. Ne umeesh polzovatsya ne beris", userInfo: nil).raise()
             return nil
         }
         let testnet = true
@@ -37,21 +37,32 @@ public class TestBase : XCTestCase {
             let txRef = self.createTestObjectTxRef(txValue)
             txrefs.append(txRef)
         }
-    
+        
         let address = Address(address: selfAddress,
                               total_received: UInt64(balance),
                               total_sent: UInt64(0),
-                              balance: balance,
+                              balance: balance  as NSNumber ,
                               unconfirmed_balance: UInt64(0),
                               final_balance: UInt64(balance),
                               n_tx: UInt64(0),
                               unconfirmed_n_tx: UInt64(0),
                               final_n_tx: UInt64(0),
                               txrefs: txrefs)
+        
+//        let address = Address(address: selfAddress,
+//                              total_received: UInt64(balance),
+//                              total_sent: UInt64(0),
+//                              balance: NSNumber(balance),
+//                              unconfirmed_balance: UInt64(0),
+//                              final_balance: UInt64(balance),
+//                              n_tx: UInt64(0),
+//                              unconfirmed_n_tx: UInt64(0),
+//                              final_n_tx: UInt64(0),
+//                              txrefs: txrefs)
         return address
     }
     
-    func createTestObjectTxRef(valueOfInput : Int) -> TxRef {
+    func createTestObjectTxRef(_ valueOfInput : Int) -> TxRef {
         let testTxRef = TxRef(tx_hash: "e5a2c36607f6128e35314de476110bb20f0de39c6d2aec380a79ac76b9e01a24",
                               block_heigth: 920372,
                               tx_input_n: 18446744073709551615,
@@ -80,5 +91,4 @@ public class TestBase : XCTestCase {
         let txData = TxData(txrefs: optimizedRefs, brkey: brKey!, sendAddresses: [sendAddresses], amounts: [amount], selectedFee: fee)
         return txData!
     }
-    
 }

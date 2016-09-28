@@ -21,11 +21,11 @@ public class BlockCypherApi {
     static private let blockCypherApi = ""
     
     // Need refactoring
-    class func getBalanceByAddress(address:String, testnet: Bool, parameters: [String: AnyObject]?, succes: (bal:(Balance)) -> Void ) {
+    class func getBalanceByAddress(address:String, testnet: Bool, parameters: [String: AnyObject]?, succes: @escaping (Balance) -> Void ) {
         // TO:DO And what about cache?
         let requestType = testnet ? RequestType.TestNet.rawValue : RequestType.MainNet.rawValue
         let requestStr = "\(requestType)/addrs/\(address)/balance"
-            Alamofire.request(.GET, requestStr, parameters: parameters )
+        Alamofire.request(requestStr, method: .get,  parameters: parameters )
                 .validate()
                 .responseJSON { (response) -> Void in
                     guard response.result.isSuccess else {
@@ -41,12 +41,12 @@ public class BlockCypherApi {
                         print("Error initializing object")
                         return
                     }
-                    succes(bal: bal)                    
+                    succes(bal)                    
             }
     }
     
     // FIXME: Need refactoring
-    class func getAddress(address: String, testnet: Bool, parameters: [String: AnyObject]?, doAfterRequest: ([String: AnyObject]) -> Void) {
+    class func getAddress(address: String, testnet: Bool, parameters: [String: AnyObject]?, doAfterRequest: @escaping ([String: AnyObject]) -> Void) {
         let requestType = testnet ? RequestType.TestNet.rawValue : RequestType.MainNet.rawValue
         let requestStr = "\(requestType)/addrs/\(address)"
         
@@ -56,7 +56,7 @@ public class BlockCypherApi {
         
         
         // TODO: And what about cache?
-        Alamofire.request(.GET, requestStr, parameters: parameters)
+        Alamofire.request(requestStr, method: .get, parameters: parameters)
             .validate()
             .responseJSON { response in
                 guard response.result.isSuccess else {
@@ -68,15 +68,15 @@ public class BlockCypherApi {
                     print("Balance is not a JSON Type")
                     return
                 }
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async {
                     doAfterRequest(json)
-                })
+                }
             }
     }
     
-    class func getFeeData(doWithJson: ([String : AnyObject]) -> Void ) {
+    class func getFeeData(doWithJson: @escaping ([String : AnyObject]) -> Void ) {
         let url : String = RequestType.Fee.rawValue
-        let request = Alamofire.request(.GET, url)
+        let request = Alamofire.request(url)
         request.validate()
         request.responseJSON(completionHandler: { response in
             guard response.result.isSuccess else {
@@ -92,18 +92,9 @@ public class BlockCypherApi {
         })
     }
     
-    public class func getTopAppsDataFromFileWithSuccess(fileName : String, success: ((data: NSData) -> Void)) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            let filePath = NSBundle.mainBundle().pathForResource(fileName, ofType:"json")
-            let data = try! NSData(contentsOfFile:filePath!,
-                options: NSDataReadingOptions.DataReadingUncached)
-            success(data: data)
-        })
-    }
-    
-    public class func getCurrencyData( doWithJson: ( json : [String : AnyObject] ) -> Void )  {
+    public class func getCurrencyData( doWithJson: @escaping ([String : AnyObject] ) -> Void )  {
         let url = RequestType.RatesRequest.rawValue
-        let request = Alamofire.request(.GET, url)
+        let request = Alamofire.request(url)
         request.validate()
         request.responseJSON(completionHandler: { response in
             guard response.result.isSuccess else {
@@ -115,23 +106,8 @@ public class BlockCypherApi {
                 print("Failes to get CurrencyData")
                 return
             }
-            doWithJson(json: jsonResp)
+            doWithJson(jsonResp)
         })
     }
     
-    
-    
-        
-    //TODO: Use it in methods above, make your code DRY(Dont repeat yourself)!
-    func responseDataGetAndCheck(response:Response<AnyObject, NSError> ) {//-> [String: AnyObject] {
-        guard response.result.isSuccess else {
-            print("Error reqursting full adress \(response.result.error)")
-            return //["Error": "Error"]
-        }
-        
-//        guard let json = response.result.value as? [String: AnyObject] else {
-//            print("Balance is not a JSON Type")
-//            return //["Error": "Error"]
-//        }
-    }
 }
