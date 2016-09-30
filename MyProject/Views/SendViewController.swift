@@ -56,8 +56,8 @@ public class SendViewController : UIViewController, UITextFieldDelegate, Validat
     //"transaction.send.response"
     
     //Notifications
-    let selectorFeeChanged = "sendviewcontroller.feeData.changed"
-    let selectorAmountChanged = "sendviewcontroller.amount.changed"
+    let selectorFeeChanged = Notification.Name("sendviewcontroller.feeData.changed")
+    let selectorAmountChanged = Notification.Name("sendviewcontroller.amount.changed")
     
     //FlagForSendOperation
     var addressValid : Bool = false
@@ -88,8 +88,8 @@ public class SendViewController : UIViewController, UITextFieldDelegate, Validat
         
         //Notifications
         //Need to know when feeData is loaded
-        NotificationCenter.default.addObserver(self, selector: #selector(feeDataChanged), name: NSNotification.Name(rawValue: selectorFeeChanged), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(amountDataChanged), name: NSNotification.Name(rawValue: selectorAmountChanged), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(feeDataChanged), name: selectorFeeChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(amountDataChanged), name: selectorAmountChanged, object: nil)
         
         //Authentication
         self.laContext = LAContext()
@@ -129,7 +129,6 @@ public class SendViewController : UIViewController, UITextFieldDelegate, Validat
         let transaction : Transaction = Transaction(address: self.address!, brkey: validKey, sendAddress: sendAddress, fee: defaultFee , amount: amount)
         self.transactionProtocol = transaction
         self.minersFeeProtocol = transaction
-        //FIXME: delete after tests
         self.minersFeeProtocol?.calculateMinersFee()
     }
     
@@ -194,7 +193,7 @@ public class SendViewController : UIViewController, UITextFieldDelegate, Validat
         let newVal = Int( switchText )
         if (newVal != oldValue && nil != newVal) {
             self.selectedFeeRate = newVal
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: selectorFeeChanged), object: self)
+            NotificationCenter.default.post(name: selectorFeeChanged, object: self)
         }
     }
     //MARK:
@@ -236,7 +235,7 @@ public class SendViewController : UIViewController, UITextFieldDelegate, Validat
                     //Field validation was successful
                     //let amount : Int = Int(textField.text!)!
                     self.changeValidatableFieldToDefault(validateField: self.amountSatTxtField, errorLbl: self.amountErrorLabel)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: self.selectorAmountChanged), object: self)
+                    NotificationCenter.default.post(name: selectorAmountChanged, object: self)
                     self.amountValid = true
                     self.synchronizeTxtFields(textField: textField)
                     
@@ -315,8 +314,7 @@ public class SendViewController : UIViewController, UITextFieldDelegate, Validat
     }
     
     func amountDataChanged() {
-        let strAmount : String = self.amountSatTxtField.text!
-        //changeAmount
+        let strAmount : String = self.amountSatTxtField.text!        
         let miners_fee : Int = (self.minersFeeProtocol!.updateMinersFeeWithAmount(newAmount: Int(strAmount)!))
         self.feeValSatLbl?.text = "\(miners_fee)"
         self.feeValFiatLbl!.text! = self.getFiatString(bySatoshi: miners_fee, withCode: true)
@@ -328,7 +326,7 @@ public class SendViewController : UIViewController, UITextFieldDelegate, Validat
     func authenticateUser( reasonString: String,  succes: @escaping ( _ authSucces : Bool ) -> Void ) {
         var laError : NSError?
         let reasonString = reasonString
-        var auth = false
+        var auth = false        
         if (laContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthentication, error: &laError)){
             laContext.evaluatePolicy(LAPolicy.deviceOwnerAuthentication, localizedReason: reasonString, reply: { (success: Bool, error: NSError?) -> Void in
                 if (success) {
@@ -362,25 +360,25 @@ public class SendViewController : UIViewController, UITextFieldDelegate, Validat
         self.navigationController?.present(self.scanViewController , animated: true, completion: nil)
     }
     
-    @IBAction func ffSwitched(sender: UISwitch) {
+    @IBAction func ffValueChanged(_ sender: UISwitch) {
         setFeeForSelectedSwitchAndTurnOffSwitchesExcept(switched: sender)
     }
     
-    @IBAction func hhSwitched(sender: UISwitch) {
+    @IBAction func hhValueChanged(_ sender: UISwitch) {
         setFeeForSelectedSwitchAndTurnOffSwitchesExcept(switched: sender)
     }
     
-    @IBAction func hSwitched(sender: UISwitch) {
+    @IBAction func hValueChanged(_ sender: UISwitch) {
         setFeeForSelectedSwitchAndTurnOffSwitchesExcept(switched: sender)
     }
-        
+    
     @IBAction func sliderChanged(sender: UISlider) {
         let intValue = Int(sender.value)
         self.amountSatTxtField.text = String(intValue)
         self.amountFiatTxtField.text = self.getFiatString(bySatoshi: intValue, withCode: false)
         self.changeValidatableFieldToDefault(validateField: self.amountSatTxtField, errorLbl: self.amountErrorLabel!)
         self.changeValidatableFieldToDefault(validateField: self.amountFiatTxtField, errorLbl: self.amountErrorLabel!)
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: self.selectorAmountChanged), object: self)
+        NotificationCenter.default.post(name: selectorAmountChanged, object: self)
     }
     
     @IBAction func acceptTxBtnTapped(sender: AnyObject) {
