@@ -157,7 +157,7 @@ public class InspectViewController : UIViewController {
     }
     //MARK:
     
-    public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let navigationController = segue.destination as! UINavigationController
         if (segue.identifier == "SendSegue") {
             let sendViewController = navigationController.topViewController as! SendViewController

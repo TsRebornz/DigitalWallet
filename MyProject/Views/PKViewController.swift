@@ -105,18 +105,17 @@ public class PKViewController : UIViewController, UITextFieldDelegate, Validatio
     @IBAction func insertDataFromPasteBoard() {
         let pasteBoard = UIPasteboard.general.strings
         privateKeyTextField?.text = pasteBoard?.last
-        //FIXME: Validator HERE!
-        //validator.validate(self)
+        validator.validate(delegate: self)
     }
     //MARK: -
-                
-    public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+
+    public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let navigationController = segue.destination as! UINavigationController
-            if (segue.identifier == "PKSegue"){
-                let inspectViewController = navigationController.topViewController as! InspectViewController
-                
-                let key = BRKey(privateKey: privateKeyTextField.text!, testnet: self.testnet)
-                inspectViewController.key = key
-            }
-    }
+        if (segue.identifier == "PKSegue"){
+            let inspectViewController = navigationController.topViewController as! InspectViewController
+            
+            let key = BRKey(privateKey: privateKeyTextField.text!, testnet: self.testnet)
+            inspectViewController.key = key
+        }
+    }        
 }

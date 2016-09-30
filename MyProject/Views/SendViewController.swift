@@ -3,7 +3,13 @@ import UIKit
 import SwiftValidator
 import LocalAuthentication
 
-public class SendViewController : UIViewController, UITextFieldDelegate, ScanViewControllerDelegate {
+public class SendViewController : UIViewController, UITextFieldDelegate, ValidationDelegate, ScanViewControllerDelegate {
+    /**
+     This method will be called on delegate object when validation fails.
+     
+     - returns: No return value.
+     */
+    
     @IBOutlet weak var addressTxtField: UITextField!
     @IBOutlet weak var addressErrorLabel : UILabel!
     
@@ -27,8 +33,7 @@ public class SendViewController : UIViewController, UITextFieldDelegate, ScanVie
     @IBOutlet weak var feeValSatLbl : UILabel!
     @IBOutlet weak var feeValFiatLbl : UILabel!
     
-    //FIXME: Validator HERE!
-    //let validator = Validator()
+    let validator = Validator()
         
     var counterTx : Int = 0
     var address : Address!
@@ -90,10 +95,10 @@ public class SendViewController : UIViewController, UITextFieldDelegate, ScanVie
         self.laContext = LAContext()
         
         //Valiadtion in privateKeyTextField
-        //FIXME: Validator HERE!
-//        validator.registerField(addressTxtField, errorLabel: addressErrorLabel, rules: [RequiredRule(), AddressRule() ])
-//        validator.registerField(amountSatTxtField, errorLabel: amountErrorLabel, rules: [RequiredRule(), DigitRule() ])
-//        validator.registerField(amountFiatTxtField, errorLabel: amountErrorLabel, rules: [RequiredRule(), DecimalRule() ])
+        
+        validator.registerField(field: addressTxtField, errorLabel: addressErrorLabel, rules: [RequiredRule(), AddressRule() ])
+        validator.registerField(field: amountSatTxtField, errorLabel: amountErrorLabel, rules: [RequiredRule(), DigitRule() ])
+        validator.registerField(field: amountFiatTxtField, errorLabel: amountErrorLabel, rules: [RequiredRule(), DecimalRule() ])
     }
     
     func prepareAndLoadViewData(){
@@ -125,7 +130,7 @@ public class SendViewController : UIViewController, UITextFieldDelegate, ScanVie
         self.transactionProtocol = transaction
         self.minersFeeProtocol = transaction
         //FIXME: delete after tests
-        //self.minersFeeProtocol?.calculateMinersFee()
+        self.minersFeeProtocol?.calculateMinersFee()
     }
     
     override public func didReceiveMemoryWarning() {
@@ -213,8 +218,8 @@ public class SendViewController : UIViewController, UITextFieldDelegate, ScanVie
     func DelegateScanViewController(controller: ScanViewController, dataFromQrCode : String?){
         guard let t_dataQrCode = dataFromQrCode else {return}
         self.addressTxtField.text = t_dataQrCode
-        //FIXME: Validator HERE!
-        //validator.validate(self)
+        
+        validator.validate(delegate: self as! ValidationDelegate)
     }
     //MARK:
     
@@ -223,34 +228,32 @@ public class SendViewController : UIViewController, UITextFieldDelegate, ScanVie
         textField.resignFirstResponder()
         if(textField == self.amountSatTxtField || textField == self.amountFiatTxtField ) {
             
-            //FIXME: Validator HERE!
-//            validator.validateField(textField){ error in
-//                //Kostil 2000 b|
-//                let isAmountNoMoreThanBalance = Int(self.amountSatTxtField.text!) <= Int((self.address.balance)!)
-//                let isAmountDigitAndNoMoreThanBalance : Bool = error == nil ? isAmountNoMoreThanBalance : false
-//                if ( isAmountDigitAndNoMoreThanBalance )  {
-//                    //Field validation was successful
-//                    //let amount : Int = Int(textField.text!)!
-//                    self.changeValidatableFieldToDefault(self.amountSatTxtField, errorLbl: self.amountErrorLabel)
-//                    NSNotificationCenter.defaultCenter().postNotificationName(self.selectorAmountChanged, object: self, userInfo: nil)
-//                    self.amountValid = true
-//                    self.synchronizeTxtFields(textField)
-//                    
-//                } else {
-//                    // Validation error occurred
-//                    let field = self.amountSatTxtField
-//                    field.layer.borderColor = UIColor.redColor().CGColor
-//                    field.layer.borderWidth = 1.0
-//                    //Kostil 2000 b|
-//                    let errorMessage : String = isAmountNoMoreThanBalance ? "Not number value" : "Amount more than Balance"
-//                    self.amountErrorLabel.text = errorMessage // works if you added labels
-//                    self.amountErrorLabel.hidden = false
-//                    self.amountValid = false
-//                }
-//            }
+            validator.validateField(field: textField){ error in
+                //Kostil 2000 b|
+                let isAmountNoMoreThanBalance = Int(self.amountSatTxtField.text!)! <= Int((self.address.balance)!)
+                let isAmountDigitAndNoMoreThanBalance : Bool = error == nil ? isAmountNoMoreThanBalance : false
+                if ( isAmountDigitAndNoMoreThanBalance )  {
+                    //Field validation was successful
+                    //let amount : Int = Int(textField.text!)!
+                    self.changeValidatableFieldToDefault(validateField: self.amountSatTxtField, errorLbl: self.amountErrorLabel)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: self.selectorAmountChanged), object: self)
+                    self.amountValid = true
+                    self.synchronizeTxtFields(textField: textField)
+                    
+                } else {
+                    // Validation error occurred
+                    let field = self.amountSatTxtField
+                    field?.layer.borderColor = UIColor.red.cgColor
+                    field?.layer.borderWidth = 1.0
+                    //Kostil 2000 b|
+                    let errorMessage : String = isAmountNoMoreThanBalance ? "Not number value" : "Amount more than Balance"
+                    self.amountErrorLabel.text = errorMessage // works if you added labels
+                    self.amountErrorLabel.isHidden = false
+                    self.amountValid = false
+                }
+            }
         }else {
-            //FIXME: Validator HERE!
-            //validator.validate(self)
+            validator.validate(delegate: self as! ValidationDelegate)
         }
         
         return true
@@ -283,27 +286,25 @@ public class SendViewController : UIViewController, UITextFieldDelegate, ScanVie
     }
     
     //MARK:Validation
-    //FIXME: Validator HERE!
-//    public func validationSuccessful(){
-//        self.addressValid = true
-//        self.changeValidatableFieldToDefault(self.addressTxtField, errorLbl: self.addressErrorLabel!)
-//        self.transactionProtocol?.changeSendAddress(self.addressTxtField.text!)
-//    }
-
-    //FIXME: Validator HERE!
-//    public func validationFailed(errors: [(Validatable, SwiftValidator.ValidationError)]){
-//        // turn the fields to red
-//        for (field, error) in errors {
-//            let field = field as? UITextField
-//            if (field != self.amountSatTxtField){
-//                field!.layer.borderColor = UIColor.redColor().CGColor
-//                field!.layer.borderWidth = 1.0
-//                error.errorLabel?.text = error.errorMessage // works if you added labels
-//                error.errorLabel?.hidden = false
-//                self.addressValid = false
-//            }
-//        }
-//    }
+    public func validationSuccessful(){
+        self.addressValid = true
+        self.changeValidatableFieldToDefault(validateField: self.addressTxtField, errorLbl: self.addressErrorLabel!)
+        self.transactionProtocol?.changeSendAddress(newAddress: self.addressTxtField.text!)
+    }
+    
+    public func validationFailed(errors: [(Validatable, ValidationError)]) {
+        for (field, error) in errors {
+            let field = field as? UITextField
+            if (field != self.amountSatTxtField){
+                field!.layer.borderColor = UIColor.red.cgColor
+                field!.layer.borderWidth = 1.0
+                error.errorLabel?.text = error.errorMessage // works if you added labels
+                error.errorLabel?.isHidden = false
+                self.addressValid = false
+            }
+        }
+    }
+        
     //MARK:
     
     //MARK:Notifications
@@ -353,8 +354,7 @@ public class SendViewController : UIViewController, UITextFieldDelegate, ScanVie
             addressTxtField?.text = ""
         }
         addressTxtField?.text = pasteBoard?.last
-        //FIXME: Validator HERE!
-        //validator.validate(self)
+        validator.validate(delegate: self as! ValidationDelegate)
     }
 
     @IBAction func qrCodeBtnTapped(sender: AnyObject) {
@@ -384,8 +384,7 @@ public class SendViewController : UIViewController, UITextFieldDelegate, ScanVie
     }
     
     @IBAction func acceptTxBtnTapped(sender: AnyObject) {
-        //FIXME: Validator HERE!
-        //validator.validate(self)
+        validator.validate(delegate: self as! ValidationDelegate)
         textFieldShouldReturn(textField: self.amountSatTxtField)
         
         let alertController = UIAlertController(title: "Send Transaction Error", message: "Error not all properties are valid", preferredStyle: .alert)

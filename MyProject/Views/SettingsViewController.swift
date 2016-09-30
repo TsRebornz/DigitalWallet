@@ -28,14 +28,13 @@ public class SettingsViewController : UITableViewController, DelegateTableViewCo
     //MARK: -
     
     //MARK: Segue
-    public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let navigationVC = segue.destination as! UINavigationController
         if (segue.identifier == "CurrencySeque"){
             let currencyViewController = navigationVC.topViewController as! CurrencyTableViewController
             currencyViewController.delegate = self
         }
     }
-    
     //MARK: -
     
     //MARK: IBActions
