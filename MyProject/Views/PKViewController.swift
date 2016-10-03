@@ -1,10 +1,6 @@
 import Foundation
 import UIKit
 
-//extension PKViewController : ValidationDelegate {
-//    
-//}
-
 public class PKViewController : UIViewController, UITextFieldDelegate, ValidationDelegate, ScanViewControllerDelegate  {
     
     @IBOutlet weak var privateKeyTextField: UITextField!

@@ -55,7 +55,6 @@
 		5EACAF9B1D47BFF200D9B062 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EACAF9A1D47BFF200D9B062 /* Address.swift */; };
 		5EACAFA01D4F956F00D9B062 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EACAF9F1D4F956F00D9B062 /* Alamofire.framework */; };
 		5EACAFA21D4F957100D9B062 /* Gloss.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EACAFA11D4F957100D9B062 /* Gloss.framework */; };
-		5EACAFA41D4F957500D9B062 /* SwiftValidator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EACAFA31D4F957500D9B062 /* SwiftValidator.framework */; };
 		5EBAC12F1D53AA9600AE422B /* Fee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBAC12E1D53AA9600AE422B /* Fee.swift */; };
 		5EBAC1311D54A59700AE422B /* PushTxResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBAC1301D54A59700AE422B /* PushTxResponse.swift */; };
 		5EBAC1331D54EE6300AE422B /* TxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBAC1321D54EE6300AE422B /* TxTableViewController.swift */; };
@@ -74,6 +73,7 @@
 		5EBFB50F1D3E531000D8B938 /* NSString+Bitcoin.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBFB4B61D3E531000D8B938 /* NSString+Bitcoin.m */; };
 		5EBFB5101D3E531000D8B938 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBFB4B81D3E531000D8B938 /* Reachability.m */; };
 		5EBFB5C31D3E5B2100D8B938 /* secp256k1 in Resources */ = {isa = PBXBuildFile; fileRef = 5EBFB5C21D3E5B2100D8B938 /* secp256k1 */; };
+		5EF08B4A1D9ED33E0065096C /* MPCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF08B491D9ED33E0065096C /* MPCoreDataManager.swift */; };
 		C15704962B4F6B08FC473A59 /* Pods_MyProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F896172E2B61021038552B8 /* Pods_MyProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -152,7 +152,6 @@
 		5EACAF9A1D47BFF200D9B062 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		5EACAF9F1D4F956F00D9B062 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/MyProject-aohdjttuyeacileqngbnfypteddp/Build/Products/Debug-iphonesimulator/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		5EACAFA11D4F957100D9B062 /* Gloss.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Gloss.framework; path = "../../../Library/Developer/Xcode/DerivedData/MyProject-aohdjttuyeacileqngbnfypteddp/Build/Products/Debug-iphonesimulator/Gloss/Gloss.framework"; sourceTree = "<group>"; };
-		5EACAFA31D4F957500D9B062 /* SwiftValidator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftValidator.framework; path = "../../../Library/Developer/Xcode/DerivedData/MyProject-aohdjttuyeacileqngbnfypteddp/Build/Products/Debug-iphonesimulator/SwiftValidator/SwiftValidator.framework"; sourceTree = "<group>"; };
 		5EBAC12E1D53AA9600AE422B /* Fee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fee.swift; sourceTree = "<group>"; };
 		5EBAC1301D54A59700AE422B /* PushTxResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushTxResponse.swift; sourceTree = "<group>"; };
 		5EBAC1321D54EE6300AE422B /* TxTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxTableViewController.swift; sourceTree = "<group>"; };
@@ -182,6 +181,7 @@
 		5EBFB4B71D3E531000D8B938 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		5EBFB4B81D3E531000D8B938 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		5EBFB5C21D3E5B2100D8B938 /* secp256k1 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = secp256k1; sourceTree = "<group>"; };
+		5EF08B491D9ED33E0065096C /* MPCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCoreDataManager.swift; sourceTree = "<group>"; };
 		6A5C62D095394ACABDF2EF65 /* Pods-MyProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyProject/Pods-MyProject.release.xcconfig"; sourceTree = "<group>"; };
 		95E3AEEB3EEBAD0EE55B7E55 /* Pods-MyProjectTesting.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyProjectTesting.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyProjectTesting/Pods-MyProjectTesting.release.xcconfig"; sourceTree = "<group>"; };
 		BBA246D54FECBD7C4AFB3E6C /* Pods-MyProjectTesting.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyProjectTesting.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyProjectTesting/Pods-MyProjectTesting.debug.xcconfig"; sourceTree = "<group>"; };
@@ -201,7 +201,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5EACAFA41D4F957500D9B062 /* SwiftValidator.framework in Frameworks */,
 				5EACAFA01D4F956F00D9B062 /* Alamofire.framework in Frameworks */,
 				5EACAFA21D4F957100D9B062 /* Gloss.framework in Frameworks */,
 				C15704962B4F6B08FC473A59 /* Pods_MyProject.framework in Frameworks */,
@@ -292,6 +291,7 @@
 			children = (
 				5E7768551D8C1C440060F81D /* MPManager.swift */,
 				5E8CF1B81D9BFDED00B02A41 /* GCDManager.swift */,
+				5EF08B491D9ED33E0065096C /* MPCoreDataManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -422,7 +422,6 @@
 		CC775D6BF85E246A7CA61F96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5EACAFA31D4F957500D9B062 /* SwiftValidator.framework */,
 				5EACAFA11D4F957100D9B062 /* Gloss.framework */,
 				5EACAF9F1D4F956F00D9B062 /* Alamofire.framework */,
 				2F896172E2B61021038552B8 /* Pods_MyProject.framework */,
@@ -674,6 +673,7 @@
 				5EBFB50E1D3E531000D8B938 /* NSMutableData+Bitcoin.m in Sources */,
 				5E7768451D8AF75C0060F81D /* MPCurrencyRate+CoreDataProperties.swift in Sources */,
 				5E1136FA1D414B9E0045D716 /* SendViewController.swift in Sources */,
+				5EF08B4A1D9ED33E0065096C /* MPCoreDataManager.swift in Sources */,
 				5E8CF1C61D9C389A00B02A41 /* DigitRule.swift in Sources */,
 				5E242CA41D45EB590065482C /* TxInput.swift in Sources */,
 				5EBFB5101D3E531000D8B938 /* Reachability.m in Sources */,

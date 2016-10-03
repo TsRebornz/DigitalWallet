@@ -1,5 +1,4 @@
 import Foundation
-import SwiftValidator
 
 
 //FIXME Validation rules

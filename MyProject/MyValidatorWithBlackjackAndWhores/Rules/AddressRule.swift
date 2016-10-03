@@ -9,7 +9,7 @@
 //FIXME Validation rules
 
 import Foundation
-import SwiftValidator
+
 
 public class AddressRule : RegexRule
 {

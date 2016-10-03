@@ -9,7 +9,6 @@
 //FIXME Validation rules
 
 import Foundation
-import SwiftValidator
 
 public class DigitRule : RegexRule //DjigitRule :P
 {

@@ -84,7 +84,7 @@ public class ScanViewController : UIViewController, AVCaptureMetadataOutputObjec
     }
     
     //AVCaptureMetadataOutputObjectsDelegate
-    @nonobjc public func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+    public func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
         if (metadataObjects.count > 0){
             guard let metaDataObject : AVMetadataMachineReadableCodeObject = metadataObjects[0] as? AVMetadataMachineReadableCodeObject else {
                 return
@@ -102,9 +102,12 @@ public class ScanViewController : UIViewController, AVCaptureMetadataOutputObjec
                 self.dataFromCamera = metaDataObject.stringValue
                 self.sendDataToDelegateAndReturnToSuperView()
             }
-            
         }
     }
+    
+//    @nonobjc public func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+//        
+//    }
     //End
     
     func sendDataToDelegateAndReturnToSuperView(){

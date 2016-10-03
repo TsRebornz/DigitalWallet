@@ -1,6 +1,5 @@
 import Foundation
 import UIKit
-import SwiftValidator
 import LocalAuthentication
 
 public class SendViewController : UIViewController, UITextFieldDelegate, ValidationDelegate, ScanViewControllerDelegate {
@@ -223,7 +222,7 @@ public class SendViewController : UIViewController, UITextFieldDelegate, Validat
     //MARK:
     
     //MARK:TextDelegate
-    public func textFieldShouldReturn(textField: UITextField) -> Bool {
+    @nonobjc public func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         if(textField == self.amountSatTxtField || textField == self.amountFiatTxtField ) {
             
@@ -323,21 +322,29 @@ public class SendViewController : UIViewController, UITextFieldDelegate, Validat
     
     //MARK: Authentification
     
-    func authenticateUser( reasonString: String,  succes: @escaping ( _ authSucces : Bool ) -> Void ) {
+    func authenticateUser( reasonString: String,  complete: @escaping ( _ authSucces : Bool ) -> Void ) {
         var laError : NSError?
         let reasonString = reasonString
-        var auth = false        
-        if (laContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthentication, error: &laError)){
-            laContext.evaluatePolicy(LAPolicy.deviceOwnerAuthentication, localizedReason: reasonString, reply: { (success: Bool, error: NSError?) -> Void in
-                if (success) {
+        var auth = false
+        //Auth does't work on simulator
+        //LAPolicy.deviceOwnerAuthentication
+        
+        if (laContext.canEvaluatePolicy( .deviceOwnerAuthentication , error: &laError)){
+            
+            laContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reasonString, reply: { (success, error) -> Void in
+                if(success) {
                     auth = true
                 }
-                succes(auth)
-            } as! (Bool, Error?) -> Void)
+                complete(auth)
+            })
         } else {
-            succes(auth)
+            complete(auth)
         }
     }
+    
+//    DispatchQueue.main.async {
+//    <#code#>
+//    }
     
     //MARK:
     
@@ -393,7 +400,7 @@ public class SendViewController : UIViewController, UITextFieldDelegate, Validat
         
         if (addressValid && amountValid){
             let reasonString = "Authenticate yourself \nYou want to send \(self.amountSatTxtField!.text!)(\(self.amountFiatTxtField!.text!)) \nTo address \(self.addressTxtField!.text!)\nWith miners fee \(self.feeValSatLbl!.text!)(\(self.feeValFiatLbl!.text!))"
-            self.authenticateUser(reasonString: reasonString, succes: { auth in
+            self.authenticateUser(reasonString: reasonString, complete: { auth in
                 if auth {
                     self.counterTx = self.counterTx + 1
                     print("Counter equals \(self.counterTx)")

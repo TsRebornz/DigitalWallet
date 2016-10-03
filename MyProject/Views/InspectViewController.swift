@@ -14,6 +14,8 @@ public class InspectViewController : UIViewController {
     
     @IBOutlet weak var qrCodeImageView : UIImageView?
     
+    let minBalanceForSending : Int = 50000
+    
     let defaultLoadingTime: Int = 60
     
     var address : Address?
@@ -103,21 +105,30 @@ public class InspectViewController : UIViewController {
         
         BlockCypherApi.getAddress(address: address, testnet: testnet, parameters: parameters as [String : AnyObject]?, doAfterRequest: { json in
             self.isDataLoading = false
-            self.sendBtn?.isEnabled = true
             guard let t_address = Address(json: json) else {
                 return
             }
             self.address = t_address
             self.updateBalance()
+            self.unlockSendButton()
         })
     }
     //MARK:
     
-    func updateBalance(){
+    func updateBalance() {
         if ( nil != self.address ){
             balanceLbl?.text = "\(self.address!.balance!) \(getFiatString() )"
         }else{
             balanceLbl?.text = "Balance no loaded"
+        }
+    }
+    
+    func unlockSendButton() {
+        guard let t_balance : Int = self.address!.balance! as Int? else {
+            return
+        }
+        if (t_balance > self.minBalanceForSending) {
+            self.sendBtn?.isEnabled = true
         }
     }
     

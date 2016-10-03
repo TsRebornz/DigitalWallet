@@ -8,7 +8,6 @@
 //FIXME Validation rules
 
 import Foundation
-import SwiftValidator
 
 public class DecimalRule : RegexRule //DjigitRule :P
 {
