@@ -11,7 +11,7 @@ import CoreData
 import Gloss
 import CoreData
 
-public class CurrencyPrice : Decodable {
+public class CurrencyPrice : NSObject, Decodable {
     let code : String?
     let name : String?
     let rate : Float?

@@ -12,6 +12,6 @@ import CoreData
 
 class MPCurrencyRate: NSManagedObject {
 
-// Insert code here to add functionality to your managed object subclass
+    static let entityName = "MPCurrencyRate"
 
 }
