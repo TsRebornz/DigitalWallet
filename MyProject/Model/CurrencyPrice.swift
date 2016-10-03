@@ -7,9 +7,7 @@
 //
 
 import Foundation
-import CoreData
 import Gloss
-import CoreData
 
 public class CurrencyPrice : NSObject, Decodable {
     let code : String?

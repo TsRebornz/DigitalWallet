@@ -58,7 +58,9 @@ public class MPCoreDataManager {
         }
     }
     //Mark: -
-        
+    
+    //Mark: - CRUD
+    //Create object
     func createAndInsertObjectBy(entityName: String , model: NSObject  ) {
         let obj = NSEntityDescription.insertNewObject(forEntityName: entityName, into: managedObjectContext) as! MPCurrencyRate
         switch model {
@@ -70,47 +72,41 @@ public class MPCoreDataManager {
         default :
             print("xyu")
         }
-        saveAll()
     }
     
     // Gets all with an specified predicate.
     // Predicates examples:
-    // - NSPredicate(format: "name == %@", "Juan Carlos")
-    // - NSPredicate(format: "name contains %@", "Juan")
-//    func get(withPredicate queryPredicate: NSPredicate) -> [Person]{
-//        let fetchRequest = NSFetchRequest(entityName: Person.entityName)
-//        
-//        fetchRequest.predicate = queryPredicate
-//        
-//        do {
-//            let response = try context.executeFetchRequest(fetchRequest)
-//            return response as! [Person]
-//            
-//        } catch let error as NSError {
-//            // failure
-//            print(error)
-//            return [Person]()
-//        }
-//    }
-    func read(withPredicate queryPridicate: NSPredicate) {
-        
-    }
-    
-//    // Gets a person by id
-//    func getById(id: NSManagedObjectID) -> Person? {
-//        return context.objectWithID(id) as? Person
-//    }
-    
-    // Updates a person
-    func update(updatedPerson: Person){
-        if let person = getById(updatedPerson.objectID){
-            person.name = updatedPerson.name
-            person.age = updatedPerson.age
+    // - NSPredicate(format: "name == %@", "Usd")
+    // - NSPredicate(format: "name contains %@", "Euro")
+    func read(withPredicate queryPridicate: NSPredicate) -> [MPCurrencyRate] {
+        let fetchRequest : NSFetchRequest = NSFetchRequest<MPCurrencyRate>(entityName: MPCurrencyRate.entityName)
+        fetchRequest.predicate = queryPridicate
+        do {
+            let response = try managedObjectContext.fetch(fetchRequest)
+            return response 
+        } catch {
+            print(error)
+            return [MPCurrencyRate]()
         }
     }
     
-    func update() {
-        
+    // Gets a managed object by id
+    func getById(id: NSManagedObjectID) -> NSManagedObject? {
+        return managedObjectContext.object(with: id) as? NSManagedObject
+    }
+    
+    // Updates a managed object
+    func update(object : NSManagedObject, by newModel: NSObject) {
+        switch newModel {
+        case is CurrencyPrice:
+            let cpObj = object as! MPCurrencyRate
+            let newCpObj = newModel as! CurrencyPrice
+            cpObj.code = newCpObj.code
+            cpObj.name = newCpObj.name
+            cpObj.rate = newCpObj.rate as NSNumber?
+        default:
+            break
+        }
     }
     
 //    // Deletes a person
@@ -120,8 +116,10 @@ public class MPCoreDataManager {
 //        }
 //    }
     
-    func delete() {
-        
+    func delete(byId: NSManagedObjectID) {
+        if let objToDelete = getById(id: byId) {
+            managedObjectContext.delete(objToDelete)
+        }
     }
     
     func saveAll() {
@@ -131,6 +129,8 @@ public class MPCoreDataManager {
             fatalError("Failed to save core data context: \(error)")
         }
     }
+    
+    //MARK: -
     
     
 }
