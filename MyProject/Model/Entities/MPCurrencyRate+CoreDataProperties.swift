@@ -16,6 +16,6 @@ extension MPCurrencyRate {
 
     @NSManaged var code: String?
     @NSManaged var name: String?
-    @NSManaged var attribute: NSNumber?
+    @NSManaged var rate: NSNumber?
 
 }
