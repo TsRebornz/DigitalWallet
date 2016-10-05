@@ -12,7 +12,7 @@ import Gloss
 public class CurrencyPrice : NSObject, Decodable {
     let code : String?
     let name : String?
-    let rate : Float?
+    var rate : Float?
     
     public required init?(json: JSON) {
         self.code = "code" <~~ json

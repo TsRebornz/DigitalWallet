@@ -17,8 +17,6 @@ public class MPCoreDataManager {
 //    }
     
     static let modelName: String = "DataModel"
-    static let storeName: String = "DataModel.sqlite"
-    
     static let sharedInstance = MPCoreDataManager()
     
     let managedObjectContext : NSManagedObjectContext
@@ -26,7 +24,6 @@ public class MPCoreDataManager {
     //MARK: - Initializers
     public init(){
         //CoreData Stack here
-        
         //Init
         guard let modelURL = Bundle.main.url(forResource: MPCoreDataManager.modelName, withExtension: "momd") else {
             fatalError("Error MPCoreDataManager can not load model from main bundle")
@@ -46,16 +43,18 @@ public class MPCoreDataManager {
          
         */
         
-        DispatchQueue.main.async {
-            let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-            let docURL = urls[urls.endIndex - 1]
-            let storeUrl : URL = docURL.appendingPathComponent(MPCoreDataManager.storeName)
+//        DispatchQueue.main.async {
+            let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last
+//            let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//            let docURL = urls[urls.endIndex - 1]
+            let storeUrl : URL = documents!.appendingPathComponent("\(MPCoreDataManager.modelName).sqlite")
+            //let options =
             do {
                 try psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeUrl, options: nil)                
             } catch {
                 fatalError("Error migrating store: \(error)")
             }
-        }
+//        }
     }
     //Mark: -
     
@@ -74,12 +73,20 @@ public class MPCoreDataManager {
         }
     }
     
-    // Gets all with an specified predicate.
-    // Predicates examples:
-    // - NSPredicate(format: "name == %@", "Usd")
-    // - NSPredicate(format: "name contains %@", "Euro")
-    func read(withPredicate queryPridicate: NSPredicate) -> [MPCurrencyRate] {
-        let fetchRequest : NSFetchRequest = NSFetchRequest<MPCurrencyRate>(entityName: MPCurrencyRate.entityName)
+    
+    /**
+     Gets all with an specified predicate.
+      Predicates examples:
+      NSPredicate(format: "name == %@", "Usd")
+      NSPredicate(format: "name contains %@", "Euro")
+     
+     - parameter queryPridicate:
+     - returns: An array of NSManaged objects
+     */
+    func getObjects(byEntity: String, withPredicate queryPridicate: NSPredicate) -> [NSManagedObject] {
+        
+        
+        let fetchRequest : NSFetchRequest = NSFetchRequest<NSManagedObject>(entityName: byEntity)
         fetchRequest.predicate = queryPridicate
         do {
             let response = try managedObjectContext.fetch(fetchRequest)
@@ -109,13 +116,7 @@ public class MPCoreDataManager {
         }
     }
     
-//    // Deletes a person
-//    func delete(id: NSManagedObjectID){
-//        if let personToDelete = getById(id){
-//            context.deleteObject(personToDelete)
-//        }
-//    }
-    
+    // Deletes a object
     func delete(byId: NSManagedObjectID) {
         if let objToDelete = getById(id: byId) {
             managedObjectContext.delete(objToDelete)

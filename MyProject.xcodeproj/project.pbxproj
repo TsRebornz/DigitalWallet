@@ -52,6 +52,7 @@
 		5E99946B1D6350B400FC7850 /* DataValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E99946A1D6350B400FC7850 /* DataValidationTests.swift */; };
 		5E99946F1D66169200FC7850 /* UsingBrKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E99946E1D66169200FC7850 /* UsingBrKeyTests.swift */; };
 		5E9994761D67143B00FC7850 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9994751D67143B00FC7850 /* ScanViewController.swift */; };
+		5E99F3011DA3B47400B7D07A /* UsingCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E99F3001DA3B47400B7D07A /* UsingCoreData.swift */; };
 		5EACAF9B1D47BFF200D9B062 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EACAF9A1D47BFF200D9B062 /* Address.swift */; };
 		5EACAFA01D4F956F00D9B062 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EACAF9F1D4F956F00D9B062 /* Alamofire.framework */; };
 		5EACAFA21D4F957100D9B062 /* Gloss.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EACAFA11D4F957100D9B062 /* Gloss.framework */; };
@@ -149,6 +150,7 @@
 		5E99946E1D66169200FC7850 /* UsingBrKeyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsingBrKeyTests.swift; sourceTree = "<group>"; };
 		5E9994741D66281A00FC7850 /* MyProjectTesting-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyProjectTesting-Bridging-Header.h"; sourceTree = "<group>"; };
 		5E9994751D67143B00FC7850 /* ScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
+		5E99F3001DA3B47400B7D07A /* UsingCoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsingCoreData.swift; sourceTree = "<group>"; };
 		5EACAF9A1D47BFF200D9B062 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		5EACAF9F1D4F956F00D9B062 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/MyProject-aohdjttuyeacileqngbnfypteddp/Build/Products/Debug-iphonesimulator/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		5EACAFA11D4F957100D9B062 /* Gloss.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Gloss.framework; path = "../../../Library/Developer/Xcode/DerivedData/MyProject-aohdjttuyeacileqngbnfypteddp/Build/Products/Debug-iphonesimulator/Gloss/Gloss.framework"; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				5E9994741D66281A00FC7850 /* MyProjectTesting-Bridging-Header.h */,
 				5E77682F1D89A4140060F81D /* UsingUtilities.swift */,
 				5E77684D1D8AFBB70060F81D /* UsingCurrency.swift */,
+				5E99F3001DA3B47400B7D07A /* UsingCoreData.swift */,
 			);
 			path = MyProjectTesting;
 			sourceTree = "<group>";
@@ -642,6 +645,7 @@
 				5E77684E1D8AFBB70060F81D /* UsingCurrency.swift in Sources */,
 				5E1302B81D60DEDD0089BEAD /* UsingTransactionsTests.swift in Sources */,
 				5E99946F1D66169200FC7850 /* UsingBrKeyTests.swift in Sources */,
+				5E99F3011DA3B47400B7D07A /* UsingCoreData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

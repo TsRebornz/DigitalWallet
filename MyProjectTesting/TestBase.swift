@@ -49,16 +49,6 @@ open class TestBase : XCTestCase {
                               final_n_tx: UInt64(0),
                               txrefs: txrefs)
         
-//        let address = Address(address: selfAddress,
-//                              total_received: UInt64(balance),
-//                              total_sent: UInt64(0),
-//                              balance: NSNumber(balance),
-//                              unconfirmed_balance: UInt64(0),
-//                              final_balance: UInt64(balance),
-//                              n_tx: UInt64(0),
-//                              unconfirmed_n_tx: UInt64(0),
-//                              final_n_tx: UInt64(0),
-//                              txrefs: txrefs)
         return address
     }
     
@@ -90,5 +80,14 @@ open class TestBase : XCTestCase {
         let fee = 60
         let txData = TxData(txrefs: optimizedRefs, brkey: brKey!, sendAddresses: [sendAddresses], amounts: [amount], selectedFee: fee)
         return txData!
+    }
+    
+    func createTestCurrencyPrice() -> CurrencyPrice {
+        let json = [
+                    "code" : "USD",
+                    "name" : "US Dollar",
+                    "rate" : 605.54
+                   ] as [String : Any]
+        return CurrencyPrice(json: json)!
     }
 }
